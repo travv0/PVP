@@ -5,6 +5,9 @@
 #include "error.h"
 #include "basic.h"
 #include "sprite.h"
+#include "log.h"
+
+#define MOVE_SPEED	4
 
 int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 {
@@ -26,7 +29,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	while (!done) {
 		switch (state) {
 		case PLAYING:
-			SDL_BlitSurface(pl_sprite.surface, NULL, screen, NULL);
+			SDL_BlitSurface(pl_sprite.surface, NULL, screen, pl_sprite.frame_rect);
 			SDL_UpdateWindowSurface(window);
 
 			while (SDL_PollEvent(event)) {
@@ -37,7 +40,16 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 				case SDL_KEYDOWN:
 					switch (event->key.keysym.sym) {
 					case SDLK_RIGHT:
-						pl_sprite.frame_rect->x++;
+						pl_sprite.frame_rect->x += MOVE_SPEED;
+						break;
+					case SDLK_LEFT:
+						pl_sprite.frame_rect->x -= MOVE_SPEED;
+						break;
+					case SDLK_UP:
+						pl_sprite.frame_rect->y -= MOVE_SPEED;
+						break;
+					case SDLK_DOWN:
+						pl_sprite.frame_rect->y += MOVE_SPEED;
 						break;
 					}
 					break;
