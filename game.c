@@ -51,7 +51,6 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 		case MAIN_MENU:
 			break;
 		default:
-			break;
 			return throw_err(NO_STATE_ERR);
 		}
 	}

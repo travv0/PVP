@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "error.h"
+#include "log.h"
 
 struct error TEST_ERROR = {
 	"This is a test error",
@@ -37,6 +38,9 @@ struct error SDL_BMP_ERR = {
 
 int throw_err(struct error err)
 {
-	fprintf(stderr, "%s: %s\n", err.msg, SDL_GetError());
+	FILE *log = NULL;
+	open(log);
+	fprintf(log, "%d %s: %s\n", err.code, err.msg, SDL_GetError());
+	fclose(log);
 	return err.code;
 }
