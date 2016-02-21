@@ -32,6 +32,10 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			SDL_BlitSurface(pl_sprite.surface, NULL, screen, pl_sprite.frame_rect);
 			SDL_UpdateWindowSurface(window);
 
+			if (SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255)) != 0) {
+				return throw_err(SDL_RECT_ERR);
+			}
+
 			while (SDL_PollEvent(event)) {
 				switch (event->type) {
 				case SDL_QUIT:
