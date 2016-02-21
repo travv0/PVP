@@ -34,10 +34,10 @@ void logstr(char *str)
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
 
-	strftime(buffer, TIME_BUF_SIZE, "%Y:%m:%d %H:%M:%S", timeinfo);
+	strftime(buffer, TIME_BUF_SIZE, "%Y-%m-%d %H:%M:%S", timeinfo);
 
 	FILE *log = malloc(sizeof(log));
 	log = open(log);
-	fprintf(log, "%s - %s", buffer, str);
+	fprintf(log, "%s - %s\n", buffer, str);
 	fclose(log);
 }

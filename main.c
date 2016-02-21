@@ -9,6 +9,10 @@ int main(int argc, char *args[])
 {
 	clearfile("log.txt");
 
+	logstr("this is a test");
+	logstr("this is another test");
+	return throw_err(SDL_INIT_ERR);
+
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
 	SDL_Surface *screen = NULL;
