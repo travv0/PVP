@@ -10,6 +10,8 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	int done = FALSE;
 	enum game_state state = PLAYING;
 
+	SDL_Event event;
+
 	struct sprite pl_sprite = SPRITE_DEFAULT;
 	pl_sprite.surface = SDL_LoadBMP("images/player/BLU.BMP");
 
@@ -26,8 +28,22 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			SDL_BlitSurface(pl_sprite.surface, NULL, screen, NULL);
 			SDL_UpdateWindowSurface(window);
 
-			SDL_Delay(3000);
-			done = TRUE;
+			while (SDL_PollEvent(&event) >= 0) {
+				switch (event.type) {
+				case SDL_QUIT:
+					done = TRUE;
+					break;
+				case SDL_KEYDOWN:
+					switch (event.key.keysym.sym) {
+					case SDLK_RIGHT:
+						pl_sprite.frame_rect->x++;
+						break;
+					}
+					break;
+				}
+			}
+
+			/* done = TRUE; */
 
 			break;
 		case PAUSED:

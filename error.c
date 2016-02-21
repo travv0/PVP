@@ -19,7 +19,7 @@ struct error SDL_REND_ERR = {
 	3
 };
 struct error SDL_SURF_ERR = {
-	"Could not get screen surface: %s\n",
+	"Could not get surface: %s\n",
 	4
 };
 struct error SDL_RECT_ERR = {

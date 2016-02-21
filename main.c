@@ -10,6 +10,8 @@ int main(int argc, char *args[])
 	SDL_Renderer *renderer = NULL;
 	SDL_Surface *screen = NULL;
 
+	int errcode;
+
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0) {
 		return throw_err(SDL_INIT_ERR);
 	}
@@ -39,10 +41,10 @@ int main(int argc, char *args[])
 	SDL_UpdateWindowSurface(window);
 
 	/* main game loop */
-	game_loop(window, renderer, screen);
+	errcode = game_loop(window, renderer, screen);
 
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 
-	return 0;
+	return errcode;
 }
