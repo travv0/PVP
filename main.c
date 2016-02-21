@@ -3,9 +3,12 @@
 
 #include "error.h"
 #include "game.h"
+#include "log.h"
 
 int main(int argc, char *args[])
 {
+	clearfile("log.txt");
+
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
 	SDL_Surface *screen = NULL;

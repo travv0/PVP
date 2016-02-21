@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "game.h"
 #include "error.h"
@@ -9,7 +10,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 {
 	int done = FALSE;
 	enum game_state state = PLAYING;
- 
+
 	SDL_Event *event = malloc(sizeof(SDL_Event));
 
 	struct sprite pl_sprite = SPRITE_DEFAULT;
@@ -42,8 +43,6 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 					break;
 				}
 			}
-
-			/* done = TRUE; */
 
 			break;
 		case PAUSED:

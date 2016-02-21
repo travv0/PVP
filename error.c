@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "error.h"
 #include "log.h"
+
+#define LOG_SIZE	1000
 
 struct error TEST_ERROR = {
 	"This is a test error",
@@ -38,9 +41,8 @@ struct error SDL_BMP_ERR = {
 
 int throw_err(struct error err)
 {
-	FILE *log = NULL;
-	open(log);
-	fprintf(log, "%d %s: %s\n", err.code, err.msg, SDL_GetError());
-	fclose(log);
+	char log[LOG_SIZE];
+	snprintf(log, LOG_SIZE, "%d %s: %s\n", err.code, err.msg, SDL_GetError());
+	logstr(log);
 	return err.code;
 }
