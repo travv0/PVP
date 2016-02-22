@@ -24,7 +24,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	pl_sprite.surface = SDL_LoadBMP(PLAYER_SPR);
 
 	if (pl_sprite.surface == NULL) {
-		throw_err(SDL_BMP_ERR);
+		throw_err(SDL_BMP_ERR, TRUE);
 	}
 
 	pl_sprite.frame_rect = &pl_sprite.surface->clip_rect;
@@ -37,7 +37,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 
 			if (SDL_FillRect(screen, NULL,
 						SDL_MapRGB(screen->format, 255, 255, 255)) != 0) {
-				throw_err(SDL_RECT_ERR);
+				throw_err(SDL_RECT_ERR, TRUE);
 			}
 
 			while (SDL_PollEvent(event)) {
@@ -100,7 +100,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 		case MAIN_MENU:
 			break;
 		default:
-			throw_err(NO_STATE_ERR);
+			throw_err(NO_STATE_ERR, TRUE);
 		}
 	}
 
