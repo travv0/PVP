@@ -4,10 +4,11 @@
 #include "error.h"
 #include "game.h"
 #include "log.h"
+#include "strings.h"
 
 int main(int argc, char *args[])
 {
-	clearfile("log.txt");
+	clearfile(LOG_FILE);
 
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;

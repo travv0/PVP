@@ -15,27 +15,27 @@ struct error SDL_INIT_ERR = {
 	1
 };
 struct error SDL_WIND_ERR = {
-	"",
+	"Could not create error",
 	2
 };
 struct error SDL_REND_ERR = {
-	"",
+	"Failed to create renderer",
 	3
 };
 struct error SDL_SURF_ERR = {
-	"Could not get surface: %s\n",
+	"Could not get surface",
 	4
 };
 struct error SDL_RECT_ERR = {
-	"",
+	"Failed to create rectangle",
 	5
 };
 struct error NO_STATE_ERR = {
-	"",
+	"No game state set",
 	6
 };
 struct error SDL_BMP_ERR = {
-	"",
+	"Failed to load BMP",
 	7
 };
 

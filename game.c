@@ -6,6 +6,7 @@
 #include "basic.h"
 #include "sprite.h"
 #include "log.h"
+#include "strings.h"
 
 #define MOVE_SPEED	4
 
@@ -20,10 +21,9 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	SDL_Event *event = malloc(sizeof(SDL_Event));
 
 	struct sprite pl_sprite = SPRITE_DEFAULT;
-	pl_sprite.surface = SDL_LoadBMP("images/player/BLU.BMP");
+	pl_sprite.surface = SDL_LoadBMP(PLAYER_SPR);
 
 	if (pl_sprite.surface == NULL) {
-		fprintf(stderr, "Failed to load BMP: %s\n", SDL_GetError());
 		return throw_err(SDL_BMP_ERR);
 	}
 
@@ -83,6 +83,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 
 					break;
 				}
+
 				if (mright == TRUE)
 					pl_sprite.frame_rect->x += MOVE_SPEED;
 				if (mleft == TRUE)
