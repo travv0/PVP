@@ -17,4 +17,8 @@ struct sprite SPRITE_DEFAULT = {
 	1
 };
 
+int startani(struct sprite spr, int loop);
+int pauseani(struct sprite spr);
+int stopani(struct sprite spr);
+
 #endif
