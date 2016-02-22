@@ -39,6 +39,8 @@ void logstr(char *str)
 
 		strftime(buffer, TIME_BUF_SIZE, "%Y-%m-%d %H:%M:%S", timeinfo);
 
+		fprintf(stderr, "%s - %s\n", buffer, str);
+
 		FILE *log = malloc(sizeof(*log));
 		log = open(log);
 		fprintf(log, "%s - %s\n", buffer, str);
