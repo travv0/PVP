@@ -8,7 +8,7 @@
 #include "log.h"
 #include "strings.h"
 
-#define MOVE_SPEED	4
+#define MOVE_SPEED	1
 
 int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 {
@@ -83,16 +83,16 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 
 					break;
 				}
-
-				if (mright == TRUE)
-					pl_sprite.frame_rect->x += MOVE_SPEED;
-				if (mleft == TRUE)
-					pl_sprite.frame_rect->x -= MOVE_SPEED;
-				if (mup == TRUE)
-					pl_sprite.frame_rect->y -= MOVE_SPEED;
-				if (mdown == TRUE)
-					pl_sprite.frame_rect->y += MOVE_SPEED;
 			}
+
+			if (mright == TRUE)
+				pl_sprite.frame_rect->x += MOVE_SPEED;
+			if (mleft == TRUE)
+				pl_sprite.frame_rect->x -= MOVE_SPEED;
+			if (mup == TRUE)
+				pl_sprite.frame_rect->y -= MOVE_SPEED;
+			if (mdown == TRUE)
+				pl_sprite.frame_rect->y += MOVE_SPEED;
 
 			break;
 		case PAUSED:
