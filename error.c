@@ -60,10 +60,10 @@ struct error SDL_BMP_ERR = {
 void throw_err(struct error err)
 {
 	char log[LOG_LINE_SIZE];
-	snprintf(log, LOG_LINE_SIZE, "%s: %d %s: %s",
+	snprintf(log, LOG_LINE_SIZE, "%s: %s (%d): %s",
 		(err.type == ERROR ? "ERROR" : "WARNING"),
-		err.code,
 		err.msg,
+		err.code,
 		SDL_GetError());
 	logstr(log);
 	if (err.type == ERROR)
