@@ -8,12 +8,15 @@
 #define WARNING		0
 #define LOG_LINE_SIZE	1000
 
-struct error TEST_ERROR = {
+/* Errors should end in _ERR and warnings should end in _WARN.
+ * SDL related errors should start with SDL_.
+ * ERRORs abort the game and WARNINGs do not. */
+struct error TEST_ERR = {
 	"This is a test error",
 	-1,
 	ERROR
 };
-struct error TEST_WARNING = {
+struct error TEST_WARN = {
 	"This is a test warning",
 	-2,
 	WARNING

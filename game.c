@@ -29,6 +29,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 
 	pl_sprite.frame_rect = &pl_sprite.surface->clip_rect;
 
+	logstr("Entering main game loop");
 	while (!done) {
 		switch (state) {
 		case PLAYING:
@@ -48,23 +49,18 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 				case SDL_KEYDOWN:
 					switch (event->key.keysym.sym) {
 					case SDLK_ESCAPE:
-						logstr("Escape key pressed");
 						done = TRUE;
 						break;
 					case SDLK_RIGHT:
-						logstr("Right key pressed");
 						mright = TRUE;
 						break;
 					case SDLK_LEFT:
-						logstr("Left key pressed");
 						mleft = TRUE;
 						break;
 					case SDLK_UP:
-						logstr("Up key pressed");
 						mup = TRUE;
 						break;
 					case SDLK_DOWN:
-						logstr("Down key pressed");
 						mdown = TRUE;
 						break;
 					}
@@ -73,19 +69,15 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 				case SDL_KEYUP:
 					switch (event->key.keysym.sym) {
 					case SDLK_RIGHT:
-						logstr("Right key released");
 						mright = FALSE;
 						break;
 					case SDLK_LEFT:
-						logstr("Left key released");
 						mleft = FALSE;
 						break;
 					case SDLK_UP:
-						logstr("Up key released");
 						mup = FALSE;
 						break;
 					case SDLK_DOWN:
-						logstr("Down key released");
 						mdown = FALSE;
 						break;
 					}
@@ -112,6 +104,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			throw_err(NO_STATE_ERR);
 		}
 	}
+	logstr("Left main game loop");
 
 	free(event);
 	SDL_FreeSurface(pl_sprite.surface);

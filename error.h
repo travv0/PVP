@@ -9,8 +9,8 @@ struct error {
 	int type;
 };
 
-extern struct error TEST_ERROR;
-extern struct error TEST_WARNING;
+extern struct error TEST_ERR;
+extern struct error TEST_WARN;
 extern struct error SDL_INIT_ERR;
 extern struct error SDL_WIND_ERR;
 extern struct error SDL_REND_ERR;
