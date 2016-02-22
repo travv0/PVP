@@ -4,6 +4,7 @@
 #define LOG_FILE	"log.txt"
 
 /* sprite files */
-#define PLAYER_SPR	"images/player/BLU.BMP"
+#define SPR_DIR		"images/"
+#define PLAYER_SPR	SPR_DIR "player/BLU.BMP"
 
 #endif
