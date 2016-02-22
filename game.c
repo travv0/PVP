@@ -18,7 +18,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 
 	mright = mleft = mup = mdown = 0;
 
-	SDL_Event *event = malloc(sizeof(SDL_Event));
+	SDL_Event *event = malloc(sizeof(*event));
 
 	struct sprite pl_sprite = SPRITE_DEFAULT;
 	pl_sprite.surface = SDL_LoadBMP(PLAYER_SPR);
@@ -104,6 +104,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 		}
 	}
 
+	free(event);
 	SDL_FreeSurface(pl_sprite.surface);
 	return 0;
 }
