@@ -4,7 +4,7 @@
 #include "error.h"
 #include "log.h"
 
-#define LOG_SIZE	1000
+#define LOG_LINE_SIZE	1000
 
 struct error TEST_ERROR = {
 	"This is a test error",
@@ -41,8 +41,8 @@ struct error SDL_BMP_ERR = {
 
 void throw_err(struct error err, int abort)
 {
-	char log[LOG_SIZE];
-	snprintf(log, LOG_SIZE, "%d %s: %s\n", err.code, err.msg, SDL_GetError());
+	char log[LOG_LINE_SIZE];
+	snprintf(log, LOG_LINE_SIZE, "%d %s: %s\n", err.code, err.msg, SDL_GetError());
 	logstr(log);
 	if (abort)
 		exit(err.code);
