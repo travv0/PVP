@@ -13,7 +13,9 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 {
 	int done = FALSE;
 	enum game_state state = PLAYING;
-	int vertspd, horspd;
+	int mright, mleft, mup, mdown;
+
+	mright = mleft = mup = mdown = 0;
 
 	SDL_Event *event = malloc(sizeof(SDL_Event));
 
@@ -33,9 +35,8 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			SDL_BlitSurface(pl_sprite.surface, NULL, screen, pl_sprite.frame_rect);
 			SDL_UpdateWindowSurface(window);
 
-			horspd = vertspd = 0;
-
-			if (SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255)) != 0) {
+			if (SDL_FillRect(screen, NULL,
+						SDL_MapRGB(screen->format, 255, 255, 255)) != 0) {
 				return throw_err(SDL_RECT_ERR);
 			}
 
@@ -50,23 +51,46 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 						done = TRUE;
 						break;
 					case SDLK_RIGHT:
-						horspd += MOVE_SPEED;
+						mright = TRUE;
 						break;
 					case SDLK_LEFT:
-						horspd -= MOVE_SPEED;
+						mleft = TRUE;
 						break;
 					case SDLK_UP:
-						vertspd -= MOVE_SPEED;
+						mup = TRUE;
 						break;
 					case SDLK_DOWN:
-						vertspd += MOVE_SPEED;
+						mdown = TRUE;
+						break;
+					}
+
+					break;
+				case SDL_KEYUP:
+					switch (event->key.keysym.sym) {
+					case SDLK_RIGHT:
+						mright = FALSE;
+						break;
+					case SDLK_LEFT:
+						mleft = FALSE;
+						break;
+					case SDLK_UP:
+						mup = FALSE;
+						break;
+					case SDLK_DOWN:
+						mdown = FALSE;
 						break;
 					}
 
 					break;
 				}
-				pl_sprite.frame_rect->x += horspd;
-				pl_sprite.frame_rect->y += vertspd;
+				if (mright == TRUE)
+					pl_sprite.frame_rect->x += MOVE_SPEED;
+				if (mleft == TRUE)
+					pl_sprite.frame_rect->x -= MOVE_SPEED;
+				if (mup == TRUE)
+					pl_sprite.frame_rect->y -= MOVE_SPEED;
+				if (mdown == TRUE)
+					pl_sprite.frame_rect->y += MOVE_SPEED;
 			}
 
 			break;
