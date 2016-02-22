@@ -4,12 +4,13 @@
 
 #include "log.h"
 #include "basic.h"
+#include "strings.h"
 
 #define TIME_BUF_SIZE	26
 
 FILE *open(FILE *log)
 {
-	if((log = fopen("log.txt", "a")) == NULL)
+	if((log = fopen(LOG_FILE, "a")) == NULL)
 		return NULL;
 
 	return log;
