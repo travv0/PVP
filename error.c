@@ -15,7 +15,7 @@ struct error SDL_INIT_ERR = {
 	1
 };
 struct error SDL_WIND_ERR = {
-	"Could not create error",
+	"Could not create window",
 	2
 };
 struct error SDL_REND_ERR = {
