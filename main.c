@@ -1,14 +1,23 @@
 #include <stdio.h>
+#include <string.h>
 #include "sdl.h"
 
 #include "error.h"
 #include "game.h"
 #include "log.h"
 #include "strings.h"
+#include "basic.h"
 
 int main(int argc, char *args[])
 {
-	clearfile(LOG_FILE);
+	if (argc >= 2 && strcmp(args[1], "-d") == 0) {
+		DEBUG = TRUE;
+		clearfile(LOG_FILE);
+		logstr("Debugging enabled.");
+	} else
+		DEBUG = FALSE;
+
+	throw_err(TEST_ERROR);
 
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;

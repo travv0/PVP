@@ -3,6 +3,7 @@
 #include <time.h>
 
 #include "log.h"
+#include "basic.h"
 
 #define TIME_BUF_SIZE	26
 
@@ -27,17 +28,19 @@ int clearfile(char *fname)
 
 void logstr(char *str)
 {
-	time_t rawtime;
-	struct tm * timeinfo;
-	char buffer[TIME_BUF_SIZE];
+	if (DEBUG == TRUE) {
+		time_t rawtime;
+		struct tm * timeinfo;
+		char buffer[TIME_BUF_SIZE];
 
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
+		time(&rawtime);
+		timeinfo = localtime(&rawtime);
 
-	strftime(buffer, TIME_BUF_SIZE, "%Y-%m-%d %H:%M:%S", timeinfo);
+		strftime(buffer, TIME_BUF_SIZE, "%Y-%m-%d %H:%M:%S", timeinfo);
 
-	FILE *log = malloc(sizeof(log));
-	log = open(log);
-	fprintf(log, "%s - %s\n", buffer, str);
-	fclose(log);
+		FILE *log = malloc(sizeof(log));
+		log = open(log);
+		fprintf(log, "%s - %s\n", buffer, str);
+		fclose(log);
+	}
 }
