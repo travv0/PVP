@@ -39,10 +39,10 @@ struct error SDL_BMP_ERR = {
 	7
 };
 
-int throw_err(struct error err)
+void throw_err(struct error err)
 {
 	char log[LOG_SIZE];
 	snprintf(log, LOG_SIZE, "%d %s: %s\n", err.code, err.msg, SDL_GetError());
 	logstr(log);
-	return err.code;
+	exit(err.code);
 }

@@ -17,6 +17,6 @@ extern struct error SDL_RECT_ERR;
 extern struct error NO_STATE_ERR;
 extern struct error SDL_BMP_ERR;
 
-int throw_err(struct error err);
+void throw_err(struct error err);
 
 #endif
