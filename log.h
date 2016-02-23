@@ -1,8 +1,12 @@
 #ifndef __LOG_H
 #define __LOG_H
 
-FILE *open(FILE *log);
+#include <stdio.h>
+
+#define LOG_LINE_SIZE	1000
+
 int clearfile(char *fname);
 void logstr(char *str);
+void logint(int i);
 
 #endif

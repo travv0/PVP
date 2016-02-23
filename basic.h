@@ -5,5 +5,7 @@
 #define FALSE	0
 
 extern int DEBUG;
+extern float DT;	/* change in time since last go in the main loop */
 
 #endif
+
