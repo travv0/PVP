@@ -5,7 +5,6 @@
 
 #define LOG_LINE_SIZE	1000
 
-FILE *open(FILE *log);
 int clearfile(char *fname);
 void logstr(char *str);
 void logint(int i);

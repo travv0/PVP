@@ -11,14 +11,6 @@
 
 #define TIME_BUF_SIZE	26
 
-FILE *open(FILE *log)
-{
-	if((log = fopen(LOG_FILE, "a")) == NULL)
-		return NULL;
-
-	return log;
-}
-
 int clearfile(char *fname)
 {
 	FILE *f;
@@ -37,7 +29,6 @@ void logstr(char *str)
 		time_t rawtime;
 		struct tm * timeinfo;
 		char buffer[TIME_BUF_SIZE];
-		char *fmtstr = malloc(sizeof(char) * LOG_LINE_SIZE);
 
 		time(&rawtime);
 		timeinfo = localtime(&rawtime);
@@ -47,11 +38,15 @@ void logstr(char *str)
 		fprintf(stderr, "%s - %s\n", buffer, str);
 
 		FILE *log = malloc(sizeof(*log));
-		log = open(log);
-		fprintf(log, "%s - %s\n", buffer, str);
-		fclose(log);
+		log = fopen(LOG_FILE, "a");
+
+		if (log != NULL){
+			fprintf(log, "%s - %s\n", buffer, str);
+			fclose(log);
+		} else
+			fprintf(stderr, "WARNING: Unable to write to log file\n");
+
 		free(log);
-		free(fmtstr);
 	}
 }
 
@@ -62,7 +57,6 @@ void logint(int i)
 		time_t rawtime;
 		struct tm * timeinfo;
 		char buffer[TIME_BUF_SIZE];
-		char *fmtstr = malloc(sizeof(char) * LOG_LINE_SIZE);
 
 		time(&rawtime);
 		timeinfo = localtime(&rawtime);
@@ -72,10 +66,14 @@ void logint(int i)
 		fprintf(stderr, "%s - %d\n", buffer, i);
 
 		FILE *log = malloc(sizeof(*log));
-		log = open(log);
-		fprintf(log, "%s - %d\n", buffer, i);
-		fclose(log);
+		log = fopen(LOG_FILE, "a");
+
+		if (log != NULL){
+			fprintf(log, "%s - %d\n", buffer, i);
+			fclose(log);
+		} else
+			fprintf(stderr, "WARNING: Unable to write to log file\n");
+
 		free(log);
-		free(fmtstr);
 	}
 }

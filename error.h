@@ -18,7 +18,7 @@ extern struct error SDL_SURF_ERR;
 extern struct error SDL_RECT_ERR;
 extern struct error NO_STATE_ERR;
 extern struct error SDL_BMP_ERR;
-extern struct error LOG_FMT_NOT_SUPPORTED_WARN;
+extern struct error LOG_OPEN_WARN;
 
 void throw_err(struct error err);
 
