@@ -6,7 +6,6 @@
 
 #define ERROR 		1
 #define WARNING		0
-#define LOG_LINE_SIZE	1000
 
 /* Errors should end in _ERR and warnings should end in _WARN.
  * SDL related errors should start with SDL_.
@@ -55,6 +54,11 @@ struct error SDL_BMP_ERR = {
 	"Failed to load BMP",
 	7,
 	ERROR
+};
+struct error LOG_FMT_NOT_SUPPORTED_WARN = {
+	"Logging data type not implemented",
+	8,
+	WARNING
 };
 
 void throw_err(struct error err)
