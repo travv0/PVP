@@ -30,6 +30,9 @@ int clearfile(char *fname)
 	return 0;
 }
 
+/* logs a message
+ * str is the message to log
+ * type is a character representing the format code ('s' for string, 'd' for int, etc) */
 void logstr(char *str, char type)
 {
 	if (DEBUG == TRUE) {
@@ -44,6 +47,9 @@ void logstr(char *str, char type)
 			break;
 		case 'd':
 			fmtstr = "%s - %d\n";
+			break;
+		case 'f':
+			fmtstr = "%s - %f\n";
 			break;
 		default:
 			snprintf(fmtstr, LOG_LINE_SIZE, "'%c'", type);
