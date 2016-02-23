@@ -55,8 +55,8 @@ struct error SDL_BMP_ERR = {
 	7,
 	ERROR
 };
-struct error LOG_FMT_NOT_SUPPORTED_WARN = {
-	"Logging data type not implemented",
+struct error LOG_OPEN_WARN = {
+	"Couldn't open log file",
 	8,
 	WARNING
 };
