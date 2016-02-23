@@ -27,13 +27,23 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 		throw_err(SDL_BMP_ERR);
 	}
 
-	pl_sprite.frame_rect = &pl_sprite.surface->clip_rect;
+	pl_sprite.frames = 3;
+	pl_sprite.frame_rect = malloc(sizeof(*(pl_sprite.frame_rect)));
+	pl_sprite.frame_rect->x = 0;
+	pl_sprite.frame_rect->y = 0;
+	pl_sprite.frame_rect->w = 200;
+	pl_sprite.frame_rect->h = 144;
 
-	logstr("Entering main game loop");
+	pl_sprite.source_rect = malloc(sizeof(*(pl_sprite.source_rect)));
+	*(pl_sprite.source_rect) = *(pl_sprite.frame_rect);
+
+	anistart(pl_sprite, TRUE);
+
+	logstr("Entering main game loop", 's');
 	while (!done) {
 		switch (state) {
 		case PLAYING:
-			SDL_BlitSurface(pl_sprite.surface, NULL, screen, pl_sprite.frame_rect);
+			animate(pl_sprite, screen);
 			SDL_UpdateWindowSurface(window);
 
 			if (SDL_FillRect(screen, NULL,
@@ -104,7 +114,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			throw_err(NO_STATE_ERR);
 		}
 	}
-	logstr("Left main game loop");
+	logstr("Left main game loop", 's');
 
 	free(event);
 	SDL_FreeSurface(pl_sprite.surface);

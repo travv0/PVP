@@ -14,7 +14,7 @@ int main(int argc, char *args[])
 				strcmp(args[1], "--debug") == 0)) {
 		DEBUG = TRUE;
 		clearfile(LOG_FILE);
-		logstr("Debugging enabled");
+		logstr("Debugging enabled", 's');
 	} else
 		DEBUG = FALSE;
 
@@ -27,7 +27,7 @@ int main(int argc, char *args[])
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0) {
 		throw_err(SDL_INIT_ERR);
 	}
-	logstr("SDL initialized");
+	logstr("SDL initialized", 's');
 
 	window = SDL_CreateWindow("PVP", SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
@@ -35,21 +35,21 @@ int main(int argc, char *args[])
 	if (window == NULL) {
 		throw_err(SDL_WIND_ERR);
 	}
-	logstr("Main window created");
+	logstr("Main window created", 's');
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	if (renderer == NULL) {
 		throw_err(SDL_REND_ERR);
 	}
-	logstr("Renderer created");
+	logstr("Renderer created", 's');
 
 	screen = SDL_GetWindowSurface(window);
 
 	if (screen == NULL) {
 		throw_err(SDL_SURF_ERR);
 	}
-	logstr("Main surface created");
+	logstr("Main surface created", 's');
 
 	if (SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255)) != 0) {
 		throw_err(SDL_RECT_ERR);

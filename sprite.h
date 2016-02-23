@@ -2,23 +2,24 @@
 #define __SPRITE_H
 
 #include "sdl.h"
+#include "basic.h"
 
 struct sprite {
 	SDL_Surface	*surface;
+	SDL_Rect	*source_rect;
 	SDL_Rect	*frame_rect;
 	int		frames;
 	int		curr_frame;
+	int		animating;
+	int		looping;
 };
 
-struct sprite SPRITE_DEFAULT = {
-	NULL,
-	NULL,
-	1,
-	1
-};
+extern struct sprite SPRITE_DEFAULT;
 
-int startani(struct sprite spr, int loop);
-int pauseani(struct sprite spr);
-int stopani(struct sprite spr);
+void anistart(struct sprite spr, int loop);
+void anipause(struct sprite spr);
+void anistop(struct sprite spr);
+void aniset(struct sprite spr, int frame);
+void animate(struct sprite spr, SDL_Surface *screen);
 
 #endif
