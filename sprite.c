@@ -3,6 +3,8 @@
 
 struct sprite SPRITE_DEFAULT = {
 	NULL,
+	0,
+	0,
 	NULL,
 	NULL,
 	1,

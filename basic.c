@@ -1,4 +1,4 @@
 #include "basic.h"
 
 int DEBUG;
-int FPS = 1;
+float DT = 1;

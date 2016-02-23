@@ -8,7 +8,7 @@
 #include "log.h"
 #include "strings.h"
 
-#define MOVE_SPEED	400
+#define MOVE_SPEED	4
 
 int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 {
@@ -16,13 +16,12 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	enum game_state state = PLAYING;
 	int mright, mleft, mup, mdown;
 
-	float dt; //delta time in seconds
 	float clock; //last time sample in seconds
 	float render_timer; //time control for rendering
 
-	dt = 0.0;
+	DT = 0.0;
 	render_timer = 0.0; //init the render timer
-	clock = SDL_GetTicks() / 1000.0f; //API callback to get the current time in seconds
+	clock = SDL_GetTicks(); //API callback to get the current time in seconds
 
 	mright = mleft = mup = mdown = 0;
 
@@ -47,8 +46,8 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 
 	logstr("Entering main game loop");
 	while (!done) {
-		dt = SDL_GetTicks() / 1000.0f - clock; //get the current delta time for this frame
-		clock = SDL_GetTicks() / 1000.0f; //updates the clock to check the next delta time
+		DT = SDL_GetTicks() - clock; //get the current delta time for this frame
+		clock = SDL_GetTicks(); //updates the clock to check the next delta time
 
 		switch (state) {
 		case PLAYING:
@@ -98,15 +97,16 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			}
 
 			if (mright == TRUE)
-				pl_sprite.frame_rect->x += MOVE_SPEED * dt;
+				pl_sprite.x += DT / MOVE_SPEED;
 			if (mleft == TRUE)
-				pl_sprite.frame_rect->x -= MOVE_SPEED * dt;
+				pl_sprite.x -= DT / MOVE_SPEED;
 			if (mup == TRUE)
-				pl_sprite.frame_rect->y -= MOVE_SPEED * dt;
+				pl_sprite.y -= DT / MOVE_SPEED;
 			if (mdown == TRUE)
-				pl_sprite.frame_rect->y += MOVE_SPEED * dt;
+				pl_sprite.y += DT / MOVE_SPEED;
 
-			logint(dt);
+			pl_sprite.frame_rect->x = pl_sprite.x;
+			pl_sprite.frame_rect->y = pl_sprite.y;
 
 			if (render_timer >= (1.0f/60.0f)) //checks if the frame is ready to render
 			{
@@ -121,7 +121,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 				render_timer -= (1.0f/60.0f); //do not set to zero, remove the accumulated frame time to avoid skipping
 			}
 
-			render_timer += dt; //updates the render timer
+			render_timer += DT; //updates the render timer
 
 			break;
 		case PAUSED:
