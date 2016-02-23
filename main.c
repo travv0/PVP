@@ -59,8 +59,10 @@ int main(int argc, char *args[])
 	/* main game loop */
 	errcode = game_loop(window, renderer, screen);
 
+	logstr("Cleaning up");
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 
+	logstr("Quitting game...");
 	return errcode;
 }
