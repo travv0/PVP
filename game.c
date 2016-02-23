@@ -44,6 +44,9 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	pl_sprite.source_rect = malloc(sizeof(*(pl_sprite.source_rect)));
 	*(pl_sprite.source_rect) = *(pl_sprite.frame_rect);
 
+	anispeed(&pl_sprite, .002f);
+	anistart(&pl_sprite, TRUE);
+
 	logstr("Entering main game loop");
 	while (!done) {
 		DT = SDL_GetTicks() - clock; //get the current delta time for this frame
