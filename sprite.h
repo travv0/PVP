@@ -6,6 +6,8 @@
 
 struct sprite {
 	SDL_Surface	*surface;
+	float		x;
+	float		y;
 	SDL_Rect	*source_rect;
 	SDL_Rect	*frame_rect;
 	int		frames;
