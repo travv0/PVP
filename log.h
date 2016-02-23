@@ -7,6 +7,7 @@
 
 FILE *open(FILE *log);
 int clearfile(char *fname);
-void logstr(char *str, char type);
+void logstr(char *str);
+void logint(int i);
 
 #endif

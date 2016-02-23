@@ -37,13 +37,13 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	pl_sprite.source_rect = malloc(sizeof(*(pl_sprite.source_rect)));
 	*(pl_sprite.source_rect) = *(pl_sprite.frame_rect);
 
-	anistart(pl_sprite, TRUE);
+	anistart(&pl_sprite, TRUE);
 
-	logstr("Entering main game loop", 's');
+	logstr("Entering main game loop");
 	while (!done) {
 		switch (state) {
 		case PLAYING:
-			animate(pl_sprite, screen);
+			animate(&pl_sprite, screen);
 			SDL_UpdateWindowSurface(window);
 
 			if (SDL_FillRect(screen, NULL,
@@ -114,7 +114,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			throw_err(NO_STATE_ERR);
 		}
 	}
-	logstr("Left main game loop", 's');
+	logstr("Left main game loop");
 
 	free(event);
 	SDL_FreeSurface(pl_sprite.surface);

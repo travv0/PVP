@@ -16,10 +16,10 @@ struct sprite {
 
 extern struct sprite SPRITE_DEFAULT;
 
-void anistart(struct sprite spr, int loop);
-void anipause(struct sprite spr);
-void anistop(struct sprite spr);
-void aniset(struct sprite spr, int frame);
-void animate(struct sprite spr, SDL_Surface *screen);
+void anistart(struct sprite *spr, int loop);
+void anipause(struct sprite *spr);
+void anistop(struct sprite *spr);
+void aniset(struct sprite *spr, int frame);
+void animate(struct sprite *spr, SDL_Surface *screen);
 
 #endif

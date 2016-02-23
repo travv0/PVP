@@ -1,4 +1,5 @@
 #include "sprite.h"
+#include "log.h"
 
 struct sprite SPRITE_DEFAULT = {
 	NULL,
@@ -11,38 +12,41 @@ struct sprite SPRITE_DEFAULT = {
 };
 
 /* starts the animation from the current frame */
-void anistart(struct sprite spr, int loop)
+void anistart(struct sprite *spr, int loop)
 {
-	spr.animating = TRUE;
-	spr.looping = loop;
+	spr->animating = TRUE;
+	spr->looping = loop;
 }
 
 /* stops the animation, preserving the current frame */
-void anipause(struct sprite spr)
+void anipause(struct sprite *spr)
 {
-	spr.animating = FALSE;
+	spr->animating = FALSE;
 }
 
 /* stops the animation, setting the current frame to the beginning */
-void anistop(struct sprite spr)
+void anistop(struct sprite *spr)
 {
-	spr.animating = FALSE;
-	spr.curr_frame = 0;
+	spr->animating = FALSE;
+	spr->curr_frame = 0;
 }
 
 /* set the current frame */
-void aniset(struct sprite spr, int frame)
+void aniset(struct sprite *spr, int frame)
 {
-	spr.curr_frame = 0;
+	spr->curr_frame = frame;
 }
 
 /* animates and blits the sprite */
-void animate(struct sprite spr, SDL_Surface *screen)
+void animate(struct sprite *spr, SDL_Surface *screen)
 {
-	if (spr.animating == TRUE)
+	if (spr->animating == TRUE)
 	{
-		spr.curr_frame = (spr.curr_frame + 1) % spr.frames;
-		spr.source_rect->x = spr.source_rect->w * spr.curr_frame;
+		if (spr->looping == FALSE && spr->curr_frame == spr->frames - 1)
+			anistop(spr);
+		else
+			spr->curr_frame = (spr->curr_frame + 1) % spr->frames;
 	}
-	SDL_BlitSurface(spr.surface, spr.source_rect, screen, spr.frame_rect);
+	spr->source_rect->x = spr->source_rect->w * spr->curr_frame;
+	SDL_BlitSurface(spr->surface, spr->source_rect, screen, spr->frame_rect);
 }

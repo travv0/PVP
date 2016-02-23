@@ -30,10 +30,8 @@ int clearfile(char *fname)
 	return 0;
 }
 
-/* logs a message
- * str is the message to log
- * type is a character representing the format code ('s' for string, 'd' for int, etc) */
-void logstr(char *str, char type)
+/* logs a string to log file and stderr */
+void logstr(char *str)
 {
 	if (DEBUG == TRUE) {
 		time_t rawtime;
@@ -41,33 +39,41 @@ void logstr(char *str, char type)
 		char buffer[TIME_BUF_SIZE];
 		char *fmtstr = malloc(sizeof(char) * LOG_LINE_SIZE);
 
-		switch (type) {
-		case 's':
-			fmtstr = "%s - %s\n";
-			break;
-		case 'd':
-			fmtstr = "%s - %d\n";
-			break;
-		case 'f':
-			fmtstr = "%s - %f\n";
-			break;
-		default:
-			snprintf(fmtstr, LOG_LINE_SIZE, "'%c'", type);
-			SDL_SetError(fmtstr);
-			throw_err(LOG_FMT_NOT_SUPPORTED_WARN);
-			return;
-		}
+		time(&rawtime);
+		timeinfo = localtime(&rawtime);
+
+		strftime(buffer, TIME_BUF_SIZE, "%Y-%m-%d %H:%M:%S", timeinfo);
+
+		fprintf(stderr, "%s - %s\n", buffer, str);
+
+		FILE *log = malloc(sizeof(*log));
+		log = open(log);
+		fprintf(log, "%s - %s\n", buffer, str);
+		fclose(log);
+		free(log);
+		free(fmtstr);
+	}
+}
+
+/* logs an int to log file and stderr */
+void logint(int i)
+{
+	if (DEBUG == TRUE) {
+		time_t rawtime;
+		struct tm * timeinfo;
+		char buffer[TIME_BUF_SIZE];
+		char *fmtstr = malloc(sizeof(char) * LOG_LINE_SIZE);
 
 		time(&rawtime);
 		timeinfo = localtime(&rawtime);
 
 		strftime(buffer, TIME_BUF_SIZE, "%Y-%m-%d %H:%M:%S", timeinfo);
 
-		fprintf(stderr, fmtstr, buffer, str);
+		fprintf(stderr, "%s - %d\n", buffer, i);
 
 		FILE *log = malloc(sizeof(*log));
 		log = open(log);
-		fprintf(log, fmtstr, buffer, str);
+		fprintf(log, "%s - %d\n", buffer, i);
 		fclose(log);
 		free(log);
 		free(fmtstr);
