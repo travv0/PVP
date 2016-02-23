@@ -8,13 +8,21 @@
 #include "log.h"
 #include "strings.h"
 
-#define MOVE_SPEED	1
+#define MOVE_SPEED	400
 
 int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 {
 	int done = FALSE;
 	enum game_state state = PLAYING;
 	int mright, mleft, mup, mdown;
+
+	float dt; //delta time in seconds
+	float clock; //last time sample in seconds
+	float render_timer; //time control for rendering
+
+	dt = 0.0;
+	render_timer = 0.0; //init the render timer
+	clock = SDL_GetTicks() / 1000.0f; //API callback to get the current time in seconds
 
 	mright = mleft = mup = mdown = 0;
 
@@ -37,20 +45,13 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	pl_sprite.source_rect = malloc(sizeof(*(pl_sprite.source_rect)));
 	*(pl_sprite.source_rect) = *(pl_sprite.frame_rect);
 
-	anistart(&pl_sprite, TRUE);
-
 	logstr("Entering main game loop");
 	while (!done) {
+		dt = SDL_GetTicks() / 1000.0f - clock; //get the current delta time for this frame
+		clock = SDL_GetTicks() / 1000.0f; //updates the clock to check the next delta time
+
 		switch (state) {
 		case PLAYING:
-			animate(&pl_sprite, screen);
-			SDL_UpdateWindowSurface(window);
-
-			if (SDL_FillRect(screen, NULL,
-						SDL_MapRGB(screen->format, 255, 255, 255)) != 0) {
-				throw_err(SDL_RECT_ERR);
-			}
-
 			while (SDL_PollEvent(event)) {
 				switch (event->type) {
 				case SDL_QUIT:
@@ -97,13 +98,30 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			}
 
 			if (mright == TRUE)
-				pl_sprite.frame_rect->x += MOVE_SPEED;
+				pl_sprite.frame_rect->x += MOVE_SPEED * dt;
 			if (mleft == TRUE)
-				pl_sprite.frame_rect->x -= MOVE_SPEED;
+				pl_sprite.frame_rect->x -= MOVE_SPEED * dt;
 			if (mup == TRUE)
-				pl_sprite.frame_rect->y -= MOVE_SPEED;
+				pl_sprite.frame_rect->y -= MOVE_SPEED * dt;
 			if (mdown == TRUE)
-				pl_sprite.frame_rect->y += MOVE_SPEED;
+				pl_sprite.frame_rect->y += MOVE_SPEED * dt;
+
+			logint(dt);
+
+			if (render_timer >= (1.0f/60.0f)) //checks if the frame is ready to render
+			{
+				animate(&pl_sprite, screen);
+				SDL_UpdateWindowSurface(window);
+
+				if (SDL_FillRect(screen, NULL,
+							SDL_MapRGB(screen->format, 255, 255, 255)) != 0) {
+					throw_err(SDL_RECT_ERR);
+				}
+
+				render_timer -= (1.0f/60.0f); //do not set to zero, remove the accumulated frame time to avoid skipping
+			}
+
+			render_timer += dt; //updates the render timer
 
 			break;
 		case PAUSED:
@@ -113,6 +131,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 		default:
 			throw_err(NO_STATE_ERR);
 		}
+
 	}
 	logstr("Left main game loop");
 

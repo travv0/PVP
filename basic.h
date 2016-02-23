@@ -5,5 +5,6 @@
 #define FALSE	0
 
 extern int DEBUG;
+extern int FPS;
 
 #endif
