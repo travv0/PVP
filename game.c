@@ -48,7 +48,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	anispeed(&pl_sprite, (1/60.0));
 	aniset(&pl_sprite, pl_sprite.frames);
 	anireverse(&pl_sprite, TRUE);
-	anistart(&pl_sprite, FALSE);
+	anistart(&pl_sprite, TRUE);
 
 	logstr("Entering main game loop");
 	while (!done) {
