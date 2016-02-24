@@ -15,12 +15,14 @@ struct sprite {
 	float		curr_frame;
 	int		animating;
 	int		looping;
+	int		reverse;
 };
 
 extern struct sprite SPRITE_DEFAULT;
 
 void anistart(struct sprite *spr, int loop);
 void anispeed(struct sprite *spr, float speed);
+void anireverse(struct sprite *spr, int reverse);
 void anipause(struct sprite *spr);
 void anistop(struct sprite *spr);
 void aniset(struct sprite *spr, int frame);

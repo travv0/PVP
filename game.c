@@ -17,12 +17,12 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	enum game_state state = PLAYING;
 	int mright, mleft, mup, mdown;
 
-	double clock; //last time sample in seconds
-	double render_timer; //time control for rendering
+	double clock; /* last time sample in seconds */
+	double render_timer; /* time control for rendering */
 
 	DT = 0.0;
-	render_timer = 0.0; //init the render timer
-	clock = getseconds(); //API callback to get the current time in seconds
+	render_timer = 0.0;
+	clock = getseconds();
 
 	mright = mleft = mup = mdown = 0;
 
@@ -46,12 +46,16 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	*(pl_sprite.source_rect) = *(pl_sprite.frame_rect);
 
 	anispeed(&pl_sprite, (1/60.0));
-	anistart(&pl_sprite, TRUE);
+	aniset(&pl_sprite, pl_sprite.frames);
+	anireverse(&pl_sprite, TRUE);
+	anistart(&pl_sprite, FALSE);
 
 	logstr("Entering main game loop");
 	while (!done) {
-		DT = getseconds() - clock; //get the current delta time for this frame
-		clock = getseconds(); //updates the clock to check the next delta time
+		DT = getseconds() - clock; /* get the current delta
+					      time for this frame */
+		clock = getseconds(); /* updates the clock to check
+					 the next delta time */
 
 		switch (state) {
 		case PLAYING:
@@ -112,20 +116,25 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			pl_sprite.frame_rect->x = pl_sprite.x;
 			pl_sprite.frame_rect->y = pl_sprite.y;
 
-			if (render_timer >= (1/TARGET_FRAME_RATE)) //checks if the frame is ready to render
+			/* checks if the frame is ready to render */
+			if (render_timer >= (1/TARGET_FRAME_RATE))
 			{
 				animate(&pl_sprite, screen);
 				SDL_UpdateWindowSurface(window);
 
-				if (SDL_FillRect(screen, NULL,
-							SDL_MapRGB(screen->format, 255, 255, 255)) != 0) {
+				if (SDL_FillRect(screen, NULL, SDL_MapRGB(
+								screen->format,
+								255, 255, 255))
+						!= 0) {
 					throw_err(SDL_RECT_ERR);
 				}
 
-				render_timer -= (1/TARGET_FRAME_RATE); //do not set to zero, remove the accumulated frame time to avoid skipping
+				/* do not set to zero, remove the accumulated
+				 * frame time to avoid skipping */
+				render_timer -= (1/TARGET_FRAME_RATE);
 			}
 
-			render_timer += DT; //updates the render timer
+			render_timer += DT;
 
 			break;
 		case PAUSED:
