@@ -56,8 +56,8 @@ void animate(struct sprite *spr, SDL_Surface *screen)
 		if (spr->looping == FALSE && spr->curr_frame == spr->frames - 1)
 			anistop(spr);
 		else
-			spr->curr_frame = fmod(spr->curr_frame + 1, spr->frames);
+			spr->curr_frame = fmod(spr->curr_frame + spr->speed, (float)spr->frames);
 	}
-	spr->source_rect->x = spr->source_rect->w * spr->curr_frame;
+	spr->source_rect->x = spr->source_rect->w * (int)spr->curr_frame;
 	SDL_BlitSurface(spr->surface, spr->source_rect, screen, spr->frame_rect);
 }

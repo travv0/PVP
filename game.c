@@ -7,6 +7,7 @@
 #include "sprite.h"
 #include "log.h"
 #include "strings.h"
+#include "utils.h"
 
 #define MOVE_SPEED	4
 
@@ -16,12 +17,12 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	enum game_state state = PLAYING;
 	int mright, mleft, mup, mdown;
 
-	float clock; //last time sample in seconds
-	float render_timer; //time control for rendering
+	double clock; //last time sample in seconds
+	double render_timer; //time control for rendering
 
 	DT = 0.0;
 	render_timer = 0.0; //init the render timer
-	clock = SDL_GetTicks(); //API callback to get the current time in seconds
+	clock = getseconds(); //API callback to get the current time in seconds
 
 	mright = mleft = mup = mdown = 0;
 
@@ -44,13 +45,13 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	pl_sprite.source_rect = malloc(sizeof(*(pl_sprite.source_rect)));
 	*(pl_sprite.source_rect) = *(pl_sprite.frame_rect);
 
-	anispeed(&pl_sprite, .002f);
+	anispeed(&pl_sprite, (1/60.0));
 	anistart(&pl_sprite, TRUE);
 
 	logstr("Entering main game loop");
 	while (!done) {
-		DT = SDL_GetTicks() - clock; //get the current delta time for this frame
-		clock = SDL_GetTicks(); //updates the clock to check the next delta time
+		DT = getseconds() - clock; //get the current delta time for this frame
+		clock = getseconds(); //updates the clock to check the next delta time
 
 		switch (state) {
 		case PLAYING:
@@ -100,18 +101,18 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			}
 
 			if (mright == TRUE)
-				pl_sprite.x += DT / MOVE_SPEED;
+				pl_sprite.x += sectomsec(DT) / MOVE_SPEED;
 			if (mleft == TRUE)
-				pl_sprite.x -= DT / MOVE_SPEED;
+				pl_sprite.x -= sectomsec(DT) / MOVE_SPEED;
 			if (mup == TRUE)
-				pl_sprite.y -= DT / MOVE_SPEED;
+				pl_sprite.y -= sectomsec(DT) / MOVE_SPEED;
 			if (mdown == TRUE)
-				pl_sprite.y += DT / MOVE_SPEED;
+				pl_sprite.y += sectomsec(DT) / MOVE_SPEED;
 
 			pl_sprite.frame_rect->x = pl_sprite.x;
 			pl_sprite.frame_rect->y = pl_sprite.y;
 
-			if (render_timer >= (1.0f/60.0f)) //checks if the frame is ready to render
+			if (render_timer >= (1/TARGET_FRAME_RATE)) //checks if the frame is ready to render
 			{
 				animate(&pl_sprite, screen);
 				SDL_UpdateWindowSurface(window);
@@ -121,7 +122,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 					throw_err(SDL_RECT_ERR);
 				}
 
-				render_timer -= (1.0f/60.0f); //do not set to zero, remove the accumulated frame time to avoid skipping
+				render_timer -= (1/TARGET_FRAME_RATE); //do not set to zero, remove the accumulated frame time to avoid skipping
 			}
 
 			render_timer += DT; //updates the render timer
