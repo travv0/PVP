@@ -2,6 +2,8 @@ Don't expand tabs to spaces.
 
 Tabs should be 8 characters wide.
 
+No trailing whitespace.  A good text editor will have a way to automatically remove trailing whitespace.
+
 Lines should be 80 characters or less.  If you can't make them look decent while that short, the code should probably be split up into more functions.
 
 Functions should have braces like this
