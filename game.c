@@ -19,12 +19,19 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 
 	double clock; /* last time sample in seconds */
 	double render_timer; /* time control for rendering */
+	double frmtime;
+	int frms;
 
 	DT = 0.0;
 	render_timer = 0.0;
 	clock = getseconds();
 
-	mright = mleft = mup = mdown = 0;
+	if (DEBUG) {
+		frmtime = getseconds();
+		frms = 0;
+	}
+
+	mright = mleft = mup = mdown = FALSE;
 
 	SDL_Event *event = malloc(sizeof(*event));
 
@@ -52,10 +59,8 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 
 	logstr("Entering main game loop");
 	while (!done) {
-		DT = getseconds() - clock; /* get the current delta
-					      time for this frame */
-		clock = getseconds(); /* updates the clock to check
-					 the next delta time */
+		DT = getseconds() - clock; /* get the current delta time for this frame */
+		clock = getseconds(); /* updates the clock to check the next delta time */
 
 		switch (state) {
 		case PLAYING:
@@ -117,8 +122,11 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			pl_sprite.frame_rect->y = pl_sprite.y;
 
 			/* checks if the frame is ready to render */
-			if (render_timer >= (1/TARGET_FRAME_RATE))
-			{
+			if (render_timer >= (1/TARGET_FRAME_RATE)) {
+				if (DEBUG)
+					/* increment counter for framerate */
+					frms++;
+
 				animate(&pl_sprite, screen);
 				SDL_UpdateWindowSurface(window);
 
@@ -134,7 +142,22 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 				render_timer -= (1/TARGET_FRAME_RATE);
 			}
 
+			if (DEBUG) {
+				if (frmtime >= 1) {
+					char fps[LOG_LINE_SIZE];
+					snprintf(fps, LOG_LINE_SIZE,
+							"FPS: %d", frms);
+					logstr(fps);
+					frms = 0;
+					/* decrement frmtime instead of setting to 0 */
+					frmtime--;
+				}
+			}
+
 			render_timer += DT;
+
+			if (DEBUG)
+				frmtime += DT;
 
 			break;
 		case PAUSED:
