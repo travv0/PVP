@@ -17,8 +17,8 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	enum game_state state = PLAYING;
 	int mright, mleft, mup, mdown;
 
-	double clock		/* last time sample in seconds */
-	double render_timer	/* time control for rendering */
+	double clock;		/* last time sample in seconds */
+	double render_timer;	/* time control for rendering */
 	double frmtime;		/* timer used for when to show updated fps */
 	int frms;		/* frame counter for fps display */
 
