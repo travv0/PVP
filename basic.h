@@ -5,7 +5,7 @@
 #define FALSE	0
 
 /* the frame rate we're trying to hit.
- * cast as double so we don't have to worry about accidentally
+ * make sure this is a double so we don't have to worry about accidentally
  * demoting to int when using it. */
 #define TARGET_FRAME_RATE	60.0
 
