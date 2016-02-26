@@ -1,9 +1,17 @@
-#OBJS specifies which files to compile as part of the project
-OBJS = *.c
+ifeq ($(OS),Windows_NT)
+	OBJS = *.c
+	CC = gcc
+	INCLUDE_PATHS = -IC:\mingw_dev_lib\include
+	LIBRARY_PATHS = -LC:\mingw_dev_lib\lib
+	COMPILER_FLAGS = -w -Wl,-subsystem,windows
+	LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2
+	OBJ_NAME = game.exe
+else
+	OBJS = *.c
+	CC = gcc
+	LINKER_FLAGS = -lSDL2
+	OBJ_NAME = game
+endif
 
-#OBJ_NAME specifies the name of our exectuable
-OBJ_NAME = game.exe
-
-#This is the target that compiles our executable
 all : $(OBJS)
-	gcc $(OBJS) -IC:\mingw_dev_lib\include -LC:\mingw_dev_lib\lib -g -Wall -m32 -lmingw32 -lSDL2main -lSDL2 -o $(OBJ_NAME)
+	$(CC) $(OBJS) -Wall -g $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
