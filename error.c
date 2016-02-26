@@ -61,6 +61,8 @@ struct error LOG_OPEN_WARN = {
 	WARNING
 };
 
+/* calls the log function with the error provided,
+ * then aborts the program if the message is an error */
 void throw_err(struct error err)
 {
 	char log[LOG_LINE_SIZE];

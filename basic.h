@@ -10,4 +10,3 @@ extern int DEBUG;	/* whether or not to log things */
 extern float DT;	/* change in time since last go in the main loop */
 
 #endif
-

@@ -22,7 +22,6 @@ int clearfile(char *fname)
 	return 0;
 }
 
-/* logs a string to log file and stderr */
 void logstr(char *str)
 {
 	if (DEBUG == TRUE) {

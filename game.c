@@ -27,6 +27,9 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 
 	SDL_Event *event = malloc(sizeof(*event));
 
+	/* everything related to this initializing this sprite
+	 * should eventually be abstracted to a function in the
+	 * sprite header */
 	struct sprite pl_sprite = SPRITE_DEFAULT;
 	pl_sprite.surface = SDL_LoadBMP(PLAYER_SPR);
 
@@ -45,6 +48,8 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	*(pl_sprite.source_rect) = *(pl_sprite.frame_rect);
 
 	logstr("Entering main game loop");
+	/* this stuff is all for testing, any engine-related
+	 * code needs to be abstracted out at some point */
 	while (!done) {
 		DT = SDL_GetTicks() - clock; //get the current delta time for this frame
 		clock = SDL_GetTicks(); //updates the clock to check the next delta time
