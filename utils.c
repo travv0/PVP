@@ -1,4 +1,4 @@
-#include "sdl.h"
+#include <SDL2/SDL.h>
 #include "utils.h"
 
 double getseconds() {
