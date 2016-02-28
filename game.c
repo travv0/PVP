@@ -10,7 +10,7 @@
 
 #define MOVE_SPEED	4
 
-int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
+void game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 {
 	int done = FALSE;
 	enum game_state state = PLAYING;
@@ -137,5 +137,4 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 
 	free(event);
 	SDL_FreeSurface(pl_sprite.surface);
-	return 0;
 }
