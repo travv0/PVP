@@ -12,12 +12,14 @@ struct sprite {
 	SDL_Surface	*surface;
 	float		x;
 	float		y;
+	float		speed;
 	SDL_Rect	*source_rect;
 	SDL_Rect	*frame_rect;
 	int		frames;
-	int		curr_frame;
+	float		curr_frame;
 	int		animating;
 	int		looping;
+	int		reverse;
 };
 
 /* this holds the default info for a new sprite.
@@ -26,6 +28,12 @@ extern struct sprite SPRITE_DEFAULT;
 
 /* start the sprite's animation from the current frame */
 void anistart(struct sprite *spr, int loop);
+
+/* set the animation speed */
+void anispeed(struct sprite *spr, float speed);
+
+/* whether to play the animation in reverse */
+void anireverse(struct sprite *spr, int reverse);
 
 /* pause the animation, keeping the current frame */
 void anipause(struct sprite *spr);
