@@ -23,7 +23,7 @@ int clearfile(char *fname)
 }
 
 /* logs a string to log file and stderr */
-void __log(void *l, char *fmt)
+void __appendlog(void *l, char *fmt)
 {
 	if (DEBUG == TRUE) {
 		time_t rawtime;
@@ -41,7 +41,7 @@ void __log(void *l, char *fmt)
 
 		fprintf(stderr, fullfmt, buffer, l);
 
-		FILE *log = malloc(sizeof(*log));
+		FILE *log;
 		log = fopen(LOG_FILE, "a");
 
 		if (log != NULL){
@@ -49,7 +49,5 @@ void __log(void *l, char *fmt)
 			fclose(log);
 		} else
 			fprintf(stderr, "WARNING: Unable to write to log file\n");
-
-		free(log);
 	}
 }
