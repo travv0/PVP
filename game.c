@@ -44,7 +44,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	pl_sprite.source_rect = malloc(sizeof(*(pl_sprite.source_rect)));
 	*(pl_sprite.source_rect) = *(pl_sprite.frame_rect);
 
-	logstr("Entering main game loop");
+	log("Entering main game loop", "%s");
 	while (!done) {
 		DT = SDL_GetTicks() - clock; //get the current delta time for this frame
 		clock = SDL_GetTicks(); //updates the clock to check the next delta time
@@ -133,7 +133,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 		}
 
 	}
-	logstr("Left main game loop");
+	log("Left main game loop", "%s");
 
 	free(event);
 	SDL_FreeSurface(pl_sprite.surface);

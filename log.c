@@ -23,25 +23,29 @@ int clearfile(char *fname)
 }
 
 /* logs a string to log file and stderr */
-void logstr(char *str)
+void __log(void *l, char *fmt)
 {
 	if (DEBUG == TRUE) {
 		time_t rawtime;
 		struct tm * timeinfo;
 		char buffer[TIME_BUF_SIZE];
+		char fullfmt[LOG_LINE_SIZE] = "%s - ";
 
 		time(&rawtime);
 		timeinfo = localtime(&rawtime);
 
 		strftime(buffer, TIME_BUF_SIZE, "%Y-%m-%d %H:%M:%S", timeinfo);
 
-		fprintf(stderr, "%s - %s\n", buffer, str);
+		strcat(fullfmt, fmt);
+		strcat(fullfmt, "\n");
+
+		fprintf(stderr, fullfmt, buffer, l);
 
 		FILE *log = malloc(sizeof(*log));
 		log = fopen(LOG_FILE, "a");
 
 		if (log != NULL){
-			fprintf(log, "%s - %s\n", buffer, str);
+			fprintf(log, fullfmt, buffer, l);
 			fclose(log);
 		} else
 			fprintf(stderr, "WARNING: Unable to write to log file\n");

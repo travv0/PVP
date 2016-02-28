@@ -5,8 +5,11 @@
 
 #define LOG_LINE_SIZE	1000
 
+/* logs l using format string fmt */
+#define log(l,fmt) (__log((void *)l, fmt))
+void __log(void *l, char *fmt);
+
 int clearfile(char *fname);
-void logstr(char *str);
 void logint(int i);
 
 #endif
