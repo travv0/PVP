@@ -7,6 +7,7 @@
 #include "sprite.h"
 #include "log.h"
 #include "strings.h"
+#include "utils.h"
 
 #define MOVE_SPEED	4
 
@@ -16,17 +17,27 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	enum game_state state = PLAYING;
 	int mright, mleft, mup, mdown;
 
-	float clock; //last time sample in seconds
-	float render_timer; //time control for rendering
+	double clock;		/* last time sample in seconds */
+	double render_timer;	/* time control for rendering */
+	double frmtime;		/* timer used for when to show updated fps */
+	int frms;		/* frame counter for fps display */
 
 	DT = 0.0;
-	render_timer = 0.0; //init the render timer
-	clock = SDL_GetTicks(); //API callback to get the current time in seconds
+	render_timer = 0.0;
+	clock = getseconds();
 
-	mright = mleft = mup = mdown = 0;
+	if (DEBUG) {
+		frmtime = getseconds();
+		frms = 0;
+	}
+
+	mright = mleft = mup = mdown = FALSE;
 
 	SDL_Event *event = malloc(sizeof(*event));
 
+	/* everything related to this initializing this sprite
+	 * should eventually be abstracted to a function in the
+	 * sprite header */
 	struct sprite pl_sprite = SPRITE_DEFAULT;
 	pl_sprite.surface = SDL_LoadBMP(PLAYER_SPR);
 
@@ -44,10 +55,17 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	pl_sprite.source_rect = malloc(sizeof(*(pl_sprite.source_rect)));
 	*(pl_sprite.source_rect) = *(pl_sprite.frame_rect);
 
+	anispeed(&pl_sprite, (1/60.0));
+	aniset(&pl_sprite, pl_sprite.frames);
+	anireverse(&pl_sprite, TRUE);
+	anistart(&pl_sprite, TRUE);
+
 	logstr("Entering main game loop");
+	/* this stuff is all for testing, any engine-related
+	 * code needs to be abstracted out at some point */
 	while (!done) {
-		DT = SDL_GetTicks() - clock; //get the current delta time for this frame
-		clock = SDL_GetTicks(); //updates the clock to check the next delta time
+		DT = getseconds() - clock; /* get the current delta time for this frame */
+		clock = getseconds(); /* updates the clock to check the next delta time */
 
 		switch (state) {
 		case PLAYING:
@@ -97,31 +115,54 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			}
 
 			if (mright == TRUE)
-				pl_sprite.x += DT / MOVE_SPEED;
+				pl_sprite.x += sectomsec(DT) / MOVE_SPEED;
 			if (mleft == TRUE)
-				pl_sprite.x -= DT / MOVE_SPEED;
+				pl_sprite.x -= sectomsec(DT) / MOVE_SPEED;
 			if (mup == TRUE)
-				pl_sprite.y -= DT / MOVE_SPEED;
+				pl_sprite.y -= sectomsec(DT) / MOVE_SPEED;
 			if (mdown == TRUE)
-				pl_sprite.y += DT / MOVE_SPEED;
+				pl_sprite.y += sectomsec(DT) / MOVE_SPEED;
 
 			pl_sprite.frame_rect->x = pl_sprite.x;
 			pl_sprite.frame_rect->y = pl_sprite.y;
 
-			if (render_timer >= (1.0f/60.0f)) //checks if the frame is ready to render
-			{
+			/* checks if the frame is ready to render */
+			if (render_timer >= (1/TARGET_FRAME_RATE)) {
+				if (DEBUG)
+					/* increment counter for framerate */
+					frms++;
+
 				animate(&pl_sprite, screen);
 				SDL_UpdateWindowSurface(window);
 
-				if (SDL_FillRect(screen, NULL,
-							SDL_MapRGB(screen->format, 255, 255, 255)) != 0) {
+				if (SDL_FillRect(screen, NULL, SDL_MapRGB(
+								screen->format,
+								255, 255, 255))
+						!= 0) {
 					throw_err(SDL_RECT_ERR);
 				}
 
-				render_timer -= (1.0f/60.0f); //do not set to zero, remove the accumulated frame time to avoid skipping
+				/* do not set to zero, remove the accumulated
+				 * frame time to avoid skipping */
+				render_timer -= (1/TARGET_FRAME_RATE);
 			}
 
-			render_timer += DT; //updates the render timer
+			if (DEBUG) {
+				if (frmtime >= 1) {
+					char fps[LOG_LINE_SIZE];
+					snprintf(fps, LOG_LINE_SIZE,
+							"FPS: %d", frms);
+					logstr(fps);
+					frms = 0;
+					/* decrement frmtime instead of setting to 0 */
+					frmtime--;
+				}
+			}
+
+			render_timer += DT;
+
+			if (DEBUG)
+				frmtime += DT;
 
 			break;
 		case PAUSED:

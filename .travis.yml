@@ -4,4 +4,4 @@ before_install:
   - sudo add-apt-repository --yes ppa:zoogie/sdl2-snapshots
   - sudo apt-get update -q
   - sudo apt-get install libsdl2-dev -y --force-yes
-script: make -f Makefile.lin
+script: make
