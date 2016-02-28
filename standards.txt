@@ -1,0 +1,46 @@
+Don't expand tabs to spaces.
+
+Tabs should be 8 characters wide.
+
+No trailing whitespace.  A good text editor will have a way to automatically remove trailing whitespace.
+
+Lines should be 80 characters or less.  If you can't make them look decent while that short, the code should probably be split up into more functions.
+
+Functions should have braces like this
+{
+}
+
+Everything else should have braces like this {
+}
+
+An else can be on the same line as the previous closing brace and its opening brace
+} else {
+
+Use /* ANSI C comments */ instead of // these dumb comments
+
+Block quotes should look like this:
+/* this is a
+ * multiline quote */
+
+Put a space after if, while, for, etc.: if (...) {}
+
+Don't put a space after function names: testfunc();
+
+Put spaces around math operators and comparison operators: x = y + z;
+
+Constants and global stuff should be ALL_CAPS.  Give them unique names so there aren't conflicts.
+
+Everything else should be all lowercase.
+
+Don't typedef enums and structs (or anything really).
+
+Pointers and dereferencers touch the pointer name, not the type: int *p;
+                                                                 int t = *p;
+
+No magic numbers, if there's something that's not part of some math formula or something so you know it'll never change #define it or use an enum.
+
+Similarly, most strings should be #define'd in strings.h unless it's a log message or something.  Error messages go in error.c along with a unique error code (don't forget to declare them in error.h).
+
+Document what functions do with a comment in header file above the function, document how they do it in the .c file.
+
+Don't duplicate code, if you're typing stuff more than once then put it in a function.
