@@ -145,10 +145,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 
 			if (DEBUG) {
 				if (frmtime >= 1) {
-					char fps[LOG_LINE_SIZE];
-					snprintf(fps, LOG_LINE_SIZE,
-							"FPS: %d", frms);
-					logstr(fps);
+					log(frms, "FPS: %d");
 					frms = 0;
 					/* decrement frmtime instead of setting to 0 */
 					frmtime--;
