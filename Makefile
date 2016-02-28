@@ -3,7 +3,7 @@ ifeq ($(OS),Windows_NT)
 	CC = gcc
 	INCLUDE_PATHS = -IC:\mingw_dev_lib\include
 	LIBRARY_PATHS = -LC:\mingw_dev_lib\lib
-	COMPILER_FLAGS = -w -Wl,-subsystem,windows
+	COMPILER_FLAGS = -w -Wall -g
 	LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2
 	OBJ_NAME = game.exe
 else
@@ -14,4 +14,4 @@ else
 endif
 
 all : $(OBJS)
-	$(CC) $(OBJS) -Wall -g $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
+	$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
