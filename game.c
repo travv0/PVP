@@ -8,10 +8,11 @@
 #include "log.h"
 #include "strings.h"
 #include "utils.h"
+#include "data.h"
 
 #define MOVE_SPEED	4
 
-int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
+int game_loop()
 {
 	int done = FALSE;
 	enum game_state state = PLAYING;
@@ -38,27 +39,27 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	/* everything related to this initializing this sprite
 	 * should eventually be abstracted to a function in the
 	 * sprite header */
-	struct sprite pl_sprite = SPRITE_DEFAULT;
-	pl_sprite.surface = SDL_LoadBMP(PLAYER_SPR);
+	// struct sprite pl_sprite = SPRITE_DEFAULT;
+	// pl_sprite.surface = SDL_LoadBMP(PLAYER_SPR);
 
-	if (pl_sprite.surface == NULL) {
-		throw_err(SDL_BMP_ERR);
-	}
+	// if (pl_sprite.surface == NULL) {
+	// 	throw_err(SDL_BMP_ERR);
+	// }
 
-	pl_sprite.frames = 3;
-	pl_sprite.frame_rect = malloc(sizeof(*(pl_sprite.frame_rect)));
-	pl_sprite.frame_rect->x = 0;
-	pl_sprite.frame_rect->y = 0;
-	pl_sprite.frame_rect->w = 200;
-	pl_sprite.frame_rect->h = 144;
+	// pl_sprite.frames = 3;
+	// pl_sprite.dest_rect = malloc(sizeof(*(pl_sprite.dest_rect)));
+	// pl_sprite.dest_rect->x = 0;
+	// pl_sprite.dest_rect->y = 0;
+	// pl_sprite.dest_rect->w = 200;
+	// pl_sprite.dest_rect->h = 144;
 
-	pl_sprite.source_rect = malloc(sizeof(*(pl_sprite.source_rect)));
-	*(pl_sprite.source_rect) = *(pl_sprite.frame_rect);
+	// pl_sprite.source_rect = malloc(sizeof(*(pl_sprite.source_rect)));
+	// *(pl_sprite.source_rect) = *(pl_sprite.dest_rect);
 
-	anispeed(&pl_sprite, (1/60.0));
-	aniset(&pl_sprite, pl_sprite.frames);
-	anireverse(&pl_sprite, TRUE);
-	anistart(&pl_sprite, TRUE);
+	// anispeed(&pl_sprite, (1/60.0));
+	// aniset(&pl_sprite, pl_sprite.frames);
+	// anireverse(&pl_sprite, TRUE);
+	// anistart(&pl_sprite, TRUE);
 
 	logstr("Entering main game loop");
 	/* this stuff is all for testing, any engine-related
@@ -114,7 +115,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 				}
 			}
 
-			if (mright == TRUE)
+			/*if (mright == TRUE)
 				pl_sprite.x += sectomsec(DT) / MOVE_SPEED;
 			if (mleft == TRUE)
 				pl_sprite.x -= sectomsec(DT) / MOVE_SPEED;
@@ -123,8 +124,8 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 			if (mdown == TRUE)
 				pl_sprite.y += sectomsec(DT) / MOVE_SPEED;
 
-			pl_sprite.frame_rect->x = pl_sprite.x;
-			pl_sprite.frame_rect->y = pl_sprite.y;
+			pl_sprite.dest_rect->x = pl_sprite.x;
+			pl_sprite.dest_rect->y = pl_sprite.y;*/
 
 			/* checks if the frame is ready to render */
 			if (render_timer >= (1/TARGET_FRAME_RATE)) {
@@ -132,11 +133,12 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 					/* increment counter for framerate */
 					frms++;
 
-				animate(&pl_sprite, screen);
-				SDL_UpdateWindowSurface(window);
+				animate(&SPRITES[PLYR]);
 
-				if (SDL_FillRect(screen, NULL, SDL_MapRGB(
-								screen->format,
+				SDL_UpdateWindowSurface(WINDOW);
+
+				if (SDL_FillRect(SCREEN, NULL, SDL_MapRGB(
+								SCREEN->format,
 								255, 255, 255))
 						!= 0) {
 					throw_err(SDL_RECT_ERR);
@@ -177,6 +179,6 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	logstr("Left main game loop");
 
 	free(event);
-	SDL_FreeSurface(pl_sprite.surface);
+	SDL_FreeSurface(SPRITES[PLYR].surface);
 	return 0;
 }

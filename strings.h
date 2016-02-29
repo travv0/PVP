@@ -7,6 +7,7 @@
 
 /* sprite files */
 #define SPR_DIR		"images/"
+#define DEFAULT_SPR	SPR_DIR "player/BLU.BMP"
 #define PLAYER_SPR	SPR_DIR "player/BLU.BMP"
 
 #endif

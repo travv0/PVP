@@ -5,19 +5,19 @@
 #include <SDL2/SDL.h>
 #include "basic.h"
 
-/* struct to hold details about the sprite.
- * it should not be used to store info that would be better suited
- * for the entity that the sprite is attached to (when I add entities) */
+/* struct to hold details about the sprite. */
 struct sprite {
+	char		*fname;
 	SDL_Surface	*surface;
 	float		speed;
-	SDL_Rect	*source_rect;
-	SDL_Rect	*frame_rect;
+	SDL_Rect	source_rect;
+	SDL_Rect	dest_rect;
 	int		frames;
 	float		curr_frame;
 	int		animating;
 	int		looping;
 	int		reverse;
+	int		load;
 };
 
 /* this holds the default info for a new sprite.
@@ -43,8 +43,17 @@ void anistop(struct sprite *spr);
 /* set the current frame of the animation */
 void aniset(struct sprite *spr, int frame);
 
-/* this should be run every time the screen is redrawn
+/* this should be run every time the SCREEN is redrawn
  * to animate and draw the sprite */
-void animate(struct sprite *spr, SDL_Surface *screen);
+void animate(struct sprite *spr);
+
+/* initialize al sprites in the game */
+void initsprites();
+
+/* initialize sprite */
+void sprinit(struct sprite *spr);
+
+/* load a sprite */
+void sprload(struct sprite *spr, char *fname);
 
 #endif

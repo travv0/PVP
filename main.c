@@ -18,10 +18,6 @@ int main(int argc, char *args[])
 	} else
 		DEBUG = FALSE;
 
-	SDL_Window *window = NULL;
-	SDL_Renderer *renderer = NULL;
-	SDL_Surface *screen = NULL;
-
 	int errcode;
 
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0) {
@@ -29,38 +25,41 @@ int main(int argc, char *args[])
 	}
 	logstr("SDL initialized");
 
-	window = SDL_CreateWindow("PVP", SDL_WINDOWPOS_UNDEFINED,
+	WINDOW = SDL_CreateWindow("PVP", SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
 
-	if (window == NULL) {
+	if (WINDOW == NULL) {
 		throw_err(SDL_WIND_ERR);
 	}
-	logstr("Main window created");
+	logstr("Main WINDOW created");
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	RENDERER = SDL_CreateRenderer(WINDOW, -1, SDL_RENDERER_ACCELERATED);
 
-	if (renderer == NULL) {
+	if (RENDERER == NULL) {
 		throw_err(SDL_REND_ERR);
 	}
 	logstr("Renderer created");
 
-	screen = SDL_GetWindowSurface(window);
+	SCREEN = SDL_GetWindowSurface(WINDOW);
 
-	if (screen == NULL) {
+	if (SCREEN == NULL) {
 		throw_err(SDL_SURF_ERR);
 	}
 	logstr("Main surface created");
 
-	if (SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255)) != 0) {
+	if (SDL_FillRect(SCREEN, NULL, SDL_MapRGB(SCREEN->format, 255, 255, 255)) != 0) {
 		throw_err(SDL_RECT_ERR);
 	}
-	SDL_UpdateWindowSurface(window);
+	SDL_UpdateWindowSurface(WINDOW);
+
+	initsprites();
+	logstr("Sprites initialized");
 
 	/* main game loop */
-	errcode = game_loop(window, renderer, screen);
+	errcode = game_loop();
 
 	logstr("Cleaning up");
-	SDL_DestroyWindow(window);
+	SDL_DestroyWindow(WINDOW);
 	SDL_Quit();
 
 	logstr("Quitting game...");

@@ -1,3 +1,6 @@
+/* this file is where game object code goes.
+ * a game object is a collection of a sprite, pos, etc., and also
+ * a pointer to its step() function which will run every frame (at least) */
 #ifndef __OBJECT_H
 #define __OBJECT_H
 
@@ -9,5 +12,7 @@ struct object {
 	float		y;
 	int		(*step)();
 };
+
+void drawall();
 
 #endif
