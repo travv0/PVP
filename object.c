@@ -1,6 +1,8 @@
 #include "object.h"
 #include "data.h"
 
+int defaultstep(struct object *obj) {}
+
 void updateall()
 {
 	int i;
@@ -16,5 +18,3 @@ void initobjects()
 		OBJECTS[i].spr.dest_rect.y = OBJECTS[i].y;
 	}
 }
-
-int defaultstep(struct object *obj) {}

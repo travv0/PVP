@@ -6,7 +6,8 @@ int plstep();
 int defaultstep();
 
 /* array of all sprites in the game
- * use NULL for pointers or -1 for numbers for default values */
+ * use NULL for pointers, -1 for numbers, or
+ * defaultstep for step function for default values */
 struct object OBJECTS[NUMOFOBJECTS] = {
 
 	{
