@@ -7,6 +7,7 @@
 
 enum object_indices {
 	PLYR,
+	PLY2,
 	NUMOFOBJECTS
 };
 
