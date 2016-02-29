@@ -16,3 +16,5 @@ void initobjects()
 		OBJECTS[i].spr.dest_rect.y = OBJECTS[i].y;
 	}
 }
+
+int defaultstep(struct object *obj) {}

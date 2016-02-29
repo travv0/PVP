@@ -3,6 +3,7 @@
 #include "basic.h"
 
 int plstep();
+int defaultstep();
 
 /* array of all sprites in the game
  * use NULL for pointers or -1 for numbers for default values */
@@ -27,7 +28,7 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 		plstep
 	},
 	{
-		{				/* PLYR */
+		{				/* STUCK_PLYR */
 			PLAYER_SPR,		/* path to spritesheet */
 			NULL,			/* surface (set to NULL) */
 			1/TARGET_FRAME_RATE,	/* animation speed */
@@ -42,6 +43,6 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 		},
 		200,
 		200,
-		plstep
+		defaultstep
 	}
 };
