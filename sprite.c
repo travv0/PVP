@@ -86,8 +86,8 @@ void animate(struct sprite *spr)
 void initsprites()
 {
 	int i;
-	for (i = 0; i < NUMOFSPRITES; ++i)
-		sprinit(&SPRITES[i]);
+	for (i = 0; i < NUMOFOBJECTS; ++i)
+		sprinit(&OBJECTS[i]);
 
 }
 

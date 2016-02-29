@@ -10,9 +10,13 @@ struct object {
 	struct sprite	spr;
 	float		x;
 	float		y;
-	int		(*step)();
+	int		(*step)(struct object obj);
 };
 
+/* loop through every sprite and draw it */
 void drawall();
+
+/* loop through every object and run it's step function */
+void updateall();
 
 #endif

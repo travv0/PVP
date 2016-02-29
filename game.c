@@ -10,13 +10,10 @@
 #include "utils.h"
 #include "data.h"
 
-#define MOVE_SPEED	4
-
 int game_loop()
 {
 	int done = FALSE;
 	enum game_state state = PLAYING;
-	int mright, mleft, mup, mdown;
 
 	double clock;		/* last time sample in seconds */
 	double render_timer;	/* time control for rendering */
@@ -31,10 +28,6 @@ int game_loop()
 		frmtime = getseconds();
 		frms = 0;
 	}
-
-	mright = mleft = mup = mdown = FALSE;
-
-	SDL_Event *event = malloc(sizeof(*event));
 
 	/* everything related to this initializing this sprite
 	 * should eventually be abstracted to a function in the
@@ -70,70 +63,13 @@ int game_loop()
 
 		switch (state) {
 		case PLAYING:
-			while (SDL_PollEvent(event)) {
-				switch (event->type) {
-				case SDL_QUIT:
-					done = TRUE;
-					break;
-				case SDL_KEYDOWN:
-					switch (event->key.keysym.sym) {
-					case SDLK_ESCAPE:
-						done = TRUE;
-						break;
-					case SDLK_RIGHT:
-						mright = TRUE;
-						break;
-					case SDLK_LEFT:
-						mleft = TRUE;
-						break;
-					case SDLK_UP:
-						mup = TRUE;
-						break;
-					case SDLK_DOWN:
-						mdown = TRUE;
-						break;
-					}
-
-					break;
-				case SDL_KEYUP:
-					switch (event->key.keysym.sym) {
-					case SDLK_RIGHT:
-						mright = FALSE;
-						break;
-					case SDLK_LEFT:
-						mleft = FALSE;
-						break;
-					case SDLK_UP:
-						mup = FALSE;
-						break;
-					case SDLK_DOWN:
-						mdown = FALSE;
-						break;
-					}
-
-					break;
-				}
-			}
-
-			/*if (mright == TRUE)
-				pl_sprite.x += sectomsec(DT) / MOVE_SPEED;
-			if (mleft == TRUE)
-				pl_sprite.x -= sectomsec(DT) / MOVE_SPEED;
-			if (mup == TRUE)
-				pl_sprite.y -= sectomsec(DT) / MOVE_SPEED;
-			if (mdown == TRUE)
-				pl_sprite.y += sectomsec(DT) / MOVE_SPEED;
-
-			pl_sprite.dest_rect->x = pl_sprite.x;
-			pl_sprite.dest_rect->y = pl_sprite.y;*/
-
 			/* checks if the frame is ready to render */
 			if (render_timer >= (1/TARGET_FRAME_RATE)) {
 				if (DEBUG)
 					/* increment counter for framerate */
 					frms++;
 
-				animate(&SPRITES[PLYR]);
+				drawall();
 
 				SDL_UpdateWindowSurface(WINDOW);
 
@@ -178,7 +114,6 @@ int game_loop()
 	}
 	logstr("Left main game loop");
 
-	free(event);
-	SDL_FreeSurface(SPRITES[PLYR].surface);
+	SDL_FreeSurface(OBJECTS[PLYR].spr.surface);
 	return 0;
 }

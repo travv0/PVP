@@ -5,12 +5,12 @@
 #include "sprite.h"
 #include "object.h"
 
-enum sprite_indices {
+enum object_indices {
 	PLYR,
-	NUMOFSPRITES
+	NUMOFOBJECTS
 };
 
-/* array of all sprites in the game */
-extern struct sprite SPRITES[NUMOFSPRITES];
+/* array of all objects in the game */
+extern struct object OBJECTS[NUMOFOBJECTS];
 
 #endif
