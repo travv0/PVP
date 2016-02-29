@@ -1,7 +1,8 @@
 #include "data.h"
 #include "strings.h"
 #include "basic.h"
-#include "player.h"
+
+int plstep();
 
 /* array of all sprites in the game
  * use NULL for pointers or -1 for numbers for default values */
@@ -23,6 +24,6 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 		},
 		0,
 		0,
-		{plstep}
+		plstep
 	}
 };

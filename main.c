@@ -52,6 +52,8 @@ int main(int argc, char *args[])
 	}
 	SDL_UpdateWindowSurface(WINDOW);
 
+	EVENT = malloc(sizeof(*EVENT));
+
 	initsprites();
 	logstr("Sprites initialized");
 
@@ -59,6 +61,8 @@ int main(int argc, char *args[])
 	errcode = game_loop();
 
 	logstr("Cleaning up");
+	free(EVENT);
+	unloadsprites();
 	SDL_DestroyWindow(WINDOW);
 	SDL_Quit();
 

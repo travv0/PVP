@@ -1,25 +1,21 @@
 #include <SDL2/SDL.h>
 
-#include "player.h"
 #include "basic.h"
 #include "object.h"
 
 #define MOVE_SPEED	4
 
-int plstep(struct object obj)
+int plstep(struct object *obj)
 {
-	int mright, mleft, mup, mdown;
-	mright = mleft = mup = mdown = FALSE;
+	static int mright, mleft, mup, mdown;
 
-	SDL_Event *event = malloc(sizeof(*event));
-
-	while (SDL_PollEvent(event)) {
-		switch (event->type) {
+	while (SDL_PollEvent(EVENT)) {
+		switch (EVENT->type) {
 		case SDL_QUIT:
 			exit(0);
 			break;
 		case SDL_KEYDOWN:
-			switch (event->key.keysym.sym) {
+			switch (EVENT->key.keysym.sym) {
 			case SDLK_ESCAPE:
 				exit(0);
 				break;
@@ -39,7 +35,7 @@ int plstep(struct object obj)
 
 			break;
 		case SDL_KEYUP:
-			switch (event->key.keysym.sym) {
+			switch (EVENT->key.keysym.sym) {
 			case SDLK_RIGHT:
 				mright = FALSE;
 				break;
@@ -59,16 +55,17 @@ int plstep(struct object obj)
 	}
 
 	if (mright == TRUE)
-		obj.x += sectomsec(DT) / MOVE_SPEED;
+		obj->x += MOVE_SPEED;
 	if (mleft == TRUE)
-		obj.x -= sectomsec(DT) / MOVE_SPEED;
+		obj->x -= MOVE_SPEED;
 	if (mup == TRUE)
-		obj.y -= sectomsec(DT) / MOVE_SPEED;
+		obj->y -= MOVE_SPEED;
 	if (mdown == TRUE)
-		obj.y += sectomsec(DT) / MOVE_SPEED;
+		obj->y += MOVE_SPEED;
 
-	obj.spr.dest_rect.x = obj.x;
-	obj.spr.dest_rect.y = obj.y;
+	obj->spr.dest_rect.x = obj->x;
+	obj->spr.dest_rect.y = obj->y;
 
-	free(event);
+	// printf("A: %f %f\n", obj->x, obj->y);
+	// printf("B: %f %f\n", obj->spr.dest_rect.x, obj->spr.dest_rect.y);
 }

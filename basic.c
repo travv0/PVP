@@ -1,8 +1,11 @@
 #include "basic.h"
 
 int DEBUG;
-float DT = 1;
+double DT = 1;
+double RENDER_TIMER = 1;
 
 SDL_Window *WINDOW = NULL;
 SDL_Renderer *RENDERER = NULL;
 SDL_Surface *SCREEN = NULL;
+
+SDL_Event *EVENT = NULL;

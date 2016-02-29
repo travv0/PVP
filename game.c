@@ -16,43 +16,17 @@ int game_loop()
 	enum game_state state = PLAYING;
 
 	double clock;		/* last time sample in seconds */
-	double render_timer;	/* time control for rendering */
 	double frmtime;		/* timer used for when to show updated fps */
 	int frms;		/* frame counter for fps display */
 
 	DT = 0.0;
-	render_timer = 0.0;
+	RENDER_TIMER = 0.0;
 	clock = getseconds();
 
 	if (DEBUG) {
 		frmtime = getseconds();
 		frms = 0;
 	}
-
-	/* everything related to this initializing this sprite
-	 * should eventually be abstracted to a function in the
-	 * sprite header */
-	// struct sprite pl_sprite = SPRITE_DEFAULT;
-	// pl_sprite.surface = SDL_LoadBMP(PLAYER_SPR);
-
-	// if (pl_sprite.surface == NULL) {
-	// 	throw_err(SDL_BMP_ERR);
-	// }
-
-	// pl_sprite.frames = 3;
-	// pl_sprite.dest_rect = malloc(sizeof(*(pl_sprite.dest_rect)));
-	// pl_sprite.dest_rect->x = 0;
-	// pl_sprite.dest_rect->y = 0;
-	// pl_sprite.dest_rect->w = 200;
-	// pl_sprite.dest_rect->h = 144;
-
-	// pl_sprite.source_rect = malloc(sizeof(*(pl_sprite.source_rect)));
-	// *(pl_sprite.source_rect) = *(pl_sprite.dest_rect);
-
-	// anispeed(&pl_sprite, (1/60.0));
-	// aniset(&pl_sprite, pl_sprite.frames);
-	// anireverse(&pl_sprite, TRUE);
-	// anistart(&pl_sprite, TRUE);
 
 	logstr("Entering main game loop");
 	/* this stuff is all for testing, any engine-related
@@ -63,12 +37,15 @@ int game_loop()
 
 		switch (state) {
 		case PLAYING:
+			// handleinput();
+
 			/* checks if the frame is ready to render */
-			if (render_timer >= (1/TARGET_FRAME_RATE)) {
+			if (RENDER_TIMER >= (1/TARGET_FRAME_RATE)) {
 				if (DEBUG)
 					/* increment counter for framerate */
 					frms++;
 
+				updateall();
 				drawall();
 
 				SDL_UpdateWindowSurface(WINDOW);
@@ -82,7 +59,7 @@ int game_loop()
 
 				/* do not set to zero, remove the accumulated
 				 * frame time to avoid skipping */
-				render_timer -= (1/TARGET_FRAME_RATE);
+				RENDER_TIMER -= (1/TARGET_FRAME_RATE);
 			}
 
 			if (DEBUG) {
@@ -97,7 +74,7 @@ int game_loop()
 				}
 			}
 
-			render_timer += DT;
+			RENDER_TIMER += DT;
 
 			if (DEBUG)
 				frmtime += DT;
@@ -114,6 +91,5 @@ int game_loop()
 	}
 	logstr("Left main game loop");
 
-	SDL_FreeSurface(OBJECTS[PLYR].spr.surface);
 	return 0;
 }

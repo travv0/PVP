@@ -116,3 +116,18 @@ void sprload(struct sprite *spr, char *fname)
 		}
 	}
 }
+
+void unloadsprites()
+{
+	int i;
+	for (i = 0; i < NUMOFOBJECTS; ++i)
+		SDL_FreeSurface(&OBJECTS[i].spr.surface);
+}
+
+void drawall() {
+	int i;
+	for (i = 0; i < NUMOFOBJECTS; ++i)
+		animate(&OBJECTS[i].spr);
+
+	SDL_UpdateWindowSurface(WINDOW);
+}

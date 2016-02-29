@@ -56,4 +56,10 @@ void sprinit(struct sprite *spr);
 /* load a sprite */
 void sprload(struct sprite *spr, char *fname);
 
+/* unload (free) all sprites */
+void unloadsprites();
+
+/* draws all sprites */
+void drawall();
+
 #endif

@@ -10,7 +10,7 @@ struct object {
 	struct sprite	spr;
 	float		x;
 	float		y;
-	int		(*step)(struct object obj);
+	int		(*step)(struct object *obj);
 };
 
 /* loop through every sprite and draw it */
