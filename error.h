@@ -23,6 +23,7 @@ extern struct error SDL_RECT_ERR;
 extern struct error NO_STATE_ERR;
 extern struct error SDL_BMP_ERR;
 extern struct error LOG_OPEN_WARN;
+extern struct error OBJM_IDX_OOR;
 
 /* give an error declared above to this function
  * and it'll take care of the rest */

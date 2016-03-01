@@ -60,6 +60,11 @@ struct error LOG_OPEN_WARN = {
 	8,
 	WARNING
 };
+struct error OBJM_IDX_OOR = {
+	"Object manager: index out of range",
+	9,
+	ERROR
+};
 
 /* calls the log function with the error provided,
  * then aborts the program if the message is an error */
