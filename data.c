@@ -9,7 +9,6 @@ int defaultstep();
  * use NULL for pointers, -1 for numbers, or
  * defaultstep for step function for default values */
 struct object OBJECTS[NUMOFOBJECTS] = {
-
 	{
 		{				/* PLYR */
 			PLAYER_SPR,		/* path to spritesheet */

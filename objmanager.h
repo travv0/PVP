@@ -25,9 +25,12 @@ void objmcapup(struct objm *mgr);
 void objmadd(struct objm *mgr, struct object obj);
 
 /* get an object from the manager */
-void objmget(struct objm *mgr, int idx);
+struct object *objmget(struct objm *mgr, int idx);
 
 /* free memory allocated by object manager */
 void objmfree(struct objm *mgr);
+
+/* returns count of objects in the manager */
+unsigned long long objmcnt(struct objm *mgr);
 
 #endif

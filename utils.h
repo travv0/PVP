@@ -1,3 +1,4 @@
+/* some utility functions */
 #ifndef __UTILS_H
 #define __UTILS_H
 

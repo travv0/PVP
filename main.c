@@ -7,6 +7,8 @@
 #include "log.h"
 #include "strings.h"
 #include "basic.h"
+#include "objmanager.h"
+#include "data.h"
 
 int main(int argc, char *args[])
 {
@@ -54,6 +56,12 @@ int main(int argc, char *args[])
 
 	EVENT = malloc(sizeof(*EVENT));
 
+	objminit(&OBJ_MGR);
+	logstr("Object manager initialized");
+
+	objmadd(&OBJ_MGR, OBJECTS[PLYR]);
+	logstr("Player object added to object manager");
+
 	initsprites();
 	logstr("Sprites initialized");
 
@@ -61,6 +69,7 @@ int main(int argc, char *args[])
 	errcode = game_loop();
 
 	logstr("Cleaning up");
+	objmfree(&OBJ_MGR);
 	free(EVENT);
 	unloadsprites();
 	SDL_DestroyWindow(WINDOW);

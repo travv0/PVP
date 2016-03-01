@@ -9,3 +9,5 @@ SDL_Renderer *RENDERER = NULL;
 SDL_Surface *SCREEN = NULL;
 
 SDL_Event *EVENT = NULL;
+
+struct objm OBJ_MGR;

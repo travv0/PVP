@@ -63,7 +63,7 @@ struct error LOG_OPEN_WARN = {
 struct error OBJM_IDX_OOR = {
 	"Object manager: index out of range",
 	9,
-	ERROR
+	WARNING
 };
 
 /* calls the log function with the error provided,
