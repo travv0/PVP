@@ -10,7 +10,7 @@ int defaultstep();
  * defaultstep for step function for default values */
 struct object OBJECTS[NUMOFOBJECTS] = {
 	{
-		{				/* PLYR */
+		{				/* OBJ_PLAYER */
 			PLAYER_SPR,		/* path to spritesheet */
 			NULL,			/* surface (set to NULL) */
 			1/TARGET_FRAME_RATE,	/* animation speed */
@@ -27,10 +27,10 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 						   leave at 0 because it's set by objmadd*/
 		0,				/* y coordinate.
 						   leave at 0 because it's set by objmadd*/
-		plstep
+		plstep				/* pointer to step function */
 	},
 	{
-		{				/* DEFAULT */
+		{				/* OBJ_DEFAULT */
 			PLAYER_SPR,		/* path to spritesheet */
 			NULL,			/* surface (set to NULL) */
 			1/TARGET_FRAME_RATE,	/* animation speed */
@@ -47,6 +47,6 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 						   leave at 0 because it's set by objmadd*/
 		0,				/* y coordinate.
 						   leave at 0 because it's set by objmadd*/
-		defaultstep
+		defaultstep			/* pointer to step function */
 	}
 };

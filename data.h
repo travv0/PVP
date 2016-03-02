@@ -5,8 +5,8 @@
 #include "object.h"
 
 enum object_indices {
-	PLAYER,
-	DEFAULT,
+	OBJ_PLAYER,
+	OBJ_DEFAULT,
 	NUMOFOBJECTS
 };
 
