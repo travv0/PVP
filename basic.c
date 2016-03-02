@@ -2,7 +2,6 @@
 
 int DEBUG;
 double DT = 1;
-double RENDER_TIMER = 1;
 
 SDL_Window *WINDOW = NULL;
 SDL_Renderer *RENDERER = NULL;

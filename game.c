@@ -18,9 +18,10 @@ int game_loop()
 	double clock;		/* last time sample in seconds */
 	double frmtime;		/* timer used for when to show updated fps */
 	int frms;		/* frame counter for fps display */
+	double render_timer;
 
 	DT = 0.0;
-	RENDER_TIMER = 0.0;
+	render_timer = 0.0;
 	clock = getseconds();
 
 	if (DEBUG) {
@@ -38,7 +39,7 @@ int game_loop()
 		switch (state) {
 		case PLAYING:
 			/* checks if the frame is ready to render */
-			if (RENDER_TIMER >= (1/TARGET_FRAME_RATE)) {
+			if (render_timer >= (1/TARGET_FRAME_RATE)) {
 				if (DEBUG)
 					/* increment counter for framerate */
 					frms++;
@@ -57,7 +58,7 @@ int game_loop()
 
 				/* do not set to zero, remove the accumulated
 				 * frame time to avoid skipping */
-				RENDER_TIMER -= (1/TARGET_FRAME_RATE);
+				render_timer -= (1/TARGET_FRAME_RATE);
 			}
 
 			if (DEBUG) {
@@ -69,7 +70,7 @@ int game_loop()
 				}
 			}
 
-			RENDER_TIMER += DT;
+			render_timer += DT;
 
 			if (DEBUG)
 				frmtime += DT;

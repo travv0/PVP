@@ -17,7 +17,6 @@
 
 extern int DEBUG;	/* whether or not to log things */
 extern double DT;	/* change in time since last go in the main loop */
-extern double RENDER_TIMER;	/* time control for rendering */
 
 extern SDL_Window *WINDOW;	/* the main game window */
 extern SDL_Renderer *RENDERER;	/* the main game renderer */
