@@ -16,7 +16,7 @@ int main(int argc, char *args[])
 				strcmp(args[1], "--debug") == 0)) {
 		DEBUG = TRUE;
 		clearfile(LOG_FILE);
-		logstr("Debugging enabled");
+		log("Debugging enabled", "%s");
 	} else
 		DEBUG = FALSE;
 
@@ -25,7 +25,7 @@ int main(int argc, char *args[])
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0) {
 		throw_err(SDL_INIT_ERR);
 	}
-	logstr("SDL initialized");
+	log("SDL initialized", "%s");
 
 	WINDOW = SDL_CreateWindow("PVP", SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
@@ -33,21 +33,21 @@ int main(int argc, char *args[])
 	if (WINDOW == NULL) {
 		throw_err(SDL_WIND_ERR);
 	}
-	logstr("Main WINDOW created");
+	log("Main window created", "%s");
 
 	RENDERER = SDL_CreateRenderer(WINDOW, -1, SDL_RENDERER_ACCELERATED);
 
 	if (RENDERER == NULL) {
 		throw_err(SDL_REND_ERR);
 	}
-	logstr("Renderer created");
+	log("Renderer created", "%s");
 
 	SCREEN = SDL_GetWindowSurface(WINDOW);
 
 	if (SCREEN == NULL) {
 		throw_err(SDL_SURF_ERR);
 	}
-	logstr("Main surface created");
+	log("Main surface created", "%s");
 
 	if (SDL_FillRect(SCREEN, NULL, SDL_MapRGB(SCREEN->format, 255, 255, 255)) != 0) {
 		throw_err(SDL_RECT_ERR);
@@ -57,24 +57,24 @@ int main(int argc, char *args[])
 	EVENT = malloc(sizeof(*EVENT));
 
 	initsprites();
-	logstr("Sprites initialized");
+	log("Sprites initialized", "%s");
 
 	objminit(&OBJ_MGR);
-	logstr("Object manager initialized");
+	log("Object manager initialized", "%s");
 
 	objmadd(OBJ_MGR, OBJECTS[PLYR]);
-	logstr("Player object added to object manager");
+	log("Player object added to object manager", "%s");
 
 	/* main game loop */
 	errcode = game_loop();
 
-	logstr("Cleaning up");
+	log("Cleaning up", "%s");
 	objmfree(OBJ_MGR);
 	free(EVENT);
 	unloadsprites();
 	SDL_DestroyWindow(WINDOW);
 	SDL_Quit();
 
-	logstr("Quitting game...");
+	log("Quitting game...", "%s");
 	return errcode;
 }

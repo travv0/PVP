@@ -28,7 +28,7 @@ int game_loop()
 		frms = 0;
 	}
 
-	logstr("Entering main game loop");
+	log("Entering main game loop", "%s");
 	/* this stuff is all for testing, any engine-related
 	 * code needs to be abstracted out at some point */
 	while (!done) {
@@ -64,10 +64,7 @@ int game_loop()
 
 			if (DEBUG) {
 				if (frmtime >= 1) {
-					char fps[LOG_LINE_SIZE];
-					snprintf(fps, LOG_LINE_SIZE,
-							"FPS: %d", frms);
-					logstr(fps);
+					log(frms, "FPS: %d");
 					frms = 0;
 					/* decrement frmtime instead of setting to 0 */
 					frmtime--;
@@ -89,7 +86,7 @@ int game_loop()
 		}
 
 	}
-	logstr("Left main game loop");
+	log("Left main game loop", "%s");
 
 	return 0;
 }

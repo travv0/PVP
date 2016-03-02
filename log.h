@@ -7,10 +7,10 @@
 
 #define LOG_LINE_SIZE	1000
 
-/* clears contents of file with name fname */
-int clearfile(char *fname);
+/* logs l using format string fmt */
+#define log(l,fmt) (__appendlog((void *)l, fmt))
+void __appendlog(void *l, char *fmt);
 
-/* logs the given string to log file and stderr with timestamp */
-void logstr(char *str);
+int clearfile(char *fname);
 
 #endif
