@@ -60,7 +60,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 	anireverse(&pl_sprite, TRUE);
 	anistart(&pl_sprite, TRUE);
 
-	logstr("Entering main game loop");
+	log("Entering main game loop", "%s");
 	/* this stuff is all for testing, any engine-related
 	 * code needs to be abstracted out at some point */
 	while (!done) {
@@ -149,10 +149,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 
 			if (DEBUG) {
 				if (frmtime >= 1) {
-					char fps[LOG_LINE_SIZE];
-					snprintf(fps, LOG_LINE_SIZE,
-							"FPS: %d", frms);
-					logstr(fps);
+					log(frms, "FPS: %d");
 					frms = 0;
 					/* decrement frmtime instead of setting to 0 */
 					frmtime--;
@@ -174,7 +171,7 @@ int game_loop(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen)
 		}
 
 	}
-	logstr("Left main game loop");
+	log("Left main game loop", "%s");
 
 	free(event);
 	SDL_FreeSurface(pl_sprite.surface);

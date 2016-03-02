@@ -71,7 +71,7 @@ void throw_err(struct error err)
 		err.msg,
 		err.code,
 		SDL_GetError());
-	logstr(log);
+	log(log, "%s");
 	if (err.type == ERROR)
 		exit(err.code);
 }
