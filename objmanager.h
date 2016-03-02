@@ -6,7 +6,7 @@
 #include "object.h"
 
 #define OBJMANAGER_INITIAL_CAPACITY	2
-#define OBJMANAGER_CAPUP_RATE		1.5
+#define OBJMANAGER_CAPUP_RATE		2
 
 /* struct for the object manager */
 struct objm {
@@ -16,7 +16,7 @@ struct objm {
 };
 
 /* initialize the object manager */
-void objminit(struct objm *mgr);
+void objminit(struct objm **mgr);
 
 /* increase object manager's capacity */
 void objmcapup(struct objm *mgr);

@@ -10,4 +10,4 @@ SDL_Surface *SCREEN = NULL;
 
 SDL_Event *EVENT = NULL;
 
-struct objm OBJ_MGR;
+struct objm *OBJ_MGR = NULL;

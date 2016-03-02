@@ -1,11 +1,15 @@
 #include "objmanager.h"
 #include "error.h"
 
-void objminit(struct objm *mgr)
+void objminit(struct objm **mgr)
 {
-	mgr->cap = OBJMANAGER_INITIAL_CAPACITY;
-	mgr->objcnt = 0;
-	mgr->objs = malloc(sizeof(struct object) * mgr->cap);
+	*mgr = malloc(sizeof(struct objm));
+	if (*mgr == NULL)
+		throw_err(MALLOC_FAILED);
+
+	(*mgr)->cap = 0;
+	(*mgr)->objcnt = 0;
+	(*mgr)->objs = NULL;
 }
 
 void objmcapup(struct objm *mgr)
@@ -16,7 +20,19 @@ void objmcapup(struct objm *mgr)
 
 void objmadd(struct objm *mgr, struct object obj)
 {
-	if (mgr->objcnt >= mgr->cap / OBJMANAGER_CAPUP_RATE)
+	if (mgr == NULL) {
+		throw_err(OBJM_NOT_INIT);
+	}
+
+	if (mgr->objcnt == 0) {
+		mgr->cap = OBJMANAGER_INITIAL_CAPACITY;
+		mgr->objs = malloc(sizeof(struct object) * mgr->cap);
+
+		if (mgr->objs == NULL)
+			throw_err(MALLOC_FAILED);
+	}
+
+	if (mgr->objcnt >= mgr->cap)
 		objmcapup(mgr);
 
 	mgr->objs[mgr->objcnt] = obj;

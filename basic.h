@@ -25,6 +25,6 @@ extern SDL_Surface *SCREEN;	/* the main game surface */
 
 extern SDL_Event *EVENT;	/* for catching events and handling them */
 
-extern struct objm OBJ_MGR;	/* global object manager */
+extern struct objm *OBJ_MGR;	/* global object manager */
 
 #endif

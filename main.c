@@ -56,20 +56,20 @@ int main(int argc, char *args[])
 
 	EVENT = malloc(sizeof(*EVENT));
 
+	initsprites();
+	logstr("Sprites initialized");
+
 	objminit(&OBJ_MGR);
 	logstr("Object manager initialized");
 
-	objmadd(&OBJ_MGR, OBJECTS[PLYR]);
+	objmadd(OBJ_MGR, OBJECTS[PLYR]);
 	logstr("Player object added to object manager");
-
-	initsprites();
-	logstr("Sprites initialized");
 
 	/* main game loop */
 	errcode = game_loop();
 
 	logstr("Cleaning up");
-	objmfree(&OBJ_MGR);
+	objmfree(OBJ_MGR);
 	free(EVENT);
 	unloadsprites();
 	SDL_DestroyWindow(WINDOW);

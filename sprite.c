@@ -86,8 +86,8 @@ void animate(struct sprite *spr)
 void initsprites()
 {
 	int i;
-	for (i = 0; i < objmcnt(&OBJ_MGR); ++i)
-		sprinit(objmget(&OBJ_MGR, i));
+	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
+		sprinit(objmget(OBJ_MGR, i));
 
 }
 
@@ -120,14 +120,14 @@ void sprload(struct sprite *spr, char *fname)
 void unloadsprites()
 {
 	int i;
-	for (i = 0; i < objmcnt(&OBJ_MGR); ++i)
-		SDL_FreeSurface(&objmget(&OBJ_MGR, i)->spr.surface);
+	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
+		SDL_FreeSurface(&objmget(OBJ_MGR, i)->spr.surface);
 }
 
 void drawall() {
 	int i;
-	for (i = 0; i < objmcnt(&OBJ_MGR); ++i)
-		animate(&objmget(&OBJ_MGR, i)->spr);
+	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
+		animate(&objmget(OBJ_MGR, i)->spr);
 
 	SDL_UpdateWindowSurface(WINDOW);
 }

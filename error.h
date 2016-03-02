@@ -24,6 +24,8 @@ extern struct error NO_STATE_ERR;
 extern struct error SDL_BMP_ERR;
 extern struct error LOG_OPEN_WARN;
 extern struct error OBJM_IDX_OOR;
+extern struct error MALLOC_FAILED;
+extern struct error OBJM_NOT_INIT;
 
 /* give an error declared above to this function
  * and it'll take care of the rest */

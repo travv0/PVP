@@ -65,6 +65,16 @@ struct error OBJM_IDX_OOR = {
 	9,
 	WARNING
 };
+struct error MALLOC_FAILED = {
+	"Malloc failed",
+	10,
+	ERROR
+};
+struct error OBJM_NOT_INIT = {
+	"Object was added to uninitialized object manager",
+	11,
+	ERROR
+};
 
 /* calls the log function with the error provided,
  * then aborts the program if the message is an error */
