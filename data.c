@@ -2,12 +2,13 @@
 #include "strings.h"
 #include "basic.h"
 
-int plstep();
+int playerstep();
 int defaultstep();
 
 /* array of all sprites in the game
  * use NULL for pointers, -1 for numbers, or
- * defaultstep for step function for default values */
+ * defaultstep for step function for default values
+ * step functions should be named <object name>step */
 struct object OBJECTS[NUMOFOBJECTS] = {
 	{
 		{				/* OBJ_PLAYER */
@@ -27,7 +28,7 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 						   leave at 0 because it's set by objmadd*/
 		0,				/* y coordinate.
 						   leave at 0 because it's set by objmadd*/
-		plstep				/* pointer to step function */
+		playerstep			/* pointer to step function */
 	},
 	{
 		{				/* OBJ_DEFAULT */

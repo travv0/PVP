@@ -5,7 +5,7 @@
 
 #define MOVE_SPEED	4
 
-int plstep(struct object *obj)
+int playerstep(struct object *obj)
 {
 	static int mright, mleft, mup, mdown;
 
