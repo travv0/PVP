@@ -65,7 +65,4 @@ int plstep(struct object *obj)
 
 	obj->spr.dest_rect.x = obj->x;
 	obj->spr.dest_rect.y = obj->y;
-
-	// printf("A: %f %f\n", obj->x, obj->y);
-	// printf("B: %f %f\n", obj->spr.dest_rect.x, obj->spr.dest_rect.y);
 }

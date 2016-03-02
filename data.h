@@ -5,8 +5,8 @@
 #include "object.h"
 
 enum object_indices {
-	PLYR,
-	STUCK_PLYR,
+	PLAYER,
+	DEFAULT,
 	NUMOFOBJECTS
 };
 

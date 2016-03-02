@@ -1,5 +1,6 @@
 #include "objmanager.h"
 #include "error.h"
+#include "log.h"
 
 void objminit(struct objm **mgr)
 {
@@ -10,15 +11,20 @@ void objminit(struct objm **mgr)
 	(*mgr)->cap = 0;
 	(*mgr)->objcnt = 0;
 	(*mgr)->objs = NULL;
+	log((sizeof(struct objm)),
+			"Object manager: allocated new object manager "
+			"of size %llu");
 }
 
 void objmcapup(struct objm *mgr)
 {
 	mgr->cap = mgr->cap * OBJMANAGER_CAPUP_RATE;
 	mgr->objs = realloc(mgr->objs, sizeof(struct object) * mgr->cap);
+	log((sizeof(struct object) * mgr->cap),
+			"Object manager: reallocated array to size %llu");
 }
 
-void objmadd(struct objm *mgr, struct object obj)
+void objmadd(struct objm *mgr, struct object obj, int x, int y)
 {
 	if (mgr == NULL) {
 		throw_err(OBJM_NOT_INIT);
@@ -30,12 +36,19 @@ void objmadd(struct objm *mgr, struct object obj)
 
 		if (mgr->objs == NULL)
 			throw_err(MALLOC_FAILED);
+
+		log((sizeof(struct object) * mgr->cap),
+				"Object manager: allocated new array of size %llu");
 	}
 
 	if (mgr->objcnt >= mgr->cap)
 		objmcapup(mgr);
 
+	obj.x = x;
+	obj.y = y;
+
 	mgr->objs[mgr->objcnt] = obj;
+	mgr->objcnt++;
 }
 
 struct object *objmget(struct objm *mgr, int idx)

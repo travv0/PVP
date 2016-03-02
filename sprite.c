@@ -1,6 +1,5 @@
 #include <math.h>
 
-// #include "sprite.h"
 #include "log.h"
 #include "error.h"
 #include "strings.h"
@@ -86,9 +85,9 @@ void animate(struct sprite *spr)
 void initsprites()
 {
 	int i;
-	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
+	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
 		sprinit(objmget(OBJ_MGR, i));
-
+	}
 }
 
 void sprinit(struct sprite *spr)

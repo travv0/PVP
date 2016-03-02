@@ -22,7 +22,7 @@ void objminit(struct objm **mgr);
 void objmcapup(struct objm *mgr);
 
 /* add an object to the manager */
-void objmadd(struct objm *mgr, struct object obj);
+void objmadd(struct objm *mgr, struct object obj, int x, int y);
 
 /* get an object from the manager */
 struct object *objmget(struct objm *mgr, int idx);

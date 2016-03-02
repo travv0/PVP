@@ -37,8 +37,6 @@ int game_loop()
 
 		switch (state) {
 		case PLAYING:
-			// handleinput();
-
 			/* checks if the frame is ready to render */
 			if (RENDER_TIMER >= (1/TARGET_FRAME_RATE)) {
 				if (DEBUG)

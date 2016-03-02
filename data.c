@@ -23,12 +23,14 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 			FALSE,			/* whether animation should play backwards */
 			TRUE			/* whether the sprite should currently be loaded */
 		},
-		0,
-		0,
+		0,				/* x coordinate.
+						   leave at 0 because it's set by objmadd*/
+		0,				/* y coordinate.
+						   leave at 0 because it's set by objmadd*/
 		plstep
 	},
 	{
-		{				/* STUCK_PLYR */
+		{				/* DEFAULT */
 			PLAYER_SPR,		/* path to spritesheet */
 			NULL,			/* surface (set to NULL) */
 			1/TARGET_FRAME_RATE,	/* animation speed */
@@ -41,8 +43,10 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 			FALSE,			/* whether animation should play backwards */
 			TRUE			/* whether the sprite should currently be loaded */
 		},
-		200,
-		200,
+		0,				/* x coordinate.
+						   leave at 0 because it's set by objmadd*/
+		0,				/* y coordinate.
+						   leave at 0 because it's set by objmadd*/
 		defaultstep
 	}
 };

@@ -56,14 +56,16 @@ int main(int argc, char *args[])
 
 	EVENT = malloc(sizeof(*EVENT));
 
-	initsprites();
-	log("Sprites initialized", "%s");
-
 	objminit(&OBJ_MGR);
 	log("Object manager initialized", "%s");
 
-	objmadd(OBJ_MGR, OBJECTS[PLYR]);
-	log("Player object added to object manager", "%s");
+	objmadd(OBJ_MGR, OBJECTS[PLAYER], 0, 0);
+	objmadd(OBJ_MGR, OBJECTS[PLAYER], 200, 200);
+	objmadd(OBJ_MGR, OBJECTS[DEFAULT], 0, 200);
+	log("Objects added to object manager", "%s");
+
+	initsprites();
+	log("Sprites initialized", "%s");
 
 	/* main game loop */
 	errcode = game_loop();
