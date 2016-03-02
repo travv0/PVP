@@ -17,32 +17,27 @@ struct sprite SPRITE_DEFAULT = {
 	FALSE
 };
 
-/* starts the animation from the current frame */
 void anistart(struct sprite *spr, int loop)
 {
 	spr->animating = TRUE;
 	spr->looping = loop;
 }
 
-/* sets animation speed */
 void anispeed(struct sprite *spr, float speed)
 {
 	spr->speed = speed;
 }
 
-/* play animation in reverse */
 void anireverse(struct sprite *spr, int reverse)
 {
 	spr->reverse = reverse;
 }
 
-/* stops the animation, preserving the current frame */
 void anipause(struct sprite *spr)
 {
 	spr->animating = FALSE;
 }
 
-/* stops the animation, setting the current frame to the beginning */
 void anistop(struct sprite *spr)
 {
 	spr->animating = FALSE;
@@ -53,13 +48,11 @@ void anistop(struct sprite *spr)
 		spr->curr_frame = spr->frames - 1;
 }
 
-/* set the current frame */
 void aniset(struct sprite *spr, int frame)
 {
 	spr->curr_frame = frame;
 }
 
-/* animates and blits the sprite */
 void animate(struct sprite *spr, SDL_Surface *screen)
 {
 	if (spr->animating == TRUE)

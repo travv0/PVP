@@ -1,3 +1,5 @@
+/* this file is to keep all the string literals in one place.
+ * right now it's not used for log messages, but that might change */
 #ifndef __IMAGEPATHS_H
 #define __IMAGEPATHS_H
 

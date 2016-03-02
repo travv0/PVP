@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "sdl.h"
+#include <SDL2/SDL.h>
 
 #include "error.h"
 #include "game.h"

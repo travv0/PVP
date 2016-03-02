@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "sdl.h"
+#include <SDL2/SDL.h>
 
 #include "log.h"
 #include "basic.h"

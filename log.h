@@ -1,3 +1,5 @@
+/* this file handles logging.
+ * logging should only be done if DEBUG is not 0 */
 #ifndef __LOG_H
 #define __LOG_H
 
@@ -10,6 +12,5 @@
 void __appendlog(void *l, char *fmt);
 
 int clearfile(char *fname);
-void logint(int i);
 
 #endif
