@@ -12,7 +12,9 @@ struct error {
 	int type;
 };
 
-/* declare all errors here */
+/* Errors should end in _ERR and warnings should end in _WARN.
+ * SDL related errors should start with SDL_.
+ * declare all errors here */
 extern struct error TEST_ERR;
 extern struct error TEST_WARN;
 extern struct error SDL_INIT_ERR;
@@ -23,9 +25,9 @@ extern struct error SDL_RECT_ERR;
 extern struct error NO_STATE_ERR;
 extern struct error SDL_BMP_ERR;
 extern struct error LOG_OPEN_WARN;
-extern struct error OBJM_IDX_OOR;
-extern struct error MALLOC_FAILED;
-extern struct error OBJM_NOT_INIT;
+extern struct error OBJM_IDX_OOR_WARN;
+extern struct error MALLOC_FAILED_ERR;
+extern struct error OBJM_NOT_INIT_ERR;
 
 /* give an error declared above to this function
  * and it'll take care of the rest */

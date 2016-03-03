@@ -7,9 +7,7 @@
 #define ERROR 		1
 #define WARNING		0
 
-/* Errors should end in _ERR and warnings should end in _WARN.
- * SDL related errors should start with SDL_.
- * ERRORs abort the game and WARNINGs do not. */
+/* ERRORs abort the game and WARNINGs do not. */
 struct error TEST_ERR = {
 	"This is a test error",
 	-1,
@@ -60,17 +58,17 @@ struct error LOG_OPEN_WARN = {
 	8,
 	WARNING
 };
-struct error OBJM_IDX_OOR = {
+struct error OBJM_IDX_OOR_WARN = {
 	"Object manager: index out of range",
 	9,
 	WARNING
 };
-struct error MALLOC_FAILED = {
+struct error MALLOC_FAILED_ERR = {
 	"Malloc failed",
 	10,
 	ERROR
 };
-struct error OBJM_NOT_INIT = {
+struct error OBJM_NOT_INIT_ERR = {
 	"Object was added to uninitialized object manager",
 	11,
 	ERROR
