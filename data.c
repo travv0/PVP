@@ -2,8 +2,8 @@
 #include "strings.h"
 #include "basic.h"
 
-int playerstep();
-int defaultstep();
+int playerstep(void);
+int defaultstep(void);
 
 /* array of all sprites in the game
  * use NULL for pointers, -1 for numbers, or

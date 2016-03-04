@@ -3,7 +3,7 @@
 
 int defaultstep(struct object *obj) {}
 
-void updateall()
+void updateall(void)
 {
 	int i;
 	struct object *obj;

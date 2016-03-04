@@ -88,7 +88,7 @@ void animate(struct sprite *spr)
 	SDL_BlitSurface(spr->surface, &spr->source_rect, SCREEN, &spr->dest_rect);
 }
 
-void initsprites()
+void initsprites(void)
 {
 	int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
@@ -122,14 +122,14 @@ void _sprload(struct sprite *spr, char *fname)
 	}
 }
 
-void unloadsprites()
+void unloadsprites(void)
 {
 	int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
 		SDL_FreeSurface(&objmget(OBJ_MGR, i)->spr.surface);
 }
 
-void drawall() {
+void drawall(void) {
 	int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
 		animate(&objmget(OBJ_MGR, i)->spr);

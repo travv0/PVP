@@ -13,10 +13,7 @@ struct object {
 	int		(*step)(struct object *obj);
 };
 
-/* loop through every sprite and draw it */
-void drawall();
-
 /* loop through every object and run it's step function */
-void updateall();
+void updateall(void);
 
 #endif

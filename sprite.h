@@ -48,12 +48,12 @@ void aniset(struct sprite *spr, int frame);
 void animate(struct sprite *spr);
 
 /* initialize al sprites in the game */
-void initsprites();
+void initsprites(void);
 
 /* unload (free) all sprites */
-void unloadsprites();
+void unloadsprites(void);
 
 /* draws all sprites */
-void drawall();
+void drawall(void);
 
 #endif

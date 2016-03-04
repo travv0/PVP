@@ -10,7 +10,7 @@
 #include "utils.h"
 #include "data.h"
 
-int game_loop()
+int game_loop(void)
 {
 	int done = FALSE;
 	enum game_state state = PLAYING;
