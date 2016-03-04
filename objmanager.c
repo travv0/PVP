@@ -2,6 +2,9 @@
 #include "error.h"
 #include "log.h"
 
+/* increase object manager's capacity */
+void _objmcapup(struct objm *mgr);
+
 void objminit(struct objm **mgr)
 {
 	*mgr = malloc(sizeof(struct objm));
@@ -16,7 +19,7 @@ void objminit(struct objm **mgr)
 			"of size %llu");
 }
 
-void objmcapup(struct objm *mgr)
+void _objmcapup(struct objm *mgr)
 {
 	mgr->cap = mgr->cap * OBJMANAGER_CAPUP_RATE;
 	mgr->objs = realloc(mgr->objs, sizeof(struct object) * mgr->cap);
@@ -43,7 +46,7 @@ void objmadd(struct objm *mgr, struct object obj, int x, int y)
 	}
 
 	if (mgr->objcnt >= mgr->cap)
-		objmcapup(mgr);
+		_objmcapup(mgr);
 
 	obj.x = x;
 	obj.y = y;

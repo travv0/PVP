@@ -18,9 +18,6 @@ struct objm {
 /* initialize the object manager */
 void objminit(struct objm **mgr);
 
-/* increase object manager's capacity */
-void objmcapup(struct objm *mgr);
-
 /* add an object to the manager */
 void objmadd(struct objm *mgr, struct object obj, int x, int y);
 

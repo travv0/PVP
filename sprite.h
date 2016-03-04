@@ -50,12 +50,6 @@ void animate(struct sprite *spr);
 /* initialize al sprites in the game */
 void initsprites();
 
-/* initialize sprite */
-void sprinit(struct sprite *spr);
-
-/* load a sprite */
-void sprload(struct sprite *spr, char *fname);
-
 /* unload (free) all sprites */
 void unloadsprites();
 

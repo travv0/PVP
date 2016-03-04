@@ -5,6 +5,12 @@
 #include "strings.h"
 #include "data.h"
 
+/* load a sprite */
+void _sprload(struct sprite *spr, char *fname);
+
+/* initialize sprite */
+void _sprinit(struct sprite *spr);
+
 struct sprite SPRITE_DEFAULT = {
 	DEFAULT_SPR,
 	NULL,
@@ -86,11 +92,11 @@ void initsprites()
 {
 	int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
-		sprinit(objmget(OBJ_MGR, i));
+		_sprinit(objmget(OBJ_MGR, i));
 	}
 }
 
-void sprinit(struct sprite *spr)
+void _sprinit(struct sprite *spr)
 {
 	if (spr->fname == NULL)		spr->fname = SPRITE_DEFAULT.fname;
 	if (spr->surface == NULL)	spr->surface = SPRITE_DEFAULT.surface;
@@ -102,10 +108,10 @@ void sprinit(struct sprite *spr)
 	if (spr->reverse == -1)		spr->reverse = SPRITE_DEFAULT.reverse;
 	if (spr->load == -1)		spr->load = SPRITE_DEFAULT.load;
 
-	sprload(spr, spr->fname);
+	_sprload(spr, spr->fname);
 }
 
-void sprload(struct sprite *spr, char *fname)
+void _sprload(struct sprite *spr, char *fname)
 {
 	if (spr->load) {
 		spr->surface = SDL_LoadBMP(fname);

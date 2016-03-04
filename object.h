@@ -19,7 +19,4 @@ void drawall();
 /* loop through every object and run it's step function */
 void updateall();
 
-/* initialize all objects */
-void initobjects();
-
 #endif
