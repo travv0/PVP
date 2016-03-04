@@ -6,7 +6,7 @@ void objminit(struct objm **mgr)
 {
 	*mgr = malloc(sizeof(struct objm));
 	if (*mgr == NULL)
-		throw_err(MALLOC_FAILED);
+		throw_err(MALLOC_FAILED_ERR);
 
 	(*mgr)->cap = 0;
 	(*mgr)->objcnt = 0;
@@ -27,7 +27,7 @@ void objmcapup(struct objm *mgr)
 void objmadd(struct objm *mgr, struct object obj, int x, int y)
 {
 	if (mgr == NULL) {
-		throw_err(OBJM_NOT_INIT);
+		throw_err(OBJM_NOT_INIT_ERR);
 	}
 
 	if (mgr->objcnt == 0) {
@@ -35,7 +35,7 @@ void objmadd(struct objm *mgr, struct object obj, int x, int y)
 		mgr->objs = malloc(sizeof(struct object) * mgr->cap);
 
 		if (mgr->objs == NULL)
-			throw_err(MALLOC_FAILED);
+			throw_err(MALLOC_FAILED_ERR);
 
 		log((sizeof(struct object) * mgr->cap),
 				"Object manager: allocated new array of size %llu");
@@ -54,7 +54,7 @@ void objmadd(struct objm *mgr, struct object obj, int x, int y)
 struct object *objmget(struct objm *mgr, int idx)
 {
 	if (idx >= mgr->objcnt || idx < 0)
-		throw_err(OBJM_IDX_OOR);
+		throw_err(OBJM_IDX_OOR_WARN);
 
 	return &mgr->objs[idx];
 }
