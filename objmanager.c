@@ -38,7 +38,8 @@ void objmadd(struct objm *mgr, struct object obj, int x, int y)
 			throw_err(MALLOC_FAILED_ERR);
 
 		log((sizeof(struct object) * mgr->cap),
-				"Object manager: allocated new array of size %llu");
+				"Object manager: allocated new array "
+				"of size %llu");
 	}
 
 	if (mgr->objcnt >= mgr->cap)
