@@ -7,6 +7,8 @@
 #include "log.h"
 #include "strings.h"
 #include "basic.h"
+#include "objmanager.h"
+#include "data.h"
 
 int main(int argc, char *args[])
 {
@@ -18,47 +20,59 @@ int main(int argc, char *args[])
 	} else
 		DEBUG = FALSE;
 
-	SDL_Window *window = NULL;
-	SDL_Renderer *renderer = NULL;
-	SDL_Surface *screen = NULL;
-
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0) {
 		throw_err(SDL_INIT_ERR);
 	}
 	log("SDL initialized", "%s");
 
-	window = SDL_CreateWindow("PVP", SDL_WINDOWPOS_UNDEFINED,
+	WINDOW = SDL_CreateWindow("PVP", SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
 
-	if (window == NULL) {
+	if (WINDOW == NULL) {
 		throw_err(SDL_WIND_ERR);
 	}
 	log("Main window created", "%s");
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	RENDERER = SDL_CreateRenderer(WINDOW, -1, SDL_RENDERER_ACCELERATED);
 
-	if (renderer == NULL) {
+	if (RENDERER == NULL) {
 		throw_err(SDL_REND_ERR);
 	}
 	log("Renderer created", "%s");
 
-	screen = SDL_GetWindowSurface(window);
+	SCREEN = SDL_GetWindowSurface(WINDOW);
 
-	if (screen == NULL) {
+	if (SCREEN == NULL) {
 		throw_err(SDL_SURF_ERR);
 	}
 	log("Main surface created", "%s");
 
-	if (SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255)) != 0) {
+	if (SDL_FillRect(SCREEN, NULL, SDL_MapRGB(SCREEN->format, 255, 255, 255)) != 0) {
 		throw_err(SDL_RECT_ERR);
 	}
-	SDL_UpdateWindowSurface(window);
+	SDL_UpdateWindowSurface(WINDOW);
+
+	EVENT = malloc(sizeof(*EVENT));
+
+	objminit(&OBJ_MGR);
+	log("Object manager initialized", "%s");
+
+	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], 0, 0);
+	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], 200, 200);
+	objmadd(OBJ_MGR, OBJECTS[OBJ_DEFAULT], 0, 200);
+	log("Objects added to object manager", "%s");
+
+	initsprites();
+	log("Sprites initialized", "%s");
 
 	/* main game loop */
-	game_loop(window, renderer, screen);
+	game_loop();
 
 	log("Cleaning up", "%s");
-	SDL_DestroyWindow(window);
+	objmfree(OBJ_MGR);
+	free(EVENT);
+	unloadsprites();
+	SDL_DestroyWindow(WINDOW);
 	SDL_Quit();
 
 	log("Quitting game...", "%s");

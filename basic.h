@@ -3,6 +3,10 @@
 #ifndef __BASIC_H
 #define __BASIC_H
 
+#include <SDL2/SDL.h>
+
+#include "objmanager.h"
+
 #define TRUE	1
 #define FALSE	0
 
@@ -12,6 +16,14 @@
 #define TARGET_FRAME_RATE	60.0
 
 extern int DEBUG;	/* whether or not to log things */
-extern float DT;	/* change in time since last go in the main loop */
+extern double DT;	/* change in time since last go in the main loop */
+
+extern SDL_Window *WINDOW;	/* the main game window */
+extern SDL_Renderer *RENDERER;	/* the main game renderer */
+extern SDL_Surface *SCREEN;	/* the main game surface */
+
+extern SDL_Event *EVENT;	/* for catching events and handling them */
+
+extern struct objm *OBJ_MGR;	/* global object manager */
 
 #endif

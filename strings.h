@@ -5,8 +5,14 @@
 
 #define LOG_FILE	"log.txt"
 
-/* sprite files */
-#define SPR_DIR		"images/"
-#define PLAYER_SPR	SPR_DIR "player/BLU.BMP"
+/* sprite files.
+ * keep sprites in a directory with the name of their associated object */
+#define SPR_DIR		"sprites/"
+
+/* define individual sprite directories like this */
+#define PLAYER_SPR_DIR	"player/"
+#define PLAYER_SPR	SPR_DIR PLAYER_SPR_DIR "BLU.BMP"
+
+#define DEFAULT_SPR	SPR_DIR PLAYER_SPR_DIR "BLU.BMP"
 
 #endif

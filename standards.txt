@@ -44,3 +44,7 @@ Similarly, most strings should be #define'd in strings.h unless it's a log messa
 Document what functions do with a comment in header file above the function, document how they do it in the .c file.
 
 Don't duplicate code, if you're typing stuff more than once then put it in a function.
+
+Functions declared in the .c file (ones meant to be private) should be declared at the top of the .c file with their documentation and should be prefixed with a single underscore.
+
+Functions meant solely as macro helper functions (meaning they must be declared in the header file though they should never be called by anything but a macro) should be prefixed with 2 underscores and should be declared directly after the macro that uses them.

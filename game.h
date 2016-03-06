@@ -11,6 +11,6 @@ enum game_state { PLAYING, PAUSED, MAIN_MENU };
 
 /* the main game loop.
  * eventually, no engine code should be in here, only testing code */
-void game_loop(SDL_Window *, SDL_Renderer *, SDL_Surface *);
+void game_loop(void);
 
 #endif

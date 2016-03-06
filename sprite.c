@@ -1,12 +1,19 @@
 #include <math.h>
 
-#include "sprite.h"
 #include "log.h"
+#include "error.h"
+#include "strings.h"
+#include "data.h"
+
+/* load a sprite */
+void _sprload(struct sprite *spr, char *fname);
+
+/* initialize sprite */
+void _sprinit(struct sprite *spr);
 
 struct sprite SPRITE_DEFAULT = {
+	DEFAULT_SPR,
 	NULL,
-	0,
-	0,
 	1,
 	NULL,
 	NULL,
@@ -14,7 +21,8 @@ struct sprite SPRITE_DEFAULT = {
 	0,
 	FALSE,
 	FALSE,
-	FALSE
+	FALSE,
+	TRUE
 };
 
 void anistart(struct sprite *spr, int loop)
@@ -53,7 +61,7 @@ void aniset(struct sprite *spr, int frame)
 	spr->curr_frame = frame;
 }
 
-void animate(struct sprite *spr, SDL_Surface *screen)
+void animate(struct sprite *spr)
 {
 	if (spr->animating == TRUE)
 	{
@@ -75,6 +83,56 @@ void animate(struct sprite *spr, SDL_Surface *screen)
 			spr->curr_frame = fmod(spr->curr_frame + spr->speed,
 				(float)spr->frames);
 	}
-	spr->source_rect->x = spr->source_rect->w * (int)spr->curr_frame;
-	SDL_BlitSurface(spr->surface, spr->source_rect, screen, spr->frame_rect);
+
+	spr->source_rect.x = spr->source_rect.w * (int)spr->curr_frame;
+	SDL_BlitSurface(spr->surface, &spr->source_rect, SCREEN, &spr->dest_rect);
+}
+
+void initsprites(void)
+{
+	int i;
+	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
+		_sprinit(objmget(OBJ_MGR, i));
+	}
+}
+
+void _sprinit(struct sprite *spr)
+{
+	if (spr->fname == NULL)		spr->fname = SPRITE_DEFAULT.fname;
+	if (spr->surface == NULL)	spr->surface = SPRITE_DEFAULT.surface;
+	if (spr->speed == -1)		spr->speed = SPRITE_DEFAULT.speed;
+	if (spr->frames == -1)		spr->frames = SPRITE_DEFAULT.frames;
+	if (spr->curr_frame == -1)	spr->curr_frame = SPRITE_DEFAULT.curr_frame;
+	if (spr->animating == -1)	spr->animating = SPRITE_DEFAULT.animating;
+	if (spr->looping == -1)		spr->looping = SPRITE_DEFAULT.looping;
+	if (spr->reverse == -1)		spr->reverse = SPRITE_DEFAULT.reverse;
+	if (spr->load == -1)		spr->load = SPRITE_DEFAULT.load;
+
+	_sprload(spr, spr->fname);
+}
+
+void _sprload(struct sprite *spr, char *fname)
+{
+	if (spr->load) {
+		spr->surface = SDL_LoadBMP(fname);
+
+		if (spr->surface == NULL) {
+			throw_err(SDL_BMP_ERR);
+		}
+	}
+}
+
+void unloadsprites(void)
+{
+	int i;
+	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
+		SDL_FreeSurface(&objmget(OBJ_MGR, i)->spr.surface);
+}
+
+void drawall(void) {
+	int i;
+	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
+		animate(&objmget(OBJ_MGR, i)->spr);
+
+	SDL_UpdateWindowSurface(WINDOW);
 }
