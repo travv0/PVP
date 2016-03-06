@@ -1,8 +1,8 @@
 ifeq ($(OS),Windows_NT)
 	OBJS = *.c
 	CC = gcc
-	INCLUDE_PATHS = -IC:\mingw_dev_lib\include
-	LIBRARY_PATHS = -LC:\mingw_dev_lib\lib
+	INCLUDE_PATHS = -I'C:\mingw_dev_lib\include'
+	LIBRARY_PATHS = -L'C:\mingw_dev_lib\lib'
 	COMPILER_FLAGS = -w -Wall -g
 	LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2
 	OBJ_NAME = game.exe
