@@ -11,6 +11,6 @@ enum game_state { PLAYING, PAUSED, MAIN_MENU };
 
 /* the main game loop.
  * eventually, no engine code should be in here, only testing code */
-int game_loop(void);
+void game_loop(void);
 
 #endif

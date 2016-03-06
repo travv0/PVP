@@ -20,8 +20,6 @@ int main(int argc, char *args[])
 	} else
 		DEBUG = FALSE;
 
-	int errcode;
-
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0) {
 		throw_err(SDL_INIT_ERR);
 	}
@@ -68,7 +66,7 @@ int main(int argc, char *args[])
 	log("Sprites initialized", "%s");
 
 	/* main game loop */
-	errcode = game_loop();
+	game_loop();
 
 	log("Cleaning up", "%s");
 	objmfree(OBJ_MGR);
@@ -78,5 +76,5 @@ int main(int argc, char *args[])
 	SDL_Quit();
 
 	log("Quitting game...", "%s");
-	return errcode;
+	return 0;
 }
