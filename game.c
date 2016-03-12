@@ -49,13 +49,6 @@ void game_loop(void)
 
 				SDL_UpdateWindowSurface(WINDOW);
 
-				if (SDL_FillRect(SCREEN, NULL, SDL_MapRGB(
-								SCREEN->format,
-								255, 255, 255))
-						!= 0) {
-					throw_err(SDL_RECT_ERR);
-				}
-
 				/* do not set to zero, remove the accumulated
 				 * frame time to avoid skipping */
 				render_timer -= (1/TARGET_FRAME_RATE);

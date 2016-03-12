@@ -13,7 +13,7 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 	{
 		{				/* OBJ_PLAYER */
 			PLAYER_SPR,		/* path to spritesheet */
-			NULL,			/* surface (set to NULL) */
+			NULL,			/* texture (set to NULL) */
 			1/TARGET_FRAME_RATE,	/* animation speed */
 			{0, 0, 200, 144},	/* source rectange of first sprite in animation */
 			{0, 0, 200, 144},	/* destination rectangle of sprite */
@@ -33,7 +33,7 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 	{
 		{				/* OBJ_DEFAULT */
 			PLAYER_SPR,		/* path to spritesheet */
-			NULL,			/* surface (set to NULL) */
+			NULL,			/* texture (set to NULL) */
 			1/TARGET_FRAME_RATE,	/* animation speed */
 			{0, 0, 200, 144},	/* size of individual sprites on sheet */
 			{0, 0, 200, 144},	/* destination rectangle of sprite */

@@ -8,7 +8,7 @@
 /* struct to hold details about the sprite. */
 struct sprite {
 	char		*fname;
-	SDL_Surface	*surface;
+	SDL_Texture	*texture;
 	float		speed;
 	SDL_Rect	source_rect;
 	SDL_Rect	dest_rect;
