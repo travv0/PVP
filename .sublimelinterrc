@@ -1,0 +1,16 @@
+{
+	"linters": {
+		"clang": {
+			"@disable": false,
+			"args": ["-IC:\\mingw_dev_lib\\include",
+				 "-LC:\\mingw_dev_lib\\lib",
+				 "-w",
+				 "-Wall",
+				 "-g",
+				 "-lmingw32 -lSDL2main -lSDL2"],
+			"excludes": [],
+			"extra_flags": "",
+			"include_dirs": []
+		}
+	}
+}
