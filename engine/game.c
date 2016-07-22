@@ -8,7 +8,6 @@
 #include "log.h"
 #include "strings.h"
 #include "utils.h"
-#include "../data.h"
 
 void game_loop(void)
 {

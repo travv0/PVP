@@ -13,7 +13,7 @@ struct object {
 	int		(*step)(struct object *obj);
 };
 
-/* loop through every object and run it's step function */
+/* loop through every object and run its step function */
 void updateall(void);
 
 #endif
