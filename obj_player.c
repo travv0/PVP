@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 
-#include "basic.h"
-#include "object.h"
+#include "engine/basic.h"
+#include "engine/object.h"
 
 #define MOVE_SPEED	4
 
