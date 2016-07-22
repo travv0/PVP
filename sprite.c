@@ -95,7 +95,7 @@ void initsprites(void)
 {
 	int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
-		_sprinit(objmget(OBJ_MGR, i));
+		_sprinit(&objmget(OBJ_MGR, i)->spr);
 	}
 }
 
@@ -136,7 +136,7 @@ void unloadsprites(void)
 {
 	int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
-		SDL_DestroyTexture(&objmget(OBJ_MGR, i)->spr.texture);
+		SDL_DestroyTexture(objmget(OBJ_MGR, i)->spr.texture);
 }
 
 void drawall(void) {
