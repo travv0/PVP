@@ -3,7 +3,7 @@
 #include "log.h"
 #include "error.h"
 #include "strings.h"
-#include "../data.h"
+#include "object.h"
 
 /* load a sprite */
 void _sprload(struct sprite *spr, char *fname);
