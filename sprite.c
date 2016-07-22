@@ -85,21 +85,24 @@ void animate(struct sprite *spr)
 	}
 
 	spr->source_rect.x = spr->source_rect.w * (int)spr->curr_frame;
-	SDL_BlitSurface(spr->surface, &spr->source_rect, SCREEN, &spr->dest_rect);
+	if (SDL_RenderCopy(RENDERER, spr->texture,
+				&spr->source_rect, &spr->dest_rect) != 0) {
+		throw_err(SDL_REND_COPY_ERR);
+	}
 }
 
 void initsprites(void)
 {
 	int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
-		_sprinit(objmget(OBJ_MGR, i));
+		_sprinit(&objmget(OBJ_MGR, i)->spr);
 	}
 }
 
 void _sprinit(struct sprite *spr)
 {
 	if (spr->fname == NULL)		spr->fname = SPRITE_DEFAULT.fname;
-	if (spr->surface == NULL)	spr->surface = SPRITE_DEFAULT.surface;
+	if (spr->texture == NULL)	spr->texture = SPRITE_DEFAULT.texture;
 	if (spr->speed == -1)		spr->speed = SPRITE_DEFAULT.speed;
 	if (spr->frames == -1)		spr->frames = SPRITE_DEFAULT.frames;
 	if (spr->curr_frame == -1)	spr->curr_frame = SPRITE_DEFAULT.curr_frame;
@@ -113,12 +116,19 @@ void _sprinit(struct sprite *spr)
 
 void _sprload(struct sprite *spr, char *fname)
 {
+	SDL_Surface *surface = NULL;
 	if (spr->load) {
-		spr->surface = SDL_LoadBMP(fname);
+		surface = SDL_LoadBMP(fname);
 
-		if (spr->surface == NULL) {
+		if (surface == NULL) {
 			throw_err(SDL_BMP_ERR);
 		}
+
+		if ((spr->texture = SDL_CreateTextureFromSurface(RENDERER,
+					surface)) == NULL)
+			throw_err(SDL_TEXTURE_ERR);
+
+		SDL_FreeSurface(surface);
 	}
 }
 
@@ -126,13 +136,15 @@ void unloadsprites(void)
 {
 	int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
-		SDL_FreeSurface(&objmget(OBJ_MGR, i)->spr.surface);
+		SDL_DestroyTexture(objmget(OBJ_MGR, i)->spr.texture);
 }
 
 void drawall(void) {
+	SDL_RenderClear(RENDERER);
+
 	int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
 		animate(&objmget(OBJ_MGR, i)->spr);
 
-	SDL_UpdateWindowSurface(WINDOW);
+	SDL_RenderPresent(RENDERER);
 }

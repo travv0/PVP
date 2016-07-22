@@ -7,6 +7,9 @@
 #define ERROR 		1
 #define WARNING		0
 
+#define TRACE(fmt, var) \
+	(error_at_line(0, 0, __FILE__, __LINE__, "%s : " fmt, #var, var))
+
 /* ERRORs abort the game and WARNINGs do not. */
 struct error TEST_ERR = {
 	"This is a test error",
@@ -71,6 +74,16 @@ struct error MALLOC_FAILED_ERR = {
 struct error OBJM_NOT_INIT_ERR = {
 	"Object was added to uninitialized object manager",
 	11,
+	ERROR
+};
+struct error SDL_TEXTURE_ERR = {
+	"Could not create texture",
+	12,
+	ERROR
+};
+struct error SDL_REND_COPY_ERR = {
+	"Could not copy texture to renderer",
+	13,
 	ERROR
 };
 

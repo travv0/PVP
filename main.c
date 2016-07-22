@@ -50,7 +50,6 @@ int main(int argc, char *args[])
 	if (SDL_FillRect(SCREEN, NULL, SDL_MapRGB(SCREEN->format, 255, 255, 255)) != 0) {
 		throw_err(SDL_RECT_ERR);
 	}
-	SDL_UpdateWindowSurface(WINDOW);
 
 	EVENT = malloc(sizeof(*EVENT));
 
