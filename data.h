@@ -2,7 +2,7 @@
 #ifndef __DATA_H
 #define __DATA_H
 
-#include "object.h"
+#include "engine/object.h"
 
 enum object_indices {
 	OBJ_PLAYER,

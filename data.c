@@ -1,6 +1,6 @@
 #include "data.h"
-#include "strings.h"
-#include "basic.h"
+#include "engine/strings.h"
+#include "engine/basic.h"
 
 int playerstep(void);
 int defaultstep(void);

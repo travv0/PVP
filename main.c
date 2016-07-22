@@ -2,12 +2,12 @@
 #include <string.h>
 #include <SDL2/SDL.h>
 
-#include "error.h"
-#include "game.h"
-#include "log.h"
-#include "strings.h"
-#include "basic.h"
-#include "objmanager.h"
+#include "engine/error.h"
+#include "engine/game.h"
+#include "engine/log.h"
+#include "engine/strings.h"
+#include "engine/basic.h"
+#include "engine/objmanager.h"
 #include "data.h"
 
 int main(int argc, char *args[])

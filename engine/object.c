@@ -1,5 +1,5 @@
 #include "object.h"
-#include "data.h"
+#include "../data.h"
 
 int defaultstep(struct object *obj) {}
 
