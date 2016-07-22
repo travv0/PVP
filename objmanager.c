@@ -53,6 +53,8 @@ void objmadd(struct objm *mgr, struct object obj, int x, int y)
 
 	mgr->objs[mgr->objcnt] = obj;
 	mgr->objcnt++;
+
+	log(mgr->objcnt, "Object manager: contains %d objects");
 }
 
 struct object *objmget(struct objm *mgr, int idx)

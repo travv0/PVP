@@ -85,7 +85,10 @@ void animate(struct sprite *spr)
 	}
 
 	spr->source_rect.x = spr->source_rect.w * (int)spr->curr_frame;
-	SDL_RenderCopy(RENDERER, spr->texture, &spr->source_rect, &spr->dest_rect);
+	if (SDL_RenderCopy(RENDERER, spr->texture,
+				&spr->source_rect, &spr->dest_rect) != 0) {
+		throw_err(SDL_REND_COPY_ERR);
+	}
 }
 
 void initsprites(void)
@@ -137,14 +140,11 @@ void unloadsprites(void)
 }
 
 void drawall(void) {
-	if (SDL_RenderCopy(RENDERER, OBJECTS[OBJ_PLAYER].spr.texture,
-				NULL, NULL) != 0) {
-		// throw_err(SDL_REND_COPY_ERR);
-	}
+	SDL_RenderClear(RENDERER);
 
 	int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
 		animate(&objmget(OBJ_MGR, i)->spr);
 
-	SDL_UpdateWindowSurface(WINDOW);
+	SDL_RenderPresent(RENDERER);
 }

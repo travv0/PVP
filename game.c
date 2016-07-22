@@ -47,8 +47,6 @@ void game_loop(void)
 				updateall();
 				drawall();
 
-				SDL_UpdateWindowSurface(WINDOW);
-
 				/* do not set to zero, remove the accumulated
 				 * frame time to avoid skipping */
 				render_timer -= (1/TARGET_FRAME_RATE);
