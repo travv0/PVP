@@ -143,8 +143,10 @@ void drawall(void) {
 	SDL_RenderClear(RENDERER);
 
 	int i;
-	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
-		animate(&objmget(OBJ_MGR, i)->spr);
+	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
+		if (objmget(OBJ_MGR, i)->spr.texture != NULL)
+			animate(&objmget(OBJ_MGR, i)->spr);
+	}
 
 	SDL_RenderPresent(RENDERER);
 }
