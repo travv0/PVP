@@ -11,7 +11,7 @@
 
 /* define individual sprite directories like this */
 #define PLAYER_SPR_DIR	"player/"
-#define PLAYER_SPR	SPR_DIR PLAYER_SPR_DIR "BLU.BMP"
+#define PLAYER_SPR_PATH	SPR_DIR PLAYER_SPR_DIR "BLU.BMP"
 
 #define DEFAULT_SPR	SPR_DIR PLAYER_SPR_DIR "BLU.BMP"
 

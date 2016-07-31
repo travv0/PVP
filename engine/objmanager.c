@@ -27,7 +27,7 @@ void _objmcapup(struct objm *mgr)
 			"Object manager: reallocated array to size %llu");
 }
 
-void objmadd(struct objm *mgr, struct object obj, int x, int y)
+void objmadd(struct objm *mgr, struct object obj, struct sprite spr, int x, int y)
 {
 	if (mgr == NULL) {
 		throw_err(OBJM_NOT_INIT_ERR);
@@ -50,6 +50,8 @@ void objmadd(struct objm *mgr, struct object obj, int x, int y)
 
 	obj.x = x;
 	obj.y = y;
+
+	obj.spr = spr;
 
 	mgr->objs[mgr->objcnt] = obj;
 	mgr->objcnt++;

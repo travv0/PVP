@@ -56,9 +56,9 @@ int main(int argc, char *args[])
 	objminit(&OBJ_MGR);
 	log("Object manager initialized", "%s");
 
-	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], 0, 0);
-	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], 200, 200);
-	objmadd(OBJ_MGR, OBJECTS[OBJ_DEFAULT], 0, 200);
+	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_PLAYER], 0, 0);
+	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_PLAYER], 200, 200);
+	objmadd(OBJ_MGR, OBJECTS[OBJ_DEFAULT], SPRITES[SPR_PLAYER], 0, 200);
 	log("Objects added to object manager", "%s");
 
 	initsprites();

@@ -9,7 +9,7 @@ ifeq ($(OS),Windows_NT)
 else
 	OBJS = *.c engine/*.c
 	CC = gcc
-	LINKER_FLAGS = -lSDL2
+	LINKER_FLAGS = -lSDL2 -lm
 	OBJ_NAME = game
 endif
 

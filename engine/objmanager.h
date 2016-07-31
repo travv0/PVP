@@ -8,6 +8,9 @@
 #define OBJMANAGER_INITIAL_CAPACITY	2
 #define OBJMANAGER_CAPUP_RATE		2
 
+/* tell the compile that sprite is a struct */
+struct sprite;
+
 /* struct for the object manager */
 struct objm {
 	unsigned long long	objcnt;	/* the number of objects in the manager */
@@ -19,7 +22,7 @@ struct objm {
 void objminit(struct objm **mgr);
 
 /* add an object to the manager */
-void objmadd(struct objm *mgr, struct object obj, int x, int y);
+void objmadd(struct objm *mgr, struct object obj, struct sprite spr, int x, int y);
 
 /* get an object from the manager */
 struct object *objmget(struct objm *mgr, int idx);
