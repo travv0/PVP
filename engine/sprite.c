@@ -17,6 +17,7 @@ struct sprite SPRITE_DEFAULT = {
 	1,
 	NULL,
 	NULL,
+	NULL,
 	1,
 	0,
 	FALSE,
@@ -149,4 +150,10 @@ void drawall(void) {
 	}
 
 	SDL_RenderPresent(RENDERER);
+}
+
+void sprchange(struct object* obj, struct sprite spr)
+{
+	obj->spr = spr;
+	updateall();
 }

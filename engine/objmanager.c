@@ -51,9 +51,8 @@ void objmadd(struct objm *mgr, struct object obj, struct sprite spr, int x, int 
 	obj.x = x;
 	obj.y = y;
 
-	obj.spr = spr;
-
 	mgr->objs[mgr->objcnt] = obj;
+	mgr->objs[mgr->objcnt].spr = spr;
 	mgr->objcnt++;
 
 	log(mgr->objcnt, "Object manager: contains %d objects");

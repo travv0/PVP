@@ -57,6 +57,7 @@ int main(int argc, char *args[])
 	log("Object manager initialized", "%s");
 
 	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_PLAYER_WALK_LEFT], 0, 0);
+	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_PLAYER_WALK_RIGHT], 200, 0);
 	objmadd(OBJ_MGR, OBJECTS[OBJ_DEFAULT], SPRITES[SPR_PLAYER_WALK_DOWN], 0, 200);
 	log("Objects added to object manager", "%s");
 

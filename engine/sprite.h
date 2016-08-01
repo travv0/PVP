@@ -5,6 +5,8 @@
 #include <SDL2/SDL.h>
 #include "basic.h"
 
+struct object;
+
 /* struct to hold details about the sprite. */
 struct sprite {
 	char		*fname;
@@ -56,5 +58,8 @@ void unloadsprites(void);
 
 /* draws all sprites */
 void drawall(void);
+
+/* change the sprite of an object */
+void sprchange(struct object* obj, struct sprite spr);
 
 #endif
