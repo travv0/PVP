@@ -60,6 +60,6 @@ void unloadsprites(void);
 void drawall(void);
 
 /* change the sprite of an object */
-void sprchange(struct object* obj, struct sprite spr);
+void sprchange(struct object *obj, struct sprite spr);
 
 #endif
