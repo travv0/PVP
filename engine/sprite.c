@@ -11,20 +11,6 @@ void _sprload(struct sprite *spr, char *fname);
 /* initialize sprite */
 void _sprinit(struct sprite *spr);
 
-struct sprite SPRITE_DEFAULT = {
-	DEFAULT_SPR,
-	NULL,
-	1,
-	NULL,
-	NULL,
-	1,
-	0,
-	FALSE,
-	FALSE,
-	FALSE,
-	TRUE
-};
-
 void anistart(struct sprite *spr, int loop)
 {
 	spr->animating = TRUE;
@@ -84,7 +70,7 @@ void animate(struct sprite *spr)
 				(float)spr->frames);
 	}
 
-	spr->source_rect.x = spr->source_rect.w * (int)spr->curr_frame;
+	spr->source_rect.x = spr->base_rect.x + spr->source_rect.w * (int)spr->curr_frame;
 	if (SDL_RenderCopy(RENDERER, spr->texture,
 				&spr->source_rect, &spr->dest_rect) != 0) {
 		throw_err(SDL_REND_COPY_ERR);
@@ -101,16 +87,6 @@ void initsprites(void)
 
 void _sprinit(struct sprite *spr)
 {
-	if (spr->fname == NULL)		spr->fname = SPRITE_DEFAULT.fname;
-	if (spr->texture == NULL)	spr->texture = SPRITE_DEFAULT.texture;
-	if (spr->speed == -1)		spr->speed = SPRITE_DEFAULT.speed;
-	if (spr->frames == -1)		spr->frames = SPRITE_DEFAULT.frames;
-	if (spr->curr_frame == -1)	spr->curr_frame = SPRITE_DEFAULT.curr_frame;
-	if (spr->animating == -1)	spr->animating = SPRITE_DEFAULT.animating;
-	if (spr->looping == -1)		spr->looping = SPRITE_DEFAULT.looping;
-	if (spr->reverse == -1)		spr->reverse = SPRITE_DEFAULT.reverse;
-	if (spr->load == -1)		spr->load = SPRITE_DEFAULT.load;
-
 	_sprload(spr, spr->fname);
 }
 
@@ -149,4 +125,11 @@ void drawall(void) {
 	}
 
 	SDL_RenderPresent(RENDERER);
+}
+
+/* FIXME: fix figure out how to not call initsprites() every time */
+void sprchange(struct object *obj, struct sprite spr)
+{
+	obj->spr = spr;
+	initsprites();
 }
