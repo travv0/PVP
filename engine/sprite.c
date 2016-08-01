@@ -84,7 +84,7 @@ void animate(struct sprite *spr)
 				(float)spr->frames);
 	}
 
-	spr->source_rect.x = spr->source_rect.w * (int)spr->curr_frame;
+	spr->source_rect.x = spr->base_rect.x + spr->source_rect.w * (int)spr->curr_frame;
 	if (SDL_RenderCopy(RENDERER, spr->texture,
 				&spr->source_rect, &spr->dest_rect) != 0) {
 		throw_err(SDL_REND_COPY_ERR);

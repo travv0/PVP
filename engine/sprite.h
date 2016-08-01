@@ -10,6 +10,7 @@ struct sprite {
 	char		*fname;
 	SDL_Texture	*texture;
 	float		speed;
+	SDL_Rect	base_rect;
 	SDL_Rect	source_rect;
 	SDL_Rect	dest_rect;
 	int		frames;

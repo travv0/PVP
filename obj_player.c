@@ -2,6 +2,7 @@
 
 #include "engine/basic.h"
 #include "engine/object.h"
+#include "data.h"
 
 #define MOVE_SPEED	4
 
@@ -54,14 +55,22 @@ int playerstep(struct object *obj)
 		}
 	}
 
-	if (mright == TRUE)
+	if (mright == TRUE) {
 		obj->x += MOVE_SPEED;
-	if (mleft == TRUE)
+		obj->spr = SPRITES[SPR_PLAYER_WALK_RIGHT];
+	}
+	if (mleft == TRUE) {
 		obj->x -= MOVE_SPEED;
-	if (mup == TRUE)
+		obj->spr = SPRITES[SPR_PLAYER_WALK_LEFT];
+	}
+	if (mup == TRUE) {
 		obj->y -= MOVE_SPEED;
-	if (mdown == TRUE)
+		obj->spr = SPRITES[SPR_PLAYER_WALK_UP];
+	}
+	if (mdown == TRUE) {
 		obj->y += MOVE_SPEED;
+		obj->spr = SPRITES[SPR_PLAYER_WALK_DOWN];
+	}
 
 	obj->spr.dest_rect.x = obj->x;
 	obj->spr.dest_rect.y = obj->y;
