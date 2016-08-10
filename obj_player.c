@@ -63,14 +63,10 @@ int playerstep(struct object *obj)
 	// 	obj->x -= MOVE_SPEED;
 	// 	sprchange(obj, SPRITES[SPR_PLAYER_WALK_LEFT]);
 	// }
-	// if (mup == TRUE) {
-	// 	obj->y -= MOVE_SPEED;
-	// 	sprchange(obj, SPRITES[SPR_PLAYER_WALK_UP]);
-	// }
-	// if (mdown == TRUE) {
-	// 	obj->y += MOVE_SPEED;
-	// 	sprchange(obj, SPRITES[SPR_PLAYER_WALK_DOWN]);
-	// }
+	if (mup == TRUE)
+		obj->y -= MOVE_SPEED;
+	if (mdown == TRUE)
+		obj->y += MOVE_SPEED;
 
 	obj->spr.dest_rect.x = obj->x;
 	obj->spr.dest_rect.y = obj->y;
