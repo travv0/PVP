@@ -6,3 +6,4 @@
 tags
 log.txt
 !.sublimelinterrc
+*.dll
