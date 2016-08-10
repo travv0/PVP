@@ -5,60 +5,27 @@
 #include "engine/error.h"
 #include "engine/game.h"
 #include "engine/log.h"
-#include "engine/strings.h"
+#include "strings.h"
 #include "engine/basic.h"
 #include "engine/objmanager.h"
+#include "engine/pvp.h"
 #include "data.h"
 
 int main(int argc, char *args[])
 {
 	if (argc >= 2 && (strcmp(args[1], "-d") == 0 ||
-				strcmp(args[1], "--debug") == 0)) {
+				strcmp(args[1], "--debug") == 0))
 		DEBUG = TRUE;
-		clearfile(LOG_FILE);
-		log("Debugging enabled", "%s");
-	} else
+	else
 		DEBUG = FALSE;
 
-	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0) {
-		throw_err(SDL_INIT_ERR);
-	}
-	log("SDL initialized", "%s");
-
-	WINDOW = SDL_CreateWindow("PVP", SDL_WINDOWPOS_UNDEFINED,
-			SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
-
-	if (WINDOW == NULL) {
-		throw_err(SDL_WIND_ERR);
-	}
-	log("Main window created", "%s");
-
-	RENDERER = SDL_CreateRenderer(WINDOW, -1, SDL_RENDERER_ACCELERATED);
-
-	if (RENDERER == NULL) {
-		throw_err(SDL_REND_ERR);
-	}
-	log("Renderer created", "%s");
-
-	SCREEN = SDL_GetWindowSurface(WINDOW);
-
-	if (SCREEN == NULL) {
-		throw_err(SDL_SURF_ERR);
-	}
-	log("Main surface created", "%s");
-
-	if (SDL_FillRect(SCREEN, NULL, SDL_MapRGB(SCREEN->format, 255, 255, 255)) != 0) {
-		throw_err(SDL_RECT_ERR);
-	}
-
-	EVENT = malloc(sizeof(*EVENT));
+	pvpinit(DEBUG);		/* call at beginning of main function */
 
 	objminit(&OBJ_MGR);
 	log("Object manager initialized", "%s");
 
-	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_PLAYER_WALK_LEFT], 0, 0);
-	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_PLAYER_WALK_RIGHT], 200, 0);
-	objmadd(OBJ_MGR, OBJECTS[OBJ_DEFAULT], SPRITES[SPR_PLAYER_WALK_DOWN], 0, 200);
+	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_PLAYER_PADDLE], 0, 0);
+	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_ENEMY_PADDLE], 200, 0);
 	log("Objects added to object manager", "%s");
 
 	initsprites();
@@ -68,11 +35,7 @@ int main(int argc, char *args[])
 	game_loop();
 
 	log("Cleaning up", "%s");
-	objmfree(OBJ_MGR);
-	free(EVENT);
-	unloadsprites();
-	SDL_DestroyWindow(WINDOW);
-	SDL_Quit();
+	pvpclean();		/* call to clean up memory used by SDL */
 
 	log("Quitting game...", "%s");
 	return 0;

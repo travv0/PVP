@@ -4,10 +4,10 @@
 #include <string.h>
 #include <SDL2/SDL.h>
 
+#include "str.h"
+#include "error.h"
 #include "log.h"
 #include "basic.h"
-#include "strings.h"
-#include "error.h"
 
 #define TIME_BUF_SIZE	26
 

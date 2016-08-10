@@ -86,6 +86,16 @@ struct error SDL_REND_COPY_ERR = {
 	13,
 	ERROR
 };
+struct error SDL_IMG_INIT_ERR = {
+	"Could not initialize image",
+	14,
+	ERROR
+};
+struct error SDL_CONV_SURF_ERR = {
+	"Could not convert surface",
+	15,
+	ERROR
+};
 
 /* calls the log function with the error provided,
  * then aborts the program if the message is an error */

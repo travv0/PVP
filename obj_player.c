@@ -55,22 +55,22 @@ int playerstep(struct object *obj)
 		}
 	}
 
-	if (mright == TRUE) {
-		obj->x += MOVE_SPEED;
-		sprchange(obj, SPRITES[SPR_PLAYER_WALK_RIGHT]);
-	}
-	if (mleft == TRUE) {
-		obj->x -= MOVE_SPEED;
-		sprchange(obj, SPRITES[SPR_PLAYER_WALK_LEFT]);
-	}
-	if (mup == TRUE) {
-		obj->y -= MOVE_SPEED;
-		sprchange(obj, SPRITES[SPR_PLAYER_WALK_UP]);
-	}
-	if (mdown == TRUE) {
-		obj->y += MOVE_SPEED;
-		sprchange(obj, SPRITES[SPR_PLAYER_WALK_DOWN]);
-	}
+	// if (mright == TRUE) {
+	// 	obj->x += MOVE_SPEED;
+	// 	sprchange(obj, SPRITES[SPR_PLAYER_PADDLE]);
+	// }
+	// if (mleft == TRUE) {
+	// 	obj->x -= MOVE_SPEED;
+	// 	sprchange(obj, SPRITES[SPR_PLAYER_WALK_LEFT]);
+	// }
+	// if (mup == TRUE) {
+	// 	obj->y -= MOVE_SPEED;
+	// 	sprchange(obj, SPRITES[SPR_PLAYER_WALK_UP]);
+	// }
+	// if (mdown == TRUE) {
+	// 	obj->y += MOVE_SPEED;
+	// 	sprchange(obj, SPRITES[SPR_PLAYER_WALK_DOWN]);
+	// }
 
 	obj->spr.dest_rect.x = obj->x;
 	obj->spr.dest_rect.y = obj->y;

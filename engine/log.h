@@ -4,6 +4,8 @@
 #define __LOG_H
 
 #include <stdio.h>
+#include "strings.h"
+#include "error.h"
 
 #define LOG_LINE_SIZE	1000
 

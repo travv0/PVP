@@ -1,4 +1,5 @@
 #include <math.h>
+#include <SDL2/SDL_image.h>
 
 #include "log.h"
 #include "error.h"
@@ -70,7 +71,8 @@ void animate(struct sprite *spr)
 				(float)spr->frames);
 	}
 
-	spr->source_rect.x = spr->base_rect.x + spr->source_rect.w * (int)spr->curr_frame;
+	spr->source_rect.x = spr->base_rect.x + spr->source_rect.w * 
+		(int)spr->curr_frame;
 	if (SDL_RenderCopy(RENDERER, spr->texture,
 				&spr->source_rect, &spr->dest_rect) != 0) {
 		throw_err(SDL_REND_COPY_ERR);
@@ -81,30 +83,34 @@ void initsprites(void)
 {
 	int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
-		_sprinit(&objmget(OBJ_MGR, i)->spr);
+		_sprload(&objmget(OBJ_MGR, i)->spr, objmget(OBJ_MGR, i)->spr.fname);
 	}
-}
-
-void _sprinit(struct sprite *spr)
-{
-	_sprload(spr, spr->fname);
 }
 
 void _sprload(struct sprite *spr, char *fname)
 {
 	SDL_Surface *surface = NULL;
+	SDL_Surface *optsurface = NULL;
+
 	if (spr->load) {
-		surface = SDL_LoadBMP(fname);
+		surface = IMG_Load(fname);
 
 		if (surface == NULL) {
 			throw_err(SDL_BMP_ERR);
 		}
 
+		optsurface = SDL_ConvertSurface(surface, SCREEN->format, 0);
+
+		if (optsurface == NULL) {
+			throw_err(SDL_CONV_SURF_ERR);
+		}
+
 		if ((spr->texture = SDL_CreateTextureFromSurface(RENDERER,
-					surface)) == NULL)
+					optsurface)) == NULL)
 			throw_err(SDL_TEXTURE_ERR);
 
 		SDL_FreeSurface(surface);
+		SDL_FreeSurface(optsurface);
 	}
 }
 

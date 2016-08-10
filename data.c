@@ -1,67 +1,39 @@
 #include "data.h"
-#include "engine/strings.h"
+#include "str.h"
 #include "engine/basic.h"
 
 int playerstep(void);
 int defaultstep(void);
 
 struct sprite SPRITES[NUMOFSPRITES] = {
-	{				/* SPR_PLAYER_WALK_UP */
+	{				/* SPR_PLAYER_PADDLE */
 		PLAYER_SPR_PATH,	/* path to spritesheet */
 		NULL,			/* texture (set to NULL) */
 		1/TARGET_FRAME_RATE,	/* animation speed */
-		{0, 0, 200, 144},	/* base rectangle (first frame of animation) */
-		{0, 0, 200, 144},	/* source rectange */
-		{0, 0, 200, 144},	/* destination rectangle of sprite */
-		3,			/* number of frames in animation */
+		{0, 0, 125, 38},	/* base rectangle (first frame of animation) */
+		{0, 0, 125, 38},	/* source rectange */
+		{0, 0, 125, 38},	/* destination rectangle of sprite */
+		0,			/* number of frames in animation */
 		0,			/* starting frame */
 		FALSE,			/* whether sprite should animate */
-		TRUE,			/* whether sprite should loop */
+		FALSE,			/* whether sprite should loop */
 		FALSE,			/* whether animation should play backwards */
 		TRUE			/* whether the sprite should currently be loaded */
 	},
-	{				/* SPR_PLAYER_WALK_DOWN */
+	{				/* SPR_ENEMY_PADDLE */
 		PLAYER_SPR_PATH,	/* path to spritesheet */
 		NULL,			/* texture (set to NULL) */
 		1/TARGET_FRAME_RATE,	/* animation speed */
-		{0, 0, 200, 144},	/* base rectangle (first frame of animation) */
-		{0, 0, 200, 144},	/* source rectange */
-		{0, 0, 200, 144},	/* destination rectangle of sprite */
-		3,			/* number of frames in animation */
+		{0, 0, 125, 38},	/* base rectangle (first frame of animation) */
+		{0, 0, 125, 38},	/* source rectange */
+		{0, 0, 125, 38},	/* destination rectangle of sprite */
+		0,			/* number of frames in animation */
 		0,			/* starting frame */
 		FALSE,			/* whether sprite should animate */
-		TRUE,			/* whether sprite should loop */
+		FALSE,			/* whether sprite should loop */
 		FALSE,			/* whether animation should play backwards */
 		TRUE			/* whether the sprite should currently be loaded */
 	},
-	{				/* SPR_PLAYER_WALK_LEFT */
-		PLAYER_SPR_PATH,	/* path to spritesheet */
-		NULL,			/* texture (set to NULL) */
-		1/TARGET_FRAME_RATE,	/* animation speed */
-		{200, 0, 200, 144},	/* base rectangle (first frame of animation) */
-		{200, 0, 200, 144},	/* source rectange */
-		{0, 0, 200, 144},	/* destination rectangle of sprite */
-		3,			/* number of frames in animation */
-		0,			/* starting frame */
-		FALSE,			/* whether sprite should animate */
-		TRUE,			/* whether sprite should loop */
-		FALSE,			/* whether animation should play backwards */
-		TRUE			/* whether the sprite should currently be loaded */
-	},
-	{				/* SPR_PLAYER_WALK_RIGHT */
-		PLAYER_SPR_PATH,	/* path to spritesheet */
-		NULL,			/* texture (set to NULL) */
-		1/TARGET_FRAME_RATE,	/* animation speed */
-		{400, 0, 200, 144},	/* base rectangle (first frame of animation) */
-		{400, 0, 200, 144},	/* source rectange */
-		{0, 0, 200, 144},	/* destination rectangle of sprite */
-		3,			/* number of frames in animation */
-		0,			/* starting frame */
-		FALSE,			/* whether sprite should animate */
-		TRUE,			/* whether sprite should loop */
-		FALSE,			/* whether animation should play backwards */
-		TRUE			/* whether the sprite should currently be loaded */
-	}
 };
 
 /* array of all objects in the game
