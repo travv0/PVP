@@ -10,7 +10,6 @@
 #include "ext.h"
 
 #define BALL_MAX_VELOCITY	30
-#define BALL_COOLDOWN		60
 #define BALL_VEL_INC_RATE	1.1
 #define BALL_ANGLE_MODIFIER	4
 
