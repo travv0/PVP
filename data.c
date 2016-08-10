@@ -1,6 +1,7 @@
 #include "data.h"
 #include "str.h"
 #include "engine/basic.h"
+#include "basic.h"
 
 int playerstep(void);
 int enemystep(void);
@@ -47,7 +48,8 @@ struct sprite SPRITES[NUMOFSPRITES] = {
  * defaultstep for step function for default values
  * step functions should be named <object name>step */
 struct object OBJECTS[NUMOFOBJECTS] = {
-	{					/* OBJ_PLAYER */
+	{
+		OBJ_PLAYER,			/* object type */
 		{ NULL },			/* default sprite to use */
 		0,				/* x coordinate.
 						   leave at 0 because it's set by objmadd*/
@@ -55,9 +57,11 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 						   leave at 0 because it's set by objmadd*/
 		0,				/* horizontal velocity */
 		0,				/* vertical velocity */
-		playerstep			/* pointer to step function */
+		playerstep,			/* pointer to step function */
+		{}
 	},
-	{					/* OBJ_ENEMY */
+	{
+		OBJ_ENEMY,			/* object type */
 		{ NULL },			/* default sprite to use */
 		0,				/* x coordinate.
 						   leave at 0 because it's set by objmadd*/
@@ -65,19 +69,23 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 						   leave at 0 because it's set by objmadd*/
 		0,				/* horizontal velocity */
 		0,				/* vertical velocity */
-		enemystep			/* pointer to step function */
+		enemystep,			/* pointer to step function */
+		{}
 	},
-	{					/* OBJ_BALL */
+	{
+		OBJ_BALL,			/* object type */
 		{ NULL },			/* default sprite to use */
 		0,				/* x coordinate.
 						   leave at 0 because it's set by objmadd*/
 		0,				/* y coordinate.
 						   leave at 0 because it's set by objmadd*/
-		3,				/* horizontal velocity */
-		3,				/* vertical velocity */
-		ballstep			/* pointer to step function */
+		BALL_START_VEL,			/* horizontal velocity */
+		BALL_START_VEL,			/* vertical velocity */
+		ballstep,			/* pointer to step function */
+		{3, 3}
 	},
-	{					/* OBJ_DEFAULT */
+	{
+		OBJ_DEFAULT,			/* object type */
 		{ NULL },			/* default sprite to use */
 		0,				/* x coordinate.
 						   leave at 0 because it's set by objmadd*/
@@ -85,6 +93,7 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 						   leave at 0 because it's set by objmadd*/
 		0,				/* horizontal velocity */
 		0,				/* vertical velocity */
-		defaultstep			/* pointer to step function */
+		defaultstep,			/* pointer to step function */
+		{}
 	}
 };

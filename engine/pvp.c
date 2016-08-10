@@ -4,7 +4,7 @@
 #include <SDL2/SDL_image.h>
 
 #include "error.h"
-#include "game.h"
+/* #include "game.h" */
 #include "log.h"
 #include "str.h"
 #include "basic.h"
