@@ -14,6 +14,8 @@ struct sprite SPRITES[NUMOFSPRITES] = {
 		{0, 0, 50, 100},	/* base rectangle (first frame of animation) */
 		{0, 0, 50, 100},	/* source rectange */
 		{0, 0, 50, 100},	/* destination rectangle of sprite */
+		{0, 0, 50, 90},		/* base hitbox of sprite */
+		{0, 0, 50, 90},		/* hitbox of sprite */
 		0,			/* number of frames in animation */
 		0,			/* starting frame */
 		FALSE,			/* whether sprite should animate */

@@ -45,13 +45,13 @@ int playerstep(struct object *obj)
 	}
 
 	if (mup == TRUE) {
-		SDL_Rect tmp = obj->spr.dest_rect;
+		SDL_Rect tmp = obj->spr.hb_rect;
 		tmp.y -= MOVE_SPEED;
 		if (!chkoob(tmp))
 			obj->y -= MOVE_SPEED;
 	}
 	if (mdown == TRUE) {
-		SDL_Rect tmp = obj->spr.dest_rect;
+		SDL_Rect tmp = obj->spr.hb_rect;
 		tmp.y += MOVE_SPEED;
 		if (!chkoob(tmp))
 			obj->y += MOVE_SPEED;

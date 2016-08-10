@@ -72,12 +72,19 @@ void animate(struct sprite *spr)
 				(float)spr->frames);
 	}
 
-	spr->source_rect.x = spr->base_rect.x + spr->source_rect.w * 
+	spr->source_rect.x = spr->base_rect.x + spr->source_rect.w *
 		(int)spr->curr_frame;
-	draw_rect.x = spr->dest_rect.x - spr->dest_rect.w / 2;
-	draw_rect.y = spr->dest_rect.y - spr->dest_rect.h / 2;
+
+	/* update hitbox position */
+	spr->hb_rect.x = spr->dest_rect.x + spr->hb_base_rect.x;
+	spr->hb_rect.y = spr->dest_rect.y + spr->hb_base_rect.y;
+
+	/* draw sprite from center */
+	draw_rect.x = spr->dest_rect.x - spr->dest_rect.w / 2.0;
+	draw_rect.y = spr->dest_rect.y - spr->dest_rect.h / 2.0;
 	draw_rect.w = spr->dest_rect.w;
 	draw_rect.h = spr->dest_rect.h;
+
 	if (SDL_RenderCopy(RENDERER, spr->texture,
 				&spr->source_rect, &draw_rect) != 0) {
 		throw_err(SDL_REND_COPY_ERR);
