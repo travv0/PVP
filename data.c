@@ -3,6 +3,7 @@
 #include "engine/basic.h"
 
 int playerstep(void);
+int enemystep(void);
 int defaultstep(void);
 
 struct sprite SPRITES[NUMOFSPRITES] = {
@@ -34,6 +35,14 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 		0,				/* y coordinate.
 						   leave at 0 because it's set by objmadd*/
 		playerstep			/* pointer to step function */
+	},
+	{					/* OBJ_ENEMY */
+		{ NULL },			/* default sprite to use */
+		0,				/* x coordinate.
+						   leave at 0 because it's set by objmadd*/
+		0,				/* y coordinate.
+						   leave at 0 because it's set by objmadd*/
+		enemystep			/* pointer to step function */
 	},
 	{					/* OBJ_DEFAULT */
 		{ NULL },			/* default sprite to use */

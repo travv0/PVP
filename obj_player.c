@@ -3,8 +3,9 @@
 #include "engine/basic.h"
 #include "engine/object.h"
 #include "data.h"
+#include "recthlpr.h"
 
-#define MOVE_SPEED	4
+#define MOVE_SPEED	8
 
 int playerstep(struct object *obj)
 {
@@ -20,12 +21,6 @@ int playerstep(struct object *obj)
 			case SDLK_ESCAPE:
 				exit(0);
 				break;
-			case SDLK_RIGHT:
-				mright = TRUE;
-				break;
-			case SDLK_LEFT:
-				mleft = TRUE;
-				break;
 			case SDLK_UP:
 				mup = TRUE;
 				break;
@@ -37,12 +32,6 @@ int playerstep(struct object *obj)
 			break;
 		case SDL_KEYUP:
 			switch (EVENT->key.keysym.sym) {
-			case SDLK_RIGHT:
-				mright = FALSE;
-				break;
-			case SDLK_LEFT:
-				mleft = FALSE;
-				break;
 			case SDLK_UP:
 				mup = FALSE;
 				break;
@@ -55,18 +44,18 @@ int playerstep(struct object *obj)
 		}
 	}
 
-	// if (mright == TRUE) {
-	// 	obj->x += MOVE_SPEED;
-	// 	sprchange(obj, SPRITES[SPR_PLAYER_PADDLE]);
-	// }
-	// if (mleft == TRUE) {
-	// 	obj->x -= MOVE_SPEED;
-	// 	sprchange(obj, SPRITES[SPR_PLAYER_WALK_LEFT]);
-	// }
-	if (mup == TRUE)
-		obj->y -= MOVE_SPEED;
-	if (mdown == TRUE)
-		obj->y += MOVE_SPEED;
+	if (mup == TRUE) {
+		SDL_Rect tmp = obj->spr.dest_rect;
+		tmp.y -= MOVE_SPEED;
+		if (!chkoob(tmp))
+			obj->y -= MOVE_SPEED;
+	}
+	if (mdown == TRUE) {
+		SDL_Rect tmp = obj->spr.dest_rect;
+		tmp.y += MOVE_SPEED;
+		if (!chkoob(tmp))
+			obj->y += MOVE_SPEED;
+	}
 
 	obj->spr.dest_rect.x = obj->x;
 	obj->spr.dest_rect.y = obj->y;

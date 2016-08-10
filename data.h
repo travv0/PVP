@@ -11,6 +11,7 @@ enum sprite_indices {
 
 enum object_indices {
 	OBJ_PLAYER,
+	OBJ_ENEMY,
 	OBJ_DEFAULT,
 	NUMOFOBJECTS
 };

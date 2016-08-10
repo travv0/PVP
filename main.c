@@ -27,7 +27,7 @@ int main(int argc, char *args[])
 	log("Object manager initialized", "%s");
 
 	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_PADDLE], 0 + PADDLE_OFFSET, WIN_HEIGHT / 2);
-	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_PADDLE], WIN_WIDTH - PADDLE_OFFSET, WIN_HEIGHT / 2);
+	objmadd(OBJ_MGR, OBJECTS[OBJ_ENEMY], SPRITES[SPR_PADDLE], WIN_WIDTH - PADDLE_OFFSET, WIN_HEIGHT / 2);
 	log("Objects added to object manager", "%s");
 
 	initsprites();
