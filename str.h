@@ -10,6 +10,7 @@
 /* define individual sprite directories like this */
 #define PLAYER_SPR_DIR	"player/"
 #define PLAYER_SPR_PATH	SPR_DIR PLAYER_SPR_DIR "paddle.png"
+#define BALL_SPR_PATH	SPR_DIR PLAYER_SPR_DIR "ball.png"
 
 #define DEFAULT_SPR	SPR_DIR PLAYER_SPR_DIR "paddle.png"
 

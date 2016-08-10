@@ -4,6 +4,7 @@
 
 int playerstep(void);
 int enemystep(void);
+int ballstep(void);
 int defaultstep(void);
 
 struct sprite SPRITES[NUMOFSPRITES] = {
@@ -14,8 +15,24 @@ struct sprite SPRITES[NUMOFSPRITES] = {
 		{0, 0, 50, 100},	/* base rectangle (first frame of animation) */
 		{0, 0, 50, 100},	/* source rectange */
 		{0, 0, 50, 100},	/* destination rectangle of sprite */
-		{0, 0, 50, 90},		/* base hitbox of sprite */
-		{0, 0, 50, 90},		/* hitbox of sprite */
+		{0, 0, 30, 90},		/* base hitbox of sprite */
+		{0, 0, 30, 90},		/* hitbox of sprite */
+		0,			/* number of frames in animation */
+		0,			/* starting frame */
+		FALSE,			/* whether sprite should animate */
+		FALSE,			/* whether sprite should loop */
+		FALSE,			/* whether animation should play backwards */
+		TRUE			/* whether the sprite should currently be loaded */
+	},
+	{				/* SPR_BALL */
+		BALL_SPR_PATH,	/* path to spritesheet */
+		NULL,			/* texture (set to NULL) */
+		1/TARGET_FRAME_RATE,	/* animation speed */
+		{0, 0, 50, 40},	/* base rectangle (first frame of animation) */
+		{0, 0, 50, 40},	/* source rectange */
+		{0, 0, 50, 40},	/* destination rectangle of sprite */
+		{0, 0, 30, 30},		/* base hitbox of sprite */
+		{0, 0, 30, 30},		/* hitbox of sprite */
 		0,			/* number of frames in animation */
 		0,			/* starting frame */
 		FALSE,			/* whether sprite should animate */
@@ -36,6 +53,8 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 						   leave at 0 because it's set by objmadd*/
 		0,				/* y coordinate.
 						   leave at 0 because it's set by objmadd*/
+		0,				/* horizontal velocity */
+		0,				/* vertical velocity */
 		playerstep			/* pointer to step function */
 	},
 	{					/* OBJ_ENEMY */
@@ -44,7 +63,19 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 						   leave at 0 because it's set by objmadd*/
 		0,				/* y coordinate.
 						   leave at 0 because it's set by objmadd*/
+		0,				/* horizontal velocity */
+		0,				/* vertical velocity */
 		enemystep			/* pointer to step function */
+	},
+	{					/* OBJ_BALL */
+		{ NULL },			/* default sprite to use */
+		0,				/* x coordinate.
+						   leave at 0 because it's set by objmadd*/
+		0,				/* y coordinate.
+						   leave at 0 because it's set by objmadd*/
+		3,				/* horizontal velocity */
+		3,				/* vertical velocity */
+		ballstep			/* pointer to step function */
 	},
 	{					/* OBJ_DEFAULT */
 		{ NULL },			/* default sprite to use */
@@ -52,6 +83,8 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 						   leave at 0 because it's set by objmadd*/
 		0,				/* y coordinate.
 						   leave at 0 because it's set by objmadd*/
+		0,				/* horizontal velocity */
+		0,				/* vertical velocity */
 		defaultstep			/* pointer to step function */
 	}
 };

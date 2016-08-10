@@ -10,6 +10,8 @@ struct object {
 	struct sprite	spr;
 	float		x;
 	float		y;
+	float		hvel;
+	float		vvel;
 	int		(*step)(struct object *obj);
 };
 

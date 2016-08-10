@@ -6,12 +6,14 @@
 
 enum sprite_indices {
 	SPR_PADDLE,
+	SPR_BALL,
 	NUMOFSPRITES
 };
 
 enum object_indices {
 	OBJ_PLAYER,
 	OBJ_ENEMY,
+	OBJ_BALL,
 	OBJ_DEFAULT,
 	NUMOFOBJECTS
 };
