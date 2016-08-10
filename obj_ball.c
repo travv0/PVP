@@ -9,8 +9,10 @@
 #include "basic.h"
 #include "ext.h"
 
-#define MAX_VELOCITY	30
-#define BALL_COOLDOWN	60
+#define BALL_MAX_VELOCITY	30
+#define BALL_COOLDOWN		60
+#define BALL_VEL_INC_RATE	1.1
+#define BALL_ANGLE_MODIFIER	4
 
 int ballstep(struct object *obj)
 {
@@ -36,9 +38,11 @@ int ballstep(struct object *obj)
 					objmget(OBJ_MGR, i)->type == OBJ_ENEMY) &&
 				SDL_HasIntersection(&obj->spr.hb_rect,
 					&objmget(OBJ_MGR, i)->spr.hb_rect)) {
+			obj->vvel -= (objmget(OBJ_MGR, i)->y - obj->y) /
+				BALL_ANGLE_MODIFIER;
 			obj->hvel = -obj->hvel;
-			if (totalvel < MAX_VELOCITY)
-				obj->hvel *= 1.1;
+			if (totalvel < BALL_MAX_VELOCITY)
+				obj->hvel *= BALL_VEL_INC_RATE;
 		}
 	}
 
@@ -52,8 +56,6 @@ int ballstep(struct object *obj)
 	}
 	if (chkvoob(tmp)) {
 		obj->vvel = -obj->vvel;
-		if (totalvel < MAX_VELOCITY)
-			obj->vvel *= 1.1;
 	}
 
 	obj->x += obj->hvel;

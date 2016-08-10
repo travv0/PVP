@@ -82,7 +82,7 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 		BALL_START_VEL,			/* horizontal velocity */
 		BALL_START_VEL,			/* vertical velocity */
 		ballstep,			/* pointer to step function */
-		{3, 3}
+		{60}
 	},
 	{
 		OBJ_DEFAULT,			/* object type */
