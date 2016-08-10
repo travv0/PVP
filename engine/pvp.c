@@ -32,7 +32,7 @@ int pvpinit(int debug)
 	}
 
 	WINDOW = SDL_CreateWindow("PVP", SDL_WINDOWPOS_UNDEFINED,
-			SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
+			SDL_WINDOWPOS_UNDEFINED, WIN_WIDTH, WIN_HEIGHT, 0);
 
 	if (WINDOW == NULL) {
 		throw_err(SDL_WIND_ERR);
@@ -46,7 +46,7 @@ int pvpinit(int debug)
 	}
 	log("Renderer created", "%s");
 
-	SDL_SetRenderDrawColor(RENDERER, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_SetRenderDrawColor(RENDERER, 0, 0, 0, 0);
 
 	imgflags = IMG_INIT_PNG | IMG_INIT_JPG;
 	if (!(IMG_Init(imgflags) & imgflags)) {

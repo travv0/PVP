@@ -11,6 +11,8 @@
 #include "engine/pvp.h"
 #include "data.h"
 
+#define PADDLE_OFFSET	50
+
 int main(int argc, char *args[])
 {
 	if (argc >= 2 && (strcmp(args[1], "-d") == 0 ||
@@ -24,8 +26,8 @@ int main(int argc, char *args[])
 	objminit(&OBJ_MGR);
 	log("Object manager initialized", "%s");
 
-	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_PLAYER_PADDLE], 0, 0);
-	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_ENEMY_PADDLE], 200, 0);
+	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_PADDLE], 0 + PADDLE_OFFSET, WIN_HEIGHT / 2);
+	objmadd(OBJ_MGR, OBJECTS[OBJ_PLAYER], SPRITES[SPR_PADDLE], WIN_WIDTH - PADDLE_OFFSET, WIN_HEIGHT / 2);
 	log("Objects added to object manager", "%s");
 
 	initsprites();

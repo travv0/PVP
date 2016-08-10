@@ -5,8 +5,7 @@
 #include "engine/object.h"
 
 enum sprite_indices {
-	SPR_PLAYER_PADDLE,
-	SPR_ENEMY_PADDLE,
+	SPR_PADDLE,
 	NUMOFSPRITES
 };
 

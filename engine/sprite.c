@@ -50,6 +50,7 @@ void aniset(struct sprite *spr, int frame)
 
 void animate(struct sprite *spr)
 {
+	SDL_Rect draw_rect;
 	if (spr->animating == TRUE)
 	{
 		/* stop animating if not set to looping and animation is done */
@@ -73,8 +74,12 @@ void animate(struct sprite *spr)
 
 	spr->source_rect.x = spr->base_rect.x + spr->source_rect.w * 
 		(int)spr->curr_frame;
+	draw_rect.x = spr->dest_rect.x - spr->dest_rect.w / 2;
+	draw_rect.y = spr->dest_rect.y - spr->dest_rect.h / 2;
+	draw_rect.w = spr->dest_rect.w;
+	draw_rect.h = spr->dest_rect.h;
 	if (SDL_RenderCopy(RENDERER, spr->texture,
-				&spr->source_rect, &spr->dest_rect) != 0) {
+				&spr->source_rect, &draw_rect) != 0) {
 		throw_err(SDL_REND_COPY_ERR);
 	}
 }

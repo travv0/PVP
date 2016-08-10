@@ -6,27 +6,13 @@ int playerstep(void);
 int defaultstep(void);
 
 struct sprite SPRITES[NUMOFSPRITES] = {
-	{				/* SPR_PLAYER_PADDLE */
+	{				/* SPR_PADDLE */
 		PLAYER_SPR_PATH,	/* path to spritesheet */
 		NULL,			/* texture (set to NULL) */
 		1/TARGET_FRAME_RATE,	/* animation speed */
-		{0, 0, 125, 38},	/* base rectangle (first frame of animation) */
-		{0, 0, 125, 38},	/* source rectange */
-		{0, 0, 125, 38},	/* destination rectangle of sprite */
-		0,			/* number of frames in animation */
-		0,			/* starting frame */
-		FALSE,			/* whether sprite should animate */
-		FALSE,			/* whether sprite should loop */
-		FALSE,			/* whether animation should play backwards */
-		TRUE			/* whether the sprite should currently be loaded */
-	},
-	{				/* SPR_ENEMY_PADDLE */
-		PLAYER_SPR_PATH,	/* path to spritesheet */
-		NULL,			/* texture (set to NULL) */
-		1/TARGET_FRAME_RATE,	/* animation speed */
-		{0, 0, 125, 38},	/* base rectangle (first frame of animation) */
-		{0, 0, 125, 38},	/* source rectange */
-		{0, 0, 125, 38},	/* destination rectangle of sprite */
+		{0, 0, 50, 100},	/* base rectangle (first frame of animation) */
+		{0, 0, 50, 100},	/* source rectange */
+		{0, 0, 50, 100},	/* destination rectangle of sprite */
 		0,			/* number of frames in animation */
 		0,			/* starting frame */
 		FALSE,			/* whether sprite should animate */

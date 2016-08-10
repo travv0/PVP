@@ -9,8 +9,8 @@
 
 /* define individual sprite directories like this */
 #define PLAYER_SPR_DIR	"player/"
-#define PLAYER_SPR_PATH	SPR_DIR PLAYER_SPR_DIR "paddle.jpg"
+#define PLAYER_SPR_PATH	SPR_DIR PLAYER_SPR_DIR "paddle.bmp"
 
-#define DEFAULT_SPR	SPR_DIR PLAYER_SPR_DIR "paddle.jpg"
+#define DEFAULT_SPR	SPR_DIR PLAYER_SPR_DIR "paddle.bmp"
 
 #endif

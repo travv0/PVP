@@ -14,6 +14,8 @@
  * make sure this is a double so we don't have to worry about accidentally
  * demoting to int when using it. */
 #define TARGET_FRAME_RATE	60.0
+#define WIN_WIDTH		640
+#define WIN_HEIGHT		480
 
 extern int DEBUG;	/* whether or not to log things */
 extern double DT;	/* change in time since last go in the main loop */
