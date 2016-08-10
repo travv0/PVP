@@ -102,7 +102,6 @@ void initsprites(void)
 void _sprload(struct sprite *spr, char *fname)
 {
 	SDL_Surface *surface = NULL;
-	SDL_Surface *optsurface = NULL;
 
 	if (spr->load) {
 		surface = IMG_Load(fname);
@@ -111,18 +110,11 @@ void _sprload(struct sprite *spr, char *fname)
 			throw_err(SDL_BMP_ERR);
 		}
 
-		optsurface = SDL_ConvertSurface(surface, SCREEN->format, 0);
-
-		if (optsurface == NULL) {
-			throw_err(SDL_CONV_SURF_ERR);
-		}
-
 		if ((spr->texture = SDL_CreateTextureFromSurface(RENDERER,
-					optsurface)) == NULL)
+					surface)) == NULL)
 			throw_err(SDL_TEXTURE_ERR);
 
 		SDL_FreeSurface(surface);
-		SDL_FreeSurface(optsurface);
 	}
 }
 
