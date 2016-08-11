@@ -1,10 +1,13 @@
-#include <math.h>
+#include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
+
+#include <math.h>
 
 #include "log.h"
 #include "error.h"
 #include "strings.h"
 #include "object.h"
+#include "../basic.h"
 
 /* load a sprite */
 void _sprload(struct sprite *spr, char *fname);
@@ -133,6 +136,31 @@ void drawall(void) {
 		if (objmget(OBJ_MGR, i)->spr.texture != NULL)
 			animate(&objmget(OBJ_MGR, i)->spr);
 	}
+
+	/* font stuff for scores */
+	FONT = TTF_OpenFont("fonts/LiberationMono-Regular.ttf", 18);
+
+	if (FONT == NULL) {
+		log("FDSA", "%s");
+		exit(999);
+	}
+
+	SDL_Color clrFg = {0,0,0,255};
+
+	char score[5];
+	snprintf(score, sizeof score, "%d", PLAYER_SCORE);
+	SDL_Surface *sText = TTF_RenderText_Solid(FONT, score, clrFg );
+
+	SDL_Rect rcDest = {0,0,200,200};
+
+	SDL_Texture *fonttx = SDL_CreateTextureFromSurface(RENDERER, sText);
+
+	SDL_FreeSurface( sText );
+
+	TTF_CloseFont(FONT);
+
+	SDL_RenderCopy(RENDERER, fonttx,
+			NULL, &rcDest);
 
 	SDL_RenderPresent(RENDERER);
 }

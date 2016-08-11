@@ -1,6 +1,6 @@
+#include <SDL2/SDL.h>
 #include <stdio.h>
 #include <string.h>
-#include <SDL2/SDL.h>
 
 #include "engine/error.h"
 #include "engine/log.h"
@@ -10,6 +10,7 @@
 #include "engine/pvp.h"
 #include "game.h"
 #include "data.h"
+#include "basic.h"
 
 #define PADDLE_OFFSET	50
 

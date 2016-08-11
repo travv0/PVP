@@ -4,12 +4,12 @@ ifeq ($(OS),Windows_NT)
 	INCLUDE_PATHS = -I'C:\mingw_dev_lib\include'
 	LIBRARY_PATHS = -L'C:\mingw_dev_lib\lib'
 	COMPILER_FLAGS = -w -Wall -g
-	LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
+	LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
 	OBJ_NAME = game.exe
 else
 	OBJS = *.c engine/*.c
 	CC = gcc
-	LINKER_FLAGS = -lSDL2 -lm -lSDL2_image
+	LINKER_FLAGS = -lSDL2 -lm -lSDL2_image -lSDL2_ttf
 	OBJ_NAME = game
 endif
 

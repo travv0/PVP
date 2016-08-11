@@ -2,9 +2,9 @@
 #include <string.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "error.h"
-/* #include "game.h" */
 #include "log.h"
 #include "str.h"
 #include "basic.h"
@@ -60,15 +60,18 @@ int pvpinit(int debug)
 	}
 	log("Main surface created", "%s");
 
-	if (SDL_FillRect(SCREEN, NULL, SDL_MapRGB(SCREEN->format, 255, 255, 255)) != 0) {
+	if (SDL_FillRect(SCREEN, NULL,
+				SDL_MapRGB(SCREEN->format, 255, 255, 255)) != 0) {
 		throw_err(SDL_RECT_ERR);
 	}
+
+	if (TTF_Init() == -1)
+		throw_err(SDL_TTF_INIT_ERR);
 
 	EVENT = malloc(sizeof(*EVENT));
 
 	return 0;
 }
-
 
 int pvpclean()
 {
