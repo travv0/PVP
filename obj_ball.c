@@ -35,11 +35,29 @@ int ballstep(struct object *obj)
 	tmp.x += obj->hvel;
 	tmp.y += obj->vvel;
 
+	if (chkhoob(tmp)) {
+		if (tmp.x < 0)
+			ENEMY_SCORE++;
+		else
+			PLAYER_SCORE++;
+
+		printf("Current score: %d - %d\n", PLAYER_SCORE, ENEMY_SCORE);
+
+		/* reset position and don't move for a couple seconds */
+		obj->x = WIN_WIDTH / 2;
+		obj->y = WIN_HEIGHT / 2;
+		obj->hvel = 0;
+		obj->vvel = 0;
+		obj->ext[BALL_EXT_COOLDOWN] = BALL_COOLDOWN;
+	}
+	if (chkvoob(tmp))
+		obj->vvel = -obj->vvel;
+
 	/* check if intersects with either paddle */
 	for (i = 0; i < OBJ_MGR->objcnt; ++i) {
 		if ((objmget(OBJ_MGR, i)->type == OBJ_PLAYER ||
 					objmget(OBJ_MGR, i)->type == OBJ_ENEMY) &&
-				SDL_HasIntersection(&obj->spr.hb_rect,
+				SDL_HasIntersection(&tmp,
 					&objmget(OBJ_MGR, i)->spr.hb_rect)) {
 
 			/* change vertical velocity based on where it hit paddle */
@@ -69,17 +87,6 @@ int ballstep(struct object *obj)
 			}
 		}
 	}
-
-	if (chkhoob(tmp)) {
-		/* reset position and don't move for a couple seconds */
-		obj->x = WIN_WIDTH / 2;
-		obj->y = WIN_HEIGHT / 2;
-		obj->hvel = 0;
-		obj->vvel = 0;
-		obj->ext[BALL_EXT_COOLDOWN] = BALL_COOLDOWN;
-	}
-	if (chkvoob(tmp))
-		obj->vvel = -obj->vvel;
 
 	obj->x += obj->hvel;
 	obj->y += obj->vvel;
