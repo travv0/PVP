@@ -37,6 +37,7 @@ int ballstep(struct object *obj)
 					objmget(OBJ_MGR, i)->type == OBJ_ENEMY) &&
 				SDL_HasIntersection(&obj->spr.hb_rect,
 					&objmget(OBJ_MGR, i)->spr.hb_rect)) {
+			log("Intersected!", "%s");
 
 			/* change vertical velocity based on where it hit paddle */
 			obj->vvel -= (objmget(OBJ_MGR, i)->y - obj->y) /
