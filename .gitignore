@@ -6,3 +6,5 @@
 tags
 log.txt
 !.sublimelinterrc
+*.dll
+game

@@ -7,10 +7,14 @@
 #include "sprite.h"
 
 struct object {
+	int		type;
 	struct sprite	spr;
 	float		x;
 	float		y;
+	float		hvel;
+	float		vvel;
 	int		(*step)(struct object *obj);
+	float		ext[256];
 };
 
 /* loop through every object and run its step function */

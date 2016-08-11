@@ -3,16 +3,15 @@
 #ifndef __IMAGEPATHS_H
 #define __IMAGEPATHS_H
 
-#define LOG_FILE	"log.txt"
-
 /* sprite files.
  * keep sprites in a directory with the name of their associated object */
 #define SPR_DIR		"sprites/"
 
 /* define individual sprite directories like this */
 #define PLAYER_SPR_DIR	"player/"
-#define PLAYER_SPR_PATH	SPR_DIR PLAYER_SPR_DIR "BLU.BMP"
+#define PLAYER_SPR_PATH	SPR_DIR PLAYER_SPR_DIR "paddle.png"
+#define BALL_SPR_PATH	SPR_DIR PLAYER_SPR_DIR "ball.png"
 
-#define DEFAULT_SPR	SPR_DIR PLAYER_SPR_DIR "BLU.BMP"
+#define DEFAULT_SPR	SPR_DIR PLAYER_SPR_DIR "paddle.png"
 
 #endif

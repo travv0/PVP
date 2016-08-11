@@ -2,12 +2,12 @@
 #include <stdlib.h>
 
 #include "game.h"
-#include "error.h"
-#include "basic.h"
-#include "sprite.h"
-#include "log.h"
-#include "strings.h"
-#include "utils.h"
+#include "engine/error.h"
+#include "engine/basic.h"
+#include "engine/sprite.h"
+#include "engine/log.h"
+#include "engine/str.h"
+#include "engine/utils.h"
 
 void game_loop(void)
 {

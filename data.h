@@ -5,15 +5,15 @@
 #include "engine/object.h"
 
 enum sprite_indices {
-	SPR_PLAYER_WALK_UP,
-	SPR_PLAYER_WALK_DOWN,
-	SPR_PLAYER_WALK_LEFT,
-	SPR_PLAYER_WALK_RIGHT,
+	SPR_PADDLE,
+	SPR_BALL,
 	NUMOFSPRITES
 };
 
 enum object_indices {
 	OBJ_PLAYER,
+	OBJ_ENEMY,
+	OBJ_BALL,
 	OBJ_DEFAULT,
 	NUMOFOBJECTS
 };
