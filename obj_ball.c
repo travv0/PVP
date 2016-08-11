@@ -37,9 +37,15 @@ int ballstep(struct object *obj)
 					objmget(OBJ_MGR, i)->type == OBJ_ENEMY) &&
 				SDL_HasIntersection(&obj->spr.hb_rect,
 					&objmget(OBJ_MGR, i)->spr.hb_rect)) {
+
+			/* change vertical velocity based on where it hit paddle */
 			obj->vvel -= (objmget(OBJ_MGR, i)->y - obj->y) /
 				BALL_ANGLE_MODIFIER;
+
+			/* reverse direction */
 			obj->hvel = -obj->hvel;
+
+			/* increase horizontal velocity if it's not maxed out */
 			if (totalvel < BALL_MAX_VELOCITY)
 				obj->hvel *= BALL_VEL_INC_RATE;
 		}
@@ -53,9 +59,8 @@ int ballstep(struct object *obj)
 		obj->vvel = 0;
 		obj->ext[BALL_EXT_COOLDOWN] = BALL_COOLDOWN;
 	}
-	if (chkvoob(tmp)) {
+	if (chkvoob(tmp))
 		obj->vvel = -obj->vvel;
-	}
 
 	obj->x += obj->hvel;
 	obj->y += obj->vvel;
