@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 #include <string.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -13,6 +14,8 @@
 int pvpinit(int debug)
 {
 	int imgflags;
+
+	srand(time(NULL));
 
 	if (debug == TRUE) {
 		DEBUG = TRUE;

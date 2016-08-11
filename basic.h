@@ -1,2 +1,2 @@
-#define BALL_START_VEL	3
+#define BALL_START_VEL	8
 #define BALL_COOLDOWN	60
