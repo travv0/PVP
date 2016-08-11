@@ -37,7 +37,6 @@ int ballstep(struct object *obj)
 					objmget(OBJ_MGR, i)->type == OBJ_ENEMY) &&
 				SDL_HasIntersection(&obj->spr.hb_rect,
 					&objmget(OBJ_MGR, i)->spr.hb_rect)) {
-			log("Intersected!", "%s");
 
 			/* change vertical velocity based on where it hit paddle */
 			obj->vvel -= (objmget(OBJ_MGR, i)->y - obj->y) /
@@ -49,6 +48,21 @@ int ballstep(struct object *obj)
 			/* increase horizontal velocity if it's not maxed out */
 			if (totalvel < BALL_MAX_VELOCITY)
 				obj->hvel *= BALL_VEL_INC_RATE;
+
+			/* if inside of the paddle, get out of there! */
+			if (objmget(OBJ_MGR, i)->type == OBJ_PLAYER) {
+				while (SDL_HasIntersection(&obj->spr.hb_rect,
+							&objmget(OBJ_MGR, i)->spr.hb_rect)) {
+					obj->x++;
+					obj->spr.hb_rect.x++;
+				}
+			} else {
+				while (SDL_HasIntersection(&obj->spr.hb_rect,
+							&objmget(OBJ_MGR, i)->spr.hb_rect)) {
+					obj->x--;
+					obj->spr.hb_rect.x--;
+				}
+			}
 		}
 	}
 

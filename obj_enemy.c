@@ -20,13 +20,13 @@ int enemystep(struct object *obj)
 	if (ball.y < obj->y) {
 		SDL_Rect tmp = obj->spr.hb_rect;
 		tmp.y -= MOVE_SPEED;
-		if (!chkoob(tmp))
+		if (!chkvoob(tmp))
 			obj->y -= MOVE_SPEED;
 	}
 	if (ball.y > obj->y) {
 		SDL_Rect tmp = obj->spr.hb_rect;
 		tmp.y += MOVE_SPEED;
-		if (!chkoob(tmp))
+		if (!chkvoob(tmp))
 			obj->y += MOVE_SPEED;
 	}
 
