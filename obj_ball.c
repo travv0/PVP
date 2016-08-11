@@ -11,7 +11,7 @@
 
 #define BALL_MAX_VELOCITY	30
 #define BALL_VEL_INC_RATE	1.1
-#define BALL_ANGLE_MODIFIER	4
+#define BALL_ANGLE_MODIFIER	5
 
 int ballstep(struct object *obj)
 {
@@ -24,8 +24,12 @@ int ballstep(struct object *obj)
 		return;
 	}
 	else if (totalvel == 0) {
-		obj->hvel = BALL_START_VEL;
-		obj->vvel = BALL_START_VEL;
+		if (rand() % 2 == 0)
+			obj->hvel = BALL_START_VEL;
+		else
+			obj->hvel = -BALL_START_VEL;
+
+		obj->vvel = rand() % (BALL_START_VEL * 2) - BALL_START_VEL;
 	}
 
 	tmp.x += obj->hvel;
