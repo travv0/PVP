@@ -79,6 +79,7 @@ int pvpclean()
 	free(EVENT);
 	unloadsprites();
 	SDL_DestroyWindow(WINDOW);
+	SDL_DestroyTexture(TEXTURE);
 	SDL_Quit();
 
 	return 0;
