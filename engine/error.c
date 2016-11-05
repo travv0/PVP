@@ -4,7 +4,7 @@
 #include "error.h"
 #include "log.h"
 
-#define ERROR 		1
+#define ERROR		1
 #define WARNING		0
 
 #define TRACE(fmt, var) \
@@ -94,6 +94,16 @@ struct error SDL_IMG_INIT_ERR = {
 struct error SDL_CONV_SURF_ERR = {
 	"Could not convert surface",
 	15,
+	ERROR
+};
+struct error SDL_TTF_INIT_ERR = {
+	"Failed to initialize SDL_ttf",
+	16,
+	ERROR
+};
+struct error SDL_TTF_OPEN_ERR = {
+	"Failed to open font",
+	17,
 	ERROR
 };
 

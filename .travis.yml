@@ -3,5 +3,5 @@ sudo: required
 before_install:
   - sudo add-apt-repository --yes ppa:zoogie/sdl2-snapshots
   - sudo apt-get update -q
-  - sudo apt-get install libsdl2-dev libsdl2-image-dev -y --force-yes
+  - sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev -y --force-yes
 script: make

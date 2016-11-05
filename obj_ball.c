@@ -21,7 +21,7 @@ int ballstep(struct object *obj)
 
 	if (obj->ext[BALL_EXT_COOLDOWN] > 0) {
 		obj->ext[BALL_EXT_COOLDOWN]--;
-		return;
+		return 0;
 	}
 	else if (totalvel == 0) {
 		if (rand() % 2 == 0)

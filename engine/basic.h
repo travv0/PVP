@@ -22,7 +22,7 @@ extern double DT;	/* change in time since last go in the main loop */
 
 extern SDL_Window *WINDOW;	/* the main game window */
 extern SDL_Renderer *RENDERER;	/* the main game renderer */
-extern SDL_Surface *SCREEN;	/* the main game surface */
+extern SDL_Texture *TEXTURE;	/* the main game texture */
 
 extern SDL_Event *EVENT;	/* for catching events and handling them */
 
