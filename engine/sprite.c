@@ -8,6 +8,7 @@
 #include "strings.h"
 #include "object.h"
 #include "../basic.h"
+#include "SDL_FontCache.h"
 
 /* load a sprite */
 void _sprload(struct sprite *spr, char *fname);
@@ -137,38 +138,14 @@ void drawall(void) {
 			animate(&objmget(OBJ_MGR, i)->spr);
 	}
 
-	/* font stuff for scores */
-	FONT = TTF_OpenFont("fonts/LiberationMono-Regular.ttf", 18);
+	/* testing drawing scores */
+	FC_Font *font = FC_CreateFont();
+	FC_LoadFont(font, RENDERER, "fonts/VeraMono.ttf", 20, FC_MakeColor(255, 255, 255, 255), TTF_STYLE_NORMAL);
 
-	if (FONT == NULL) {
-		throw_err(SDL_TTF_OPEN_ERR);
-	}
+	FC_Draw(font, RENDERER, 40, 0, "%d", PLAYER_SCORE);
+	FC_Draw(font, RENDERER, WIN_WIDTH - 50, 0, "%d", ENEMY_SCORE);
 
-	SDL_Color clrFg = {0, 0, 0, 255};
-
-	char score[5];
-	char enemyscore[5];
-	snprintf(score, sizeof score, "%d", PLAYER_SCORE);
-	snprintf(enemyscore, sizeof enemyscore, "%d", ENEMY_SCORE);
-	SDL_Rect rcDest = {0, 0, 40, 50};
-	SDL_Surface *sText = TTF_RenderText_Solid(FONT, score, clrFg);
-	SDL_Texture *fonttx = SDL_CreateTextureFromSurface(RENDERER, sText);
-
-	SDL_RenderCopy(RENDERER, fonttx,
-		       NULL, &rcDest);
-
-	rcDest.x = WIN_WIDTH - 40;
-
-	SDL_Surface *enemysText = TTF_RenderText_Solid(FONT, enemyscore, clrFg);
-	SDL_Texture *enemyfonttx = SDL_CreateTextureFromSurface(RENDERER, enemysText);
-
-	SDL_RenderCopy(RENDERER, enemyfonttx,
-		       NULL, &rcDest);
-
-	SDL_FreeSurface(sText);
-	SDL_FreeSurface(enemysText);
-
-	TTF_CloseFont(FONT);
+	FC_FreeFont(font);
 
 	SDL_RenderPresent(RENDERER);
 }
