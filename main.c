@@ -17,7 +17,7 @@
 int main(int argc, char *args[])
 {
 	if (argc >= 2 && (strcmp(args[1], "-d") == 0 ||
-				strcmp(args[1], "--debug") == 0))
+			  strcmp(args[1], "--debug") == 0))
 		DEBUG = TRUE;
 	else
 		DEBUG = FALSE;

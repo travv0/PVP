@@ -55,25 +55,25 @@ void animate(struct sprite *spr)
 {
 	SDL_Rect draw_rect;
 	if (spr->animating == TRUE)
-	{
-		/* stop animating if not set to looping and animation is done */
-		if (spr->looping == FALSE &&
-				(
-				 /* if sprite isn't reversing, stop at last frame */
-				 (!spr->reverse && spr->curr_frame == spr->frames - 1) ||
-				 /* otherwise, stop at first */
-				 (spr->reverse && spr->curr_frame <= 0)
-				)
-		   )
-			anistop(spr);
-		else if (spr->reverse)
-			spr->curr_frame = (spr->curr_frame <= 0 ?
-					spr->frames - spr->speed :
-					spr->curr_frame - spr->speed);
-		else
-			spr->curr_frame = fmod(spr->curr_frame + spr->speed,
-				(float)spr->frames);
-	}
+		{
+			/* stop animating if not set to looping and animation is done */
+			if (spr->looping == FALSE &&
+			    (
+			     /* if sprite isn't reversing, stop at last frame */
+			     (!spr->reverse && spr->curr_frame == spr->frames - 1) ||
+			     /* otherwise, stop at first */
+			     (spr->reverse && spr->curr_frame <= 0)
+			     )
+			    )
+				anistop(spr);
+			else if (spr->reverse)
+				spr->curr_frame = (spr->curr_frame <= 0 ?
+						   spr->frames - spr->speed :
+						   spr->curr_frame - spr->speed);
+			else
+				spr->curr_frame = fmod(spr->curr_frame + spr->speed,
+						       (float)spr->frames);
+		}
 
 	spr->source_rect.x = spr->base_rect.x + spr->source_rect.w *
 		(int)spr->curr_frame;
@@ -89,7 +89,7 @@ void animate(struct sprite *spr)
 	spr->hb_rect.y = draw_rect.y + spr->hb_base_rect.y;
 
 	if (SDL_RenderCopy(RENDERER, spr->texture,
-				&spr->source_rect, &draw_rect) != 0) {
+			   &spr->source_rect, &draw_rect) != 0) {
 		throw_err(SDL_REND_COPY_ERR);
 	}
 }
@@ -114,7 +114,7 @@ void _sprload(struct sprite *spr, char *fname)
 		}
 
 		if ((spr->texture = SDL_CreateTextureFromSurface(RENDERER,
-					surface)) == NULL)
+								 surface)) == NULL)
 			throw_err(SDL_TEXTURE_ERR);
 
 		SDL_FreeSurface(surface);
@@ -141,26 +141,34 @@ void drawall(void) {
 	FONT = TTF_OpenFont("fonts/LiberationMono-Regular.ttf", 18);
 
 	if (FONT == NULL) {
-		log("FDSA", "%s");
-		exit(999);
+		throw_err(SDL_TTF_OPEN_ERR);
 	}
 
-	SDL_Color clrFg = {0,0,0,255};
+	SDL_Color clrFg = {0, 0, 0, 255};
 
 	char score[5];
+	char enemyscore[5];
 	snprintf(score, sizeof score, "%d", PLAYER_SCORE);
-	SDL_Surface *sText = TTF_RenderText_Solid(FONT, score, clrFg );
-
-	SDL_Rect rcDest = {0,0,200,200};
-
+	snprintf(enemyscore, sizeof enemyscore, "%d", ENEMY_SCORE);
+	SDL_Rect rcDest = {0, 0, 40, 50};
+	SDL_Surface *sText = TTF_RenderText_Solid(FONT, score, clrFg);
 	SDL_Texture *fonttx = SDL_CreateTextureFromSurface(RENDERER, sText);
 
-	SDL_FreeSurface( sText );
+	SDL_RenderCopy(RENDERER, fonttx,
+		       NULL, &rcDest);
+
+	rcDest.x = WIN_WIDTH - 40;
+
+	SDL_Surface *enemysText = TTF_RenderText_Solid(FONT, enemyscore, clrFg);
+	SDL_Texture *enemyfonttx = SDL_CreateTextureFromSurface(RENDERER, enemysText);
+
+	SDL_RenderCopy(RENDERER, enemyfonttx,
+		       NULL, &rcDest);
+
+	SDL_FreeSurface(sText);
+	SDL_FreeSurface(enemysText);
 
 	TTF_CloseFont(FONT);
-
-	SDL_RenderCopy(RENDERER, fonttx,
-			NULL, &rcDest);
 
 	SDL_RenderPresent(RENDERER);
 }

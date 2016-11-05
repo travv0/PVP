@@ -53,17 +53,14 @@ int pvpinit(int debug)
 		throw_err(SDL_IMG_INIT_ERR);
 	}
 
-	SCREEN = SDL_GetWindowSurface(WINDOW);
+	TEXTURE = SDL_CreateTexture(RENDERER, SDL_PIXELFORMAT_RGBA8888,
+				    SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT);
 
-	if (SCREEN == NULL) {
-		throw_err(SDL_SURF_ERR);
+	if (TEXTURE == NULL) {
+		throw_err(SDL_TEXTURE_ERR);
 	}
-	log("Main surface created", "%s");
 
-	if (SDL_FillRect(SCREEN, NULL,
-				SDL_MapRGB(SCREEN->format, 255, 255, 255)) != 0) {
-		throw_err(SDL_RECT_ERR);
-	}
+	log("Main texture created", "%s");
 
 	if (TTF_Init() == -1)
 		throw_err(SDL_TTF_INIT_ERR);

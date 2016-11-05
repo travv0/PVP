@@ -11,7 +11,7 @@
 
 #define BALL_MAX_VELOCITY	30
 #define BALL_VEL_INC_RATE	1.1
-#define BALL_ANGLE_MODIFIER	4
+#define BALL_ANGLE_MODIFIER	5
 
 int ballstep(struct object *obj)
 {
@@ -21,21 +21,43 @@ int ballstep(struct object *obj)
 
 	if (obj->ext[BALL_EXT_COOLDOWN] > 0) {
 		obj->ext[BALL_EXT_COOLDOWN]--;
-		return;
+		return 0;
 	}
 	else if (totalvel == 0) {
-		obj->hvel = BALL_START_VEL;
-		obj->vvel = BALL_START_VEL;
+		if (rand() % 2 == 0)
+			obj->hvel = BALL_START_VEL;
+		else
+			obj->hvel = -BALL_START_VEL;
+
+		obj->vvel = rand() % (BALL_START_VEL * 2) - BALL_START_VEL;
 	}
 
 	tmp.x += obj->hvel;
 	tmp.y += obj->vvel;
 
+	if (chkhoob(tmp)) {
+		if (tmp.x < 0)
+			ENEMY_SCORE++;
+		else
+			PLAYER_SCORE++;
+
+		printf("Current score: %d - %d\n", PLAYER_SCORE, ENEMY_SCORE);
+
+		/* reset position and don't move for a couple seconds */
+		obj->x = WIN_WIDTH / 2;
+		obj->y = WIN_HEIGHT / 2;
+		obj->hvel = 0;
+		obj->vvel = 0;
+		obj->ext[BALL_EXT_COOLDOWN] = BALL_COOLDOWN;
+	}
+	if (chkvoob(tmp))
+		obj->vvel = -obj->vvel;
+
 	/* check if intersects with either paddle */
 	for (i = 0; i < OBJ_MGR->objcnt; ++i) {
 		if ((objmget(OBJ_MGR, i)->type == OBJ_PLAYER ||
 					objmget(OBJ_MGR, i)->type == OBJ_ENEMY) &&
-				SDL_HasIntersection(&obj->spr.hb_rect,
+				SDL_HasIntersection(&tmp,
 					&objmget(OBJ_MGR, i)->spr.hb_rect)) {
 
 			/* change vertical velocity based on where it hit paddle */
@@ -65,17 +87,6 @@ int ballstep(struct object *obj)
 			}
 		}
 	}
-
-	if (chkhoob(tmp)) {
-		/* reset position and don't move for a couple seconds */
-		obj->x = WIN_WIDTH / 2;
-		obj->y = WIN_HEIGHT / 2;
-		obj->hvel = 0;
-		obj->vvel = 0;
-		obj->ext[BALL_EXT_COOLDOWN] = BALL_COOLDOWN;
-	}
-	if (chkvoob(tmp))
-		obj->vvel = -obj->vvel;
 
 	obj->x += obj->hvel;
 	obj->y += obj->vvel;

@@ -10,6 +10,8 @@ else
 	OBJS = *.c engine/*.c
 	CC = gcc
 	LINKER_FLAGS = -lSDL2 -lm -lSDL2_image -lSDL2_ttf
+	INCLUDE_PATHS = -I/usr/local/include
+	LIBRARY_PATHS = -L/usr/local/lib
 	OBJ_NAME = game
 endif
 
