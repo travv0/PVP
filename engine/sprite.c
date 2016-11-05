@@ -1,10 +1,14 @@
-#include <math.h>
+#include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
+
+#include <math.h>
 
 #include "log.h"
 #include "error.h"
 #include "strings.h"
 #include "object.h"
+#include "../basic.h"
+#include "SDL_FontCache.h"
 
 /* load a sprite */
 void _sprload(struct sprite *spr, char *fname);
@@ -52,25 +56,25 @@ void animate(struct sprite *spr)
 {
 	SDL_Rect draw_rect;
 	if (spr->animating == TRUE)
-	{
-		/* stop animating if not set to looping and animation is done */
-		if (spr->looping == FALSE &&
-				(
-				 /* if sprite isn't reversing, stop at last frame */
-				 (!spr->reverse && spr->curr_frame == spr->frames - 1) ||
-				 /* otherwise, stop at first */
-				 (spr->reverse && spr->curr_frame <= 0)
-				)
-		   )
-			anistop(spr);
-		else if (spr->reverse)
-			spr->curr_frame = (spr->curr_frame <= 0 ?
-					spr->frames - spr->speed :
-					spr->curr_frame - spr->speed);
-		else
-			spr->curr_frame = fmod(spr->curr_frame + spr->speed,
-				(float)spr->frames);
-	}
+		{
+			/* stop animating if not set to looping and animation is done */
+			if (spr->looping == FALSE &&
+			    (
+			     /* if sprite isn't reversing, stop at last frame */
+			     (!spr->reverse && spr->curr_frame == spr->frames - 1) ||
+			     /* otherwise, stop at first */
+			     (spr->reverse && spr->curr_frame <= 0)
+			     )
+			    )
+				anistop(spr);
+			else if (spr->reverse)
+				spr->curr_frame = (spr->curr_frame <= 0 ?
+						   spr->frames - spr->speed :
+						   spr->curr_frame - spr->speed);
+			else
+				spr->curr_frame = fmod(spr->curr_frame + spr->speed,
+						       (float)spr->frames);
+		}
 
 	spr->source_rect.x = spr->base_rect.x + spr->source_rect.w *
 		(int)spr->curr_frame;
@@ -86,7 +90,7 @@ void animate(struct sprite *spr)
 	spr->hb_rect.y = draw_rect.y + spr->hb_base_rect.y;
 
 	if (SDL_RenderCopy(RENDERER, spr->texture,
-				&spr->source_rect, &draw_rect) != 0) {
+			   &spr->source_rect, &draw_rect) != 0) {
 		throw_err(SDL_REND_COPY_ERR);
 	}
 }
@@ -111,7 +115,7 @@ void _sprload(struct sprite *spr, char *fname)
 		}
 
 		if ((spr->texture = SDL_CreateTextureFromSurface(RENDERER,
-					surface)) == NULL)
+								 surface)) == NULL)
 			throw_err(SDL_TEXTURE_ERR);
 
 		SDL_FreeSurface(surface);
@@ -133,6 +137,15 @@ void drawall(void) {
 		if (objmget(OBJ_MGR, i)->spr.texture != NULL)
 			animate(&objmget(OBJ_MGR, i)->spr);
 	}
+
+	/* TODO move this out of engine */
+	FC_Font *font = FC_CreateFont();
+	FC_LoadFont(font, RENDERER, "fonts/VeraMono.ttf", 20, FC_MakeColor(255, 255, 255, 255), TTF_STYLE_NORMAL);
+
+	FC_Draw(font, RENDERER, 40, 0, "%d", PLAYER_SCORE);
+	FC_Draw(font, RENDERER, WIN_WIDTH - 50, 0, "%d", ENEMY_SCORE);
+
+	FC_FreeFont(font);
 
 	SDL_RenderPresent(RENDERER);
 }

@@ -32,6 +32,8 @@ extern struct error OBJM_NOT_INIT_ERR;
 extern struct error SDL_REND_COPY_ERR;
 extern struct error SDL_IMG_INIT_ERR;
 extern struct error SDL_CONV_SURF_ERR;
+extern struct error SDL_TTF_INIT_ERR;
+extern struct error SDL_TTF_OPEN_ERR;
 
 /* give an error declared above to this function
  * and it'll take care of the rest */

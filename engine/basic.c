@@ -5,7 +5,7 @@ double DT = 1;
 
 SDL_Window *WINDOW = NULL;
 SDL_Renderer *RENDERER = NULL;
-SDL_Surface *SCREEN = NULL;
+SDL_Texture *TEXTURE = NULL;
 
 SDL_Event *EVENT = NULL;
 

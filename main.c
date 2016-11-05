@@ -1,6 +1,6 @@
+#include <SDL2/SDL.h>
 #include <stdio.h>
 #include <string.h>
-#include <SDL2/SDL.h>
 
 #include "engine/error.h"
 #include "engine/log.h"
@@ -10,13 +10,14 @@
 #include "engine/pvp.h"
 #include "game.h"
 #include "data.h"
+#include "basic.h"
 
 #define PADDLE_OFFSET	50
 
 int main(int argc, char *args[])
 {
 	if (argc >= 2 && (strcmp(args[1], "-d") == 0 ||
-				strcmp(args[1], "--debug") == 0))
+			  strcmp(args[1], "--debug") == 0))
 		DEBUG = TRUE;
 	else
 		DEBUG = FALSE;

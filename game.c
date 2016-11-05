@@ -8,6 +8,7 @@
 #include "engine/log.h"
 #include "engine/str.h"
 #include "engine/utils.h"
+#include "basic.h"
 
 void game_loop(void)
 {
@@ -44,6 +45,7 @@ void game_loop(void)
 					frms++;
 
 				updateall();
+
 				drawall();
 
 				/* do not set to zero, remove the accumulated
