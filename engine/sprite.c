@@ -138,7 +138,7 @@ void drawall(void) {
 			animate(&objmget(OBJ_MGR, i)->spr);
 	}
 
-	/* testing drawing scores */
+	/* TODO move this out of engine */
 	FC_Font *font = FC_CreateFont();
 	FC_LoadFont(font, RENDERER, "fonts/VeraMono.ttf", 20, FC_MakeColor(255, 255, 255, 255), TTF_STYLE_NORMAL);
 
