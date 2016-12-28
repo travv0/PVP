@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #include "game.h"
 #include "engine/error.h"
@@ -45,7 +46,6 @@ void game_loop(void)
 					frms++;
 
 				updateall();
-
 				drawall();
 
 				/* do not set to zero, remove the accumulated
@@ -55,7 +55,7 @@ void game_loop(void)
 
 			if (DEBUG) {
 				if (frmtime >= 1) {
-					log(frms, "FPS: %d");
+					log((uintptr_t) frms, "FPS: %d");
 					frms = 0;
 					/* decrement frmtime instead of setting to 0 */
 					frmtime--;

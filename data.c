@@ -2,11 +2,13 @@
 #include "str.h"
 #include "engine/basic.h"
 #include "basic.h"
+#include "engine/sprite.h"
 
-int playerstep(void);
-int enemystep(void);
-int ballstep(void);
-int defaultstep(void);
+int playerstep(struct object *);
+int enemystep(struct object *);
+int ballstep(struct object *);
+int defaultstep(struct object *);
+int scoresstep(struct object *);
 
 struct sprite SPRITES[NUMOFSPRITES] = {
 	{				/* SPR_PADDLE */
@@ -50,7 +52,7 @@ struct sprite SPRITES[NUMOFSPRITES] = {
 struct object OBJECTS[NUMOFOBJECTS] = {
 	{
 		OBJ_PLAYER,			/* object type */
-		{ NULL },			/* default sprite to use */
+		SPR_NONE,			/* default sprite to use */
 		0,				/* x coordinate.
 						   leave at 0 because it's set by objmadd*/
 		0,				/* y coordinate.
@@ -62,7 +64,7 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 	},
 	{
 		OBJ_ENEMY,			/* object type */
-		{ NULL },			/* default sprite to use */
+		SPR_NONE,			/* default sprite to use */
 		0,				/* x coordinate.
 						   leave at 0 because it's set by objmadd*/
 		0,				/* y coordinate.
@@ -74,7 +76,7 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 	},
 	{
 		OBJ_BALL,			/* object type */
-		{ NULL },			/* default sprite to use */
+		SPR_NONE,			/* default sprite to use */
 		0,				/* x coordinate.
 						   leave at 0 because it's set by objmadd*/
 		0,				/* y coordinate.
@@ -85,8 +87,20 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 		{BALL_COOLDOWN}
 	},
 	{
+		OBJ_SCORES,			/* object type */
+		SPR_NONE,			/* default sprite to use */
+		0,				/* x coordinate.
+						   leave at 0 because it's set by objmadd*/
+		0,				/* y coordinate.
+						   leave at 0 because it's set by objmadd*/
+		0,				/* horizontal velocity */
+		0,				/* vertical velocity */
+		scoresstep,			/* pointer to step function */
+		{}
+	},
+	{
 		OBJ_DEFAULT,			/* object type */
-		{ NULL },			/* default sprite to use */
+		SPR_NONE,			/* default sprite to use */
 		0,				/* x coordinate.
 						   leave at 0 because it's set by objmadd*/
 		0,				/* y coordinate.
@@ -95,5 +109,5 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 		0,				/* vertical velocity */
 		defaultstep,			/* pointer to step function */
 		{}
-	}
+	},
 };

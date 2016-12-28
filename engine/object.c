@@ -1,10 +1,10 @@
 #include "object.h"
 
-int defaultstep(struct object *obj) {}
+int defaultstep(struct object *obj) { return 0; }
 
 void updateall(void)
 {
-	int i;
+	unsigned int i;
 	struct object *obj;
 
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {

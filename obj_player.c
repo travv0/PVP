@@ -9,7 +9,7 @@
 
 int playerstep(struct object *obj)
 {
-	static int mright, mleft, mup, mdown;
+	static int mup, mdown;
 
 	while (SDL_PollEvent(EVENT)) {
 		switch (EVENT->type) {
@@ -59,4 +59,6 @@ int playerstep(struct object *obj)
 
 	obj->spr.dest_rect.x = obj->x;
 	obj->spr.dest_rect.y = obj->y;
+
+	return 0;
 }

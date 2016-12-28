@@ -8,7 +8,8 @@
 #include "strings.h"
 #include "object.h"
 #include "../basic.h"
-#include "SDL_FontCache.h"
+
+const struct sprite SPRITE_DEFAULT = {};
 
 /* load a sprite */
 void _sprload(struct sprite *spr, char *fname);
@@ -97,7 +98,7 @@ void animate(struct sprite *spr)
 
 void initsprites(void)
 {
-	int i;
+	unsigned int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
 		_sprload(&objmget(OBJ_MGR, i)->spr, objmget(OBJ_MGR, i)->spr.fname);
 	}
@@ -124,7 +125,7 @@ void _sprload(struct sprite *spr, char *fname)
 
 void unloadsprites(void)
 {
-	int i;
+	unsigned int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i)
 		SDL_DestroyTexture(objmget(OBJ_MGR, i)->spr.texture);
 }
@@ -132,25 +133,16 @@ void unloadsprites(void)
 void drawall(void) {
 	SDL_RenderClear(RENDERER);
 
-	int i;
+	unsigned int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
 		if (objmget(OBJ_MGR, i)->spr.texture != NULL)
 			animate(&objmget(OBJ_MGR, i)->spr);
 	}
 
-	/* TODO move this out of engine */
-	FC_Font *font = FC_CreateFont();
-	FC_LoadFont(font, RENDERER, "fonts/VeraMono.ttf", 20, FC_MakeColor(255, 255, 255, 255), TTF_STYLE_NORMAL);
-
-	FC_Draw(font, RENDERER, 40, 0, "%d", PLAYER_SCORE);
-	FC_Draw(font, RENDERER, WIN_WIDTH - 50, 0, "%d", ENEMY_SCORE);
-
-	FC_FreeFont(font);
-
 	SDL_RenderPresent(RENDERER);
 }
 
-/* FIXME: fix figure out how to not call initsprites() every time */
+/* FIXME: figure out how to not call initsprites() every time */
 void sprchange(struct object *obj, struct sprite spr)
 {
 	obj->spr = spr;

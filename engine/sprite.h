@@ -25,9 +25,8 @@ struct sprite {
 	int		load;
 };
 
-/* this holds the default info for a new sprite.
- * won't be necessary after the sprite struct is no longer public */
-extern struct sprite SPRITE_DEFAULT;
+/* this holds the default info for a new sprite. */
+extern const struct sprite SPRITE_DEFAULT;
 
 /* start the sprite's animation from the current frame */
 void anistart(struct sprite *spr, int loop);

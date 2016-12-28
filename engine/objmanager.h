@@ -22,10 +22,10 @@ struct objm {
 void objminit(struct objm **mgr);
 
 /* add an object to the manager */
-void objmadd(struct objm *mgr, struct object obj, struct sprite spr, int x, int y);
+void objmadd(struct objm *mgr, struct object obj, struct sprite *spr, int x, int y);
 
 /* get an object from the manager */
-struct object *objmget(struct objm *mgr, int idx);
+struct object *objmget(struct objm *mgr, unsigned int idx);
 
 /* free memory allocated by object manager */
 void objmfree(struct objm *mgr);
