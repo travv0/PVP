@@ -1,16 +1,12 @@
 #include <SDL2/SDL.h>
 
-#include "engine/basic.h"
 #include "engine/object.h"
-#include "data.h"
-#include "recthlpr.h"
 #include "engine/SDL_FontCache.h"
-#include "basic.h"
 #include "engine/log.h"
+#include "basic.h"
 
 int scoresstep(struct object *obj)
 {
-	log(NULL, "test");
 	FC_Font *font = FC_CreateFont();
 	FC_LoadFont(font, RENDERER, "fonts/VeraMono.ttf", 20,
 		    FC_MakeColor(255, 255, 255, 255), TTF_STYLE_NORMAL);

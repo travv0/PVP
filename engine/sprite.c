@@ -131,8 +131,6 @@ void unloadsprites(void)
 }
 
 void drawall(void) {
-	SDL_RenderClear(RENDERER);
-
 	unsigned int i;
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
 		if (objmget(OBJ_MGR, i)->spr.texture != NULL)
