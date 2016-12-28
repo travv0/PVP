@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 
 #include "objmanager.h"
+#include "sprite.h"
 
 #define TRUE	1
 #define FALSE	0
@@ -16,6 +17,23 @@
 #define TARGET_FRAME_RATE	60.0
 #define WIN_WIDTH		640
 #define WIN_HEIGHT		480
+
+#define SPR_NONE {				/* SPR_NONE */		\
+		"",			/* path to spritesheet */	\
+		NULL,			/* texture (set to NULL) */	\
+		1/TARGET_FRAME_RATE,	/* animation speed */		\
+		{0, 0, 0, 0},		/* base rectangle (first frame of animation) */ \
+		{0, 0, 0, 0},		/* source rectange */		\
+		{0, 0, 0, 0},		/* destination rectangle of sprite */ \
+		{0, 0, 0, 0},		/* base hitbox of sprite */	\
+		{0, 0, 0, 0},		/* hitbox of sprite */		\
+		0,			/* number of frames in animation */ \
+		0,			/* starting frame */		\
+		FALSE,			/* whether sprite should animate */ \
+		FALSE,			/* whether sprite should loop */ \
+		FALSE,			/* whether animation should play backwards */ \
+		FALSE			/* whether the sprite should currently be loaded */ \
+	}
 
 extern int DEBUG;	/* whether or not to log things */
 extern double DT;	/* change in time since last go in the main loop */

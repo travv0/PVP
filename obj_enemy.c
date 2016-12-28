@@ -3,6 +3,7 @@
 #include "engine/basic.h"
 #include "engine/object.h"
 #include "data.h"
+#include "recthlpr.h"
 
 #define MOVE_SPEED	8
 
