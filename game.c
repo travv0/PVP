@@ -45,8 +45,8 @@ void game_loop(void)
 					/* increment counter for framerate */
 					frms++;
 
-				updateall();
 				drawall();
+				updateall();
 
 				/* do not set to zero, remove the accumulated
 				 * frame time to avoid skipping */

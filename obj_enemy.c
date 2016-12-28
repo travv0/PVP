@@ -10,7 +10,7 @@
 int enemystep(struct object *obj)
 {
 	struct object ball;
-	int i;
+	unsigned int i;
 
 	/* get ball object */
 	for (i = 0; i < OBJ_MGR->objcnt; ++i) {
@@ -33,4 +33,6 @@ int enemystep(struct object *obj)
 
 	obj->spr.dest_rect.x = obj->x;
 	obj->spr.dest_rect.y = obj->y;
+
+	return 0;
 }

@@ -14,8 +14,8 @@ enum object_indices {
 	OBJ_PLAYER,
 	OBJ_ENEMY,
 	OBJ_BALL,
-	OBJ_DEFAULT,
 	OBJ_SCORES,
+	OBJ_DEFAULT,
 	NUMOFOBJECTS
 };
 

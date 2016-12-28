@@ -7,8 +7,8 @@
 int playerstep(struct object *);
 int enemystep(struct object *);
 int ballstep(struct object *);
-int defaultstep(struct object *);
 int scoresstep(struct object *);
+int defaultstep(struct object *);
 
 struct sprite SPRITES[NUMOFSPRITES] = {
 	{				/* SPR_PADDLE */
