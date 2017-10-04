@@ -41,7 +41,7 @@ int main(int argc, char *args[])
 	log("Sprites initialized", "%s");
 
 	/* main game loop */
-	game_loop();
+	pvpgameloop();
 
 	log("Cleaning up", "%s");
 	pvpclean();		/* call to clean up memory used by SDL */

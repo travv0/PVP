@@ -10,6 +10,8 @@
 #include "str.h"
 #include "basic.h"
 #include "objmanager.h"
+#include "utils.h"
+#include "../game.h"
 
 int pvpinit(int debug)
 {
@@ -57,7 +59,7 @@ int pvpinit(int debug)
 	}
 
 	TEXTURE = SDL_CreateTexture(RENDERER, SDL_PIXELFORMAT_RGBA8888,
-				    SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT);
+			SDL_TEXTUREACCESS_STREAMING, WIN_WIDTH, WIN_HEIGHT);
 
 	if (TEXTURE == NULL) {
 		throw_err(SDL_TEXTURE_ERR);
@@ -71,6 +73,64 @@ int pvpinit(int debug)
 	EVENT = malloc(sizeof(*EVENT));
 
 	return 0;
+}
+
+int pvpgameloop(void)
+{
+	int done = FALSE;
+
+	double clock;		/* last time sample in seconds */
+	double frmtime;		/* timer used for when to show updated fps */
+	int frms;		/* frame counter for fps display */
+	double render_timer;
+
+	DT = 0.0;
+	render_timer = 0.0;
+	clock = getseconds();
+
+	if (DEBUG) {
+		frmtime = getseconds();
+		frms = 0;
+	}
+
+	log("Entering main game loop", "%s");
+	/* this stuff is all for testing, any engine-related
+	 * code needs to be abstracted out at some point */
+	while (!done) {
+		DT = getseconds() - clock; /* get the current delta time for this frame */
+		clock = getseconds(); /* updates the clock to check the next delta time */
+
+		/* checks if the frame is ready to render */
+		if (render_timer >= (1/TARGET_FRAME_RATE)) {
+			if (DEBUG)
+				/* increment counter for framerate */
+				frms++;
+
+			updateall();
+			drawall();
+
+			/* do not set to zero, remove the accumulated
+			 * frame time to avoid skipping */
+			render_timer -= (1/TARGET_FRAME_RATE);
+		}
+
+		if (DEBUG) {
+			if (frmtime >= 1) {
+				log((uintptr_t) frms, "FPS: %d");
+				frms = 0;
+				/* decrement frmtime instead of setting to 0 */
+				frmtime--;
+			}
+		}
+
+		render_timer += DT;
+
+		if (DEBUG)
+			frmtime += DT;
+
+		game_loop();
+	}
+	log("Left main game loop", "%s");
 }
 
 int pvpclean()

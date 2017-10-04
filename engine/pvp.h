@@ -11,4 +11,6 @@
 
 int pvpinit(int debug);
 
+int pvpgameloop();
+
 int pvpclean();
