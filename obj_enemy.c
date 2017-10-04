@@ -5,7 +5,7 @@
 #include "data.h"
 #include "recthlpr.h"
 
-#define MOVE_SPEED	2
+#define MOVE_SPEED	1.5
 
 int enemystep(struct object *obj)
 {
