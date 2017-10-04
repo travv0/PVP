@@ -11,7 +11,7 @@
 #include "basic.h"
 #include "objmanager.h"
 #include "utils.h"
-#include "../game.h"
+#include "../game.h"	// needed to call user code in game loop
 
 int pvpinit(int debug)
 {
@@ -100,13 +100,16 @@ int pvpgameloop(void)
 		DT = getseconds() - clock; /* get the current delta time for this frame */
 		clock = getseconds(); /* updates the clock to check the next delta time */
 
+		// call game loop function that contains user code
+		game_loop();
+		updateall();
+
 		/* checks if the frame is ready to render */
 		if (render_timer >= (1/TARGET_FRAME_RATE)) {
 			if (DEBUG)
 				/* increment counter for framerate */
 				frms++;
 
-			updateall();
 			drawall();
 
 			/* do not set to zero, remove the accumulated
@@ -127,10 +130,10 @@ int pvpgameloop(void)
 
 		if (DEBUG)
 			frmtime += DT;
-
-		game_loop();
 	}
 	log("Left main game loop", "%s");
+
+	return 1;
 }
 
 int pvpclean()

@@ -11,7 +11,7 @@
 
 #define BALL_MAX_VELOCITY	30
 #define BALL_VEL_INC_RATE	1.1
-#define BALL_ANGLE_MODIFIER	5
+#define BALL_ANGLE_MODIFIER	20	// the lower the number, the crazier
 
 int ballstep(struct object *obj)
 {
@@ -87,12 +87,6 @@ int ballstep(struct object *obj)
 			}
 		}
 	}
-
-	obj->x += obj->hvel;
-	obj->y += obj->vvel;
-
-	obj->spr.dest_rect.x = obj->x;
-	obj->spr.dest_rect.y = obj->y;
 
 	return 0;
 }

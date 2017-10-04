@@ -5,7 +5,7 @@
 #include "data.h"
 #include "recthlpr.h"
 
-#define MOVE_SPEED	8
+#define MOVE_SPEED	2
 
 int enemystep(struct object *obj)
 {
@@ -30,9 +30,6 @@ int enemystep(struct object *obj)
 		if (!chkvoob(tmp))
 			obj->y += MOVE_SPEED;
 	}
-
-	obj->spr.dest_rect.x = obj->x;
-	obj->spr.dest_rect.y = obj->y;
 
 	return 0;
 }
