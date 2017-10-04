@@ -86,10 +86,6 @@ void animate(struct sprite *spr)
 	draw_rect.w = spr->dest_rect.w;
 	draw_rect.h = spr->dest_rect.h;
 
-	/* update hitbox position */
-	spr->hb_rect.x = draw_rect.x + spr->hb_base_rect.x;
-	spr->hb_rect.y = draw_rect.y + spr->hb_base_rect.y;
-
 	if (SDL_RenderCopy(RENDERER, spr->texture,
 			   &spr->source_rect, &draw_rect) != 0) {
 		throw_err(SDL_REND_COPY_ERR);
