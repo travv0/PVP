@@ -14,7 +14,7 @@ void game_loop(void)
 {
 	enum game_state state = PLAYING;
 
-		switch (state) {
+	switch (state) {
 		case PLAYING:
 			break;
 		case PAUSED:
@@ -23,5 +23,5 @@ void game_loop(void)
 			break;
 		default:
 			throw_err(NO_STATE_ERR);
-		}
+	}
 }

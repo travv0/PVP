@@ -81,8 +81,8 @@ struct object OBJECTS[NUMOFOBJECTS] = {
 						   leave at 0 because it's set by objmadd*/
 		0,				/* y coordinate.
 						   leave at 0 because it's set by objmadd*/
-		BALL_START_VEL,			/* horizontal velocity */
-		BALL_START_VEL,			/* vertical velocity */
+		0,				/* horizontal velocity */
+		0,				/* vertical velocity */
 		ballstep,			/* pointer to step function */
 		{BALL_COOLDOWN}
 	},
