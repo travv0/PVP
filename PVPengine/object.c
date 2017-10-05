@@ -1,5 +1,6 @@
 #include "object.h"
 #include "log.h"
+#include "../basic.h"
 
 int defaultstep(struct object *obj) { return 0; }
 
@@ -15,8 +16,8 @@ void updateall(void)
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
 		obj = objmget(OBJ_MGR, i);
 
-		obj->x += obj->hvel;
-		obj->y += obj->vvel;
+		obj->x += obj->hvel * DT;
+		obj->y += obj->vvel * DT;
 
 		obj->spr.dest_rect.x = obj->x;
 		obj->spr.dest_rect.y = obj->y;

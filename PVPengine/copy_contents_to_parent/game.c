@@ -8,7 +8,6 @@
 #include "PVPengine/sprite.h"
 #include "PVPengine/log.h"
 #include "PVPengine/str.h"
-#include "basic.h"
 
 void game_loop(void)
 {

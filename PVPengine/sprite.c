@@ -7,9 +7,7 @@
 #include "error.h"
 #include "strings.h"
 #include "object.h"
-#include "../basic.h"
-
-const struct sprite SPRITE_DEFAULT = {};
+#include "str.h"
 
 /* load a sprite */
 void _sprload(struct sprite *spr, char *fname);
@@ -89,6 +87,20 @@ void animate(struct sprite *spr)
 	if (SDL_RenderCopy(RENDERER, spr->texture,
 			   &spr->source_rect, &draw_rect) != 0) {
 		throw_err(SDL_REND_COPY_ERR);
+	}
+
+	/* draw hitboxes */
+	if (DEBUG) {
+		static SDL_Surface *hitboxsurf;
+		static SDL_Texture *hitboxtex;
+		if (!hitboxsurf)
+			 hitboxsurf = IMG_Load(HITBOX_PATH);
+		if (!hitboxtex && hitboxsurf)
+			hitboxtex = SDL_CreateTextureFromSurface(RENDERER, hitboxsurf);
+		if (SDL_RenderCopy(RENDERER, hitboxtex,
+			   		NULL, &spr->hb_rect) != 0) {
+			throw_err(SDL_REND_COPY_ERR);
+		}
 	}
 }
 

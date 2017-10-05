@@ -11,12 +11,7 @@
 #define TRUE	1
 #define FALSE	0
 
-/* the frame rate we're trying to hit.
- * make sure this is a double so we don't have to worry about accidentally
- * demoting to int when using it. */
-#define TARGET_FRAME_RATE	9999.0
-#define WIN_WIDTH		640
-#define WIN_HEIGHT		480
+#define CUSTOM_TICK_MODIFIER	10.0
 
 #define SPR_NONE {				/* SPR_NONE */		\
 		"",			/* path to spritesheet */	\

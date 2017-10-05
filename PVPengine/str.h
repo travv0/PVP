@@ -5,4 +5,6 @@
 
 #define LOG_FILE	"log.txt"
 
+#define HITBOX_PATH     "PVPengine/hitbox.png"
+
 #endif

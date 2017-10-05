@@ -1,8 +1,8 @@
 #include <SDL2/SDL.h>
 
-#include "engine/object.h"
-#include "engine/SDL_FontCache.h"
-#include "engine/log.h"
+#include "PVPengine/object.h"
+#include "PVPengine/SDL_FontCache.h"
+#include "PVPengine/log.h"
 #include "basic.h"
 
 int scoresstep(struct object *obj)

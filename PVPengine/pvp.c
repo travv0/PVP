@@ -11,7 +11,8 @@
 #include "basic.h"
 #include "objmanager.h"
 #include "utils.h"
-#include "../game.h"	// needed to call user code in game loop
+#include "../game.h"	/* needed to call user code in game loop */
+#include "../basic.h"	/* needed to get user-set framerate and window size */
 
 int pvpinit(int debug)
 {
@@ -31,7 +32,7 @@ int pvpinit(int debug)
 	}
 	log("SDL initialized", "%s");
 
-	//Set texture filtering to linear
+	/* set texture filtering to linear */
 	if (!SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
 		log("Warning: Linear texture filtering not enabled!", "%s");
 	}
@@ -79,28 +80,26 @@ int pvpgameloop(void)
 {
 	int done = FALSE;
 
-	double clock;		/* last time sample in seconds */
-	double frmtime;		/* timer used for when to show updated fps */
-	int frms;		/* frame counter for fps display */
+	double clock, prev_clock;	/* last time sample in seconds */
+	double frmtime;			/* timer used for when to show updated fps */
+	int frms;			/* frame counter for fps display */
 	double render_timer;
 
-	DT = 0.0;
 	render_timer = 0.0;
-	clock = getseconds();
+	prev_clock = getticks();
 
 	if (DEBUG) {
-		frmtime = getseconds();
+		frmtime = getticks();
 		frms = 0;
 	}
 
 	log("Entering main game loop", "%s");
-	/* this stuff is all for testing, any engine-related
-	 * code needs to be abstracted out at some point */
-	while (!done) {
-		DT = getseconds() - clock; /* get the current delta time for this frame */
-		clock = getseconds(); /* updates the clock to check the next delta time */
 
-		// call game loop function that contains user code
+	while (!done) {
+		clock = getticks();		/* updates the clock to check the next delta time */
+		DT = clock - prev_clock;	/* get the current delta time for this frame */
+
+		/* call game loop function that contains user code */
 		game_loop();
 		updateall();
 
@@ -126,10 +125,12 @@ int pvpgameloop(void)
 			}
 		}
 
-		render_timer += DT;
+		render_timer += DT * CUSTOM_TICK_MODIFIER;
 
 		if (DEBUG)
-			frmtime += DT;
+			frmtime += DT * CUSTOM_TICK_MODIFIER;
+
+		prev_clock = clock;
 	}
 	log("Left main game loop", "%s");
 

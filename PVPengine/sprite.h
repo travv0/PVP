@@ -16,7 +16,7 @@ struct sprite {
 	SDL_Rect	source_rect;
 	SDL_Rect	dest_rect;
 	SDL_Rect	hb_base_rect;
-	SDL_Rect	hb_rect;	// hitbox rectangle
+	SDL_Rect	hb_rect;	/* hitbox rectangle */
 	int		frames;
 	float		curr_frame;
 	int		animating;
