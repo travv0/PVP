@@ -23,13 +23,9 @@ int ballstep(struct object *obj)
 
 	/* get player and enemy objects */
 	if (!player)
-		for (i = 0; i < OBJ_MGR->objcnt,
-				(player = objmget(OBJ_MGR, i))->type != OBJ_PLAYER; ++i)
-			;
+		player = objmfind(OBJ_MGR, OBJ_PLAYER);
 	if (!enemy)
-		for (i = 0; i < OBJ_MGR->objcnt,
-				(enemy = objmget(OBJ_MGR, i))->type != OBJ_ENEMY; ++i)
-			;
+		enemy = objmfind(OBJ_MGR, OBJ_ENEMY);
 
 	if (obj->ext[BALL_EXT_COOLDOWN] > 0) {
 		obj->ext[BALL_EXT_COOLDOWN]--;
