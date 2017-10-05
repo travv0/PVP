@@ -1,8 +1,8 @@
 #include "data.h"
 #include "str.h"
-#include "engine/basic.h"
+#include "PVPengine/basic.h"
 #include "basic.h"
-#include "engine/sprite.h"
+#include "PVPengine/sprite.h"
 
 int playerstep(struct object *);
 int enemystep(struct object *);

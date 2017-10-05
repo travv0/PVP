@@ -1,17 +1,17 @@
 #include <SDL2/SDL.h>
 #include <stdlib.h>
 
-#include "engine/basic.h"
-#include "engine/object.h"
-#include "engine/log.h"
+#include "PVPengine/basic.h"
+#include "PVPengine/object.h"
+#include "PVPengine/log.h"
+#include "PVPengine/recthlpr.h"
 #include "data.h"
-#include "recthlpr.h"
 #include "basic.h"
 #include "ext.h"
 
 #define BALL_MAX_VELOCITY	5
 #define BALL_VEL_INC_RATE	1.02
-#define BALL_ANGLE_MODIFIER	50	// the lower the number, the crazier
+#define BALL_ANGLE_MODIFIER	20	// the lower the number, the crazier
 
 int ballstep(struct object *obj)
 {

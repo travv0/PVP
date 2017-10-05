@@ -1,11 +1,11 @@
 #include <SDL2/SDL.h>
 
-#include "engine/basic.h"
-#include "engine/object.h"
+#include "PVPengine/basic.h"
+#include "PVPengine/object.h"
+#include "PVPengine/recthlpr.h"
 #include "data.h"
-#include "recthlpr.h"
 
-#define MOVE_SPEED	1.5
+#define MOVE_SPEED	4
 
 int enemystep(struct object *obj)
 {
@@ -20,15 +20,15 @@ int enemystep(struct object *obj)
 
 	if (ball.y < obj->y) {
 		SDL_Rect tmp = obj->spr.hb_rect;
-		tmp.y -= MOVE_SPEED;
+		tmp.y -= MOVE_SPEED * DT;
 		if (!chkvoob(tmp))
-			obj->y -= MOVE_SPEED;
+			obj->y -= MOVE_SPEED * DT;
 	}
 	if (ball.y > obj->y) {
 		SDL_Rect tmp = obj->spr.hb_rect;
-		tmp.y += MOVE_SPEED;
+		tmp.y += MOVE_SPEED * DT;
 		if (!chkvoob(tmp))
-			obj->y += MOVE_SPEED;
+			obj->y += MOVE_SPEED * DT;
 	}
 
 	return 0;

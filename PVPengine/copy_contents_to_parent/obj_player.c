@@ -5,7 +5,7 @@
 #include "PVPengine/recthlpr.h"
 #include "data.h"
 
-#define MOVE_SPEED	4
+#define MOVE_SPEED	1.5
 
 int playerstep(struct object *obj)
 {
@@ -46,13 +46,13 @@ int playerstep(struct object *obj)
 
 	if (mup == TRUE) {
 		SDL_Rect tmp = obj->spr.hb_rect;
-		tmp.y -= MOVE_SPEED * DT;
+		tmp.y -= MOVE_SPEED;
 		if (!chkvoob(tmp))
 			obj->y -= MOVE_SPEED * DT;
 	}
 	if (mdown == TRUE) {
 		SDL_Rect tmp = obj->spr.hb_rect;
-		tmp.y += MOVE_SPEED * DT;
+		tmp.y += MOVE_SPEED;
 		if (!chkvoob(tmp))
 			obj->y += MOVE_SPEED * DT;
 	}

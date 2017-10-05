@@ -73,7 +73,7 @@ void objmfree(struct objm *mgr)
 	free(mgr);
 }
 
-unsigned long long objmcnt(struct objm *mgr)
+unsigned long objmcnt(struct objm *mgr)
 {
 	return mgr->objcnt;
 }

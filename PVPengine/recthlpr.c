@@ -1,5 +1,5 @@
 #include "recthlpr.h"
-#include "engine/basic.h"
+#include "../basic.h"	/* needed to get user-set windows size */
 
 int chkoob(SDL_Rect r)
 {

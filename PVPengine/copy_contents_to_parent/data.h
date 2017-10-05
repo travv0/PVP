@@ -5,17 +5,13 @@
 #include "PVPengine/object.h"
 
 enum sprite_indices {
-	SPR_PADDLE,
-	SPR_BALL,
+	SPR_PLAYER,
 	NUMOFSPRITES
 };
 
 enum object_indices {
-	OBJ_PLAYER,
-	OBJ_ENEMY,
-	OBJ_BALL,
-	OBJ_SCORES,
 	OBJ_DEFAULT,
+	OBJ_PLAYER,
 	NUMOFOBJECTS
 };
 

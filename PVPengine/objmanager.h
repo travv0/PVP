@@ -13,9 +13,9 @@ struct sprite;
 
 /* struct for the object manager */
 struct objm {
-	unsigned long long	objcnt;	/* the number of objects in the manager */
+	unsigned long objcnt;	/* the number of objects in the manager */
 	struct object		*objs;	/* array of objects */
-	unsigned long long	cap;	/* capacity of manager */
+	unsigned long cap;	/* capacity of manager */
 };
 
 /* initialize the object manager */
@@ -31,6 +31,6 @@ struct object *objmget(struct objm *mgr, unsigned int idx);
 void objmfree(struct objm *mgr);
 
 /* returns count of objects in the manager */
-unsigned long long objmcnt(struct objm *mgr);
+unsigned long objmcnt(struct objm *mgr);
 
 #endif
